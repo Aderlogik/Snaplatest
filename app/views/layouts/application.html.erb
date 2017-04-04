@@ -11,7 +11,7 @@
 
     <!-- Bootstrap -->
     <%= stylesheet_link_tag "bootstrap", media: "all" %>
-    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-eval' => false %>
     <%= stylesheet_link_tag "font-awesome.min", media: "all" %>
     <%= stylesheet_link_tag "overrides", media: "all" %>
     
@@ -87,6 +87,6 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <%= javascript_include_tag "jquery-min" %>
-    <%= javascript_include_tag "bootstrap.min.js" %>
+    <%= javascript_include_tag "bootstrap.min.js", 'data-turbolinks-eval' => false %>
   </body>
 </html>

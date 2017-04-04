@@ -43,10 +43,17 @@
         <div class="col-md-6"> +91 1234567890 </div>
         <div class="col-md-2 text-right"> <a href="javascript:void(0);"><span class="fa fa-pencil-square-o" aria-hidden="true"></span> Edit</a> </div>
       </div>
+      <div class="row primary-phone">
+        <div class="col-md-4">
+          <h5><strong>MOBILE PHONE</strong></h5>
+        </div>
+        <div class="col-md-6"> +91 1234567890 </div>
+        <div class="col-md-2 text-right"> <a href="javascript:void(0);"><span class="fa fa-pencil-square-o" aria-hidden="true"></span> Edit</a> </div>
+      </div>        
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |p| %>
         <%= devise_error_messages! %>
-        <div class="border-bottom">
+        <div class="border-bottom" style="display: none">
           <div class="row">
             <div class="col-md-4">
               <h5><strong>MOBILE PHONE</strong></h5>
