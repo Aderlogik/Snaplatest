@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Login</title>
+
+    <!-- Bootstrap -->
+    <%= stylesheet_link_tag "bootstrap", media: "all" %>
+    <%= stylesheet_link_tag "landing", media: "all" %>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!--Header Start-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Snap4</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+         
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+    <!-- Login Form Start-->
+    	<div class="container">
+        	<div class="login-container col-md-4 login-form">
+            	<h1 class="login-heading">Log In</h1>
+               <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                  <div class="form-group">
+                    <%= f.email_field :email, autofocus: true, class: "form-control", id: "exampleInputEmail1",  placeholder: "Email", type: "input"%>
+                  </div>
+                  <div class="form-group">
+                    <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control", id: "exampleInputPassword1", placeholder: "Password"%>
+                  </div>
+                  
+                  <div class="checkbox links">
+                    <label>
+                      <%= f.check_box :remember_me, type: "checkbox"%>  Remember my account. 
+                    </label>
+                  </div>
+                  <div class="form-group links"><%= link_to "Forgot your password?", new_password_path(resource_name) %></div>
+                  <%= f.button "Continue", type: "submit", class: "btn btn-continue"%>
+        <%end%>
+            </div>
+        	
+        </div>
+    <!-- Login Form End-->
+    <div class="clearfix"></div>
+    <!-- Slider Start-->
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner login-slider" role="listbox">
+    <div class="item active">
+      <%= image_tag("login-slider.png", alt: "...") %>
+      <div class="carousel-caption">
+       We've all heard how crucial it is to set intentions, goals and targets.
+Powerful goals electrify us. Clear intentions energize and pull us forward.
+Without a clearcut intention, we're reactive and don't get around to doing
+the important things when we want them done. Instead, we spend our
+time fighting random fires.
+Without clear intentions, anything might happen. And usually does.
+      </div>
+    </div>
+    <div class="item">
+      <%= image_tag("login-slider.png", alt: "...") %>
+      <div class="carousel-caption">
+        We've all heard how crucial it is to set intentions, goals and targets.
+Powerful goals electrify us. Clear intentions energize and pull us forward.
+Without a clearcut intention, we're reactive and don't get around to doing
+the important things when we want them done. Instead, we spend our
+time fighting random fires.
+Without clear intentions, anything might happen. And usually does.
+      </div>
+    </div>
+  </div>
+
+ 
+</div>
+    <!-- Slider End-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <%= javascript_include_tag "jquery-min" %>
+    <%= javascript_include_tag "bootstrap.min.js" %>
+  </body>
+</html>

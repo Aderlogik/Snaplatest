@@ -1,0 +1,123 @@
+<div class="page-container01 user-setting">
+  <div class="col-md-9  white-bg no-padding">
+    <div class="pane-header">
+      <h4> Email </h4>
+    </div>
+    <div class="panel-body">
+      <div class="row ">
+        <div class="col-md-4">
+          <h5><strong>PERSONAL EMAIL</strong></h5>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-8">
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+                  <%= devise_error_messages! %>
+
+                  <div class="form-group">
+                    <%= f.email_field :email, autofocus: true, type: "text", class: "form-control", id: "exampleInputPassword1", placeholder: "test@yahoo.com" %>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-8 text-right">
+                    <button type="button" class="btn btn-bordered" data-dismiss="modal">Cancel</button>
+                          &nbsp;&nbsp;
+                    <%= f.submit "Save", class: "btn btn-solid" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane-header">
+      <h4>  Phone Number </h4>
+    </div>
+    <div class="panel-body">
+      <div class="row primary-phone">
+        <div class="col-md-4">
+          <h5><strong>PRIMARY PHONE</strong></h5>
+        </div>
+        <div class="col-md-6"> +91 1234567890 </div>
+        <div class="col-md-2 text-right"> <a href="javascript:void(0);"><span class="fa fa-pencil-square-o" aria-hidden="true"></span> Edit</a> </div>
+      </div>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |p| %>
+        <%= devise_error_messages! %>
+        <div class="border-bottom">
+          <div class="row">
+            <div class="col-md-4">
+              <h5><strong>MOBILE PHONE</strong></h5>
+            </div>
+            <div class="col-md-8 user-setting">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-8">
+                    <%= p.number_field :phone, autofocus: true, type: "text", class: "form-control", id: "exampleInputPassword1", placeholder: "Enter number" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-8">
+            <div class="text-right col-md-8">
+              <button type="button" class="btn btn-bordered" data-dismiss="modal">Cancel</button>
+              &nbsp;&nbsp;
+              <%= p.submit "Save", class: "btn btn-solid" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pane-header">
+      <h4>  Password </h4>
+    </div>
+    <div class="panel-body">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
+        <div class="border-bottom">
+          <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8 user-setting">
+              <div class="form-group">
+                <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label>Old Password</label>
+                        <%= f.password_field :current_password, autocomplete: "off", type:"password", class: "form-control", id: "exampleInputPassword1",  placeholder: "" %>
+                      </div>
+                    <div class="form-group">
+                      <label>New Password</label>
+                      <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control", id: "exampleInputPassword1", placeholder: "" %>
+                    </div>
+                    <div class="form-group">
+                      <label>Confirm Password</label>
+                      <%= f.password_field :password_confirmation, autocomplete: "off", type: "password", class: "form-control", id: "exampleInputPassword1", placeholder:"" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"></div>
+            <div class="col-md-8">
+              <div class="text-right col-md-8">
+                <%= f.submit "CHANGE", class: "btn btn-solid" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
