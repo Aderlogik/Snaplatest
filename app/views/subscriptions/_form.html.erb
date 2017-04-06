@@ -41,96 +41,83 @@
   <!-- </div> -->
 <%# end %>
 
-
-<div class="page-container01 user-setting">
-  <div class="col-md-9  white-bg no-padding">
-    <div class="pane-header">
-      <h4> Information </h4>
-    </div>
-    <div class="panel-body">
-      <div class="row ">
-        <div class="col-md-12">
-          <p>Please provide the address of the loca@on you want services for.<br />
+<%= form_for([@subscription.user, @subscription]) do |f| %>
+  <div class="page-container01 user-setting">
+    <div class="col-md-9  white-bg no-padding">
+      <div class="pane-header">
+        <h4> Information </h4>
+      </div>
+      <div class="panel-body">
+        <div class="row ">
+          <div class="col-md-12">
+            <p>Please provide the address of the loca@on you want services for.<br />
             On the map you will find a tool to calculate the size of your property</p>
-          <div class="form-group ">
-            <div class="icon-addon addon-lg">
-              <input type="text" placeholder="Address" class="form-control location-search">
-              <label for="email" class="glyphicon glyphicon-search"></label>
+            <div class="form-group ">
+              <div class="icon-addon addon-lg">
+                <input type="text" placeholder="Address" class="form-control location-search">
+                <label for="email" class="glyphicon glyphicon-search"></label>
+              </div>
             </div>
-          </div>
-          <div><img src="/assets/map02.png" width="100%" height="316"></div>
-          <div class="row">
-            <div class="col-md-6">Area: 12394 feet, 0.28 acres</div>
-            <div class="col-md-6 text-right"> <a href="javascript:void(0);" class="btn btn-small">Remove last Marker</a> <a href="javascript:void(0);" class="btn btn-small">Clear Markers</a> </div>
+            <div><img src="/assets/map02.png" width="100%" height="316"></div>
+            <div class="row">
+              <div class="col-md-6">Area: 12394 feet, 0.28 acres</div>
+              <div class="col-md-6 text-right"> <a href="javascript:void(0);" class="btn btn-small">Remove last Marker</a> <a href="javascript:void(0);" class="btn btn-small">Clear Markers</a> </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="pane-header">
-      <h4> Renew your plan </h4>
-    </div>
-    <div class="panel-body">
-      <p>The landscaping plan consists on the following services. You can <br />
+      <div class="pane-header">
+        <h4> Renew your plan </h4>
+      </div>
+      <div class="panel-body">
+        <p>The landscaping plan consists on the following services. You can <br />
         choose the frequency that be=er fits your needs</p>
-      <ul class="font-bold">
-        <li>Mowing Fine Lawn Areas</li>
-        <li>Trimming all turf borders as neccessary</li>
-        <li>Cleaning all landscape areas of liter & debris</li>
-        <li>Cleaning all paved areas of clippings & debris</li>
-      </ul>
-      <h1 class="head">Time span and frequency</h1>
-      <p>Select the minimum plan term that you want to sign up <br />
+        <ul class="font-bold">
+          <li>Mowing Fine Lawn Areas</li>
+          <li>Trimming all turf borders as neccessary</li>
+          <li>Cleaning all landscape areas of liter & debris</li>
+          <li>Cleaning all paved areas of clippings & debris</li>
+        </ul>
+        <h1 class="head">Time span and frequency</h1>
+        <p>Select the minimum plan term that you want to sign up <br />
         for. The frequency will only apply for this plan.</p>
       
-      <!-- Tab Holder-->
-      <div class="tab-holder">
-        <ul class="nav nav-pills">
-          <li><a class="tab active" href="javascript:void(0);">WEEKLY</a></li>
-          <li role="presentation"><a href="javascript:void(0);" class="tab">BI-WEEKLY</a></li>
-        </ul>
-      </div>
-      <div> 
+        <!-- Tab Holder-->
+        <div class="tab-holder">
+          <ul class="nav nav-pills">
+            <% Plan.all.each do |plan| %>
+              <li><a class="tab active" href="javascript:void(0);"><%= plan.name %></a></li>
+            <% end %>
+          </ul>
+        </div>
+        <div> 
         
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="plan">
             <div class="col-md-12">
-              <div class="col-md-4 plan-holder">
-                <h2>1 Month</h2>
-                <div class="plan-price">$100</div>
-                <div class="plan-service">/service <br />
-                  (commitment 2 services)</div>
-                <div>
-                  <div class="roundedOne">
-                    <input type="checkbox" value="None" id="plan01" name="check01" />
-                    <label for="plan01"></label>
+              <% Subplan.all.each do |subplan|%>
+                <div class="col-md-4 plan-holder">
+                  <h2>
+                    <% if subplan.name == "Monthly" %>
+                      1 Month
+                    <% elsif subplan.name == "Quaterly"%>
+                      3 Months
+                    <% else %>
+                      6 Months
+                    <% end %>
+                    </h2>
+                  <div class="plan-price"><%= subplan.price %></div>
+                  <div class="plan-service">/service <br />
+                  (commitment <%= subplan.services_commited %> services)</div>
+                  <div>
+                    <div class="roundedOne">
+                      <input type="checkbox" value="None" id="plan01" name="check01" />
+                      <label for="plan01"></label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-4 plan-holder">
-                <h2>3 Months</h2>
-                <div class="plan-price">$85</div>
-                <div class="plan-service">/service <br />
-                  (commitment 6 services)</div>
-                <div>
-                  <div class="roundedOne">
-                    <input type="checkbox" value="None" id="plan02" name="check02" />
-                    <label for="plan02"></label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 plan-holder">
-                <h2>6 Months</h2>
-                <div class="plan-price">$75</div>
-                <div class="plan-service">/service <br />
-                  (commitment 12 services)</div>
-                <div>
-                  <div class="roundedOne">
-                    <input type="checkbox" value="None" id="plan03" name="check03" />
-                    <label for="plan03"></label>
-                  </div>
-                </div>
-              </div>
+              <% end %>
             </div>
           </div>
         </div>
@@ -147,7 +134,8 @@
         <div class="col-md-10">
           <input type="text" placeholder="Monday"/>
             <div class="margintop-15">
-              <button type="button" class="btn btn-solid-small">Monday</button>
+
+                <button type="button" class="btn btn-solid-small">Monday</button>
                 <button type="button" class="btn btn-bordered-small">Tuesday</button>
                 <button type="button" class="btn btn-bordered-small">Wednesday</button>
                 <button type="button" class="btn btn-bordered-small">Thursday</button>
@@ -286,3 +274,4 @@ to maintain neat appearance</td>
 <!-- Login Form End-->
 <div class="clearfix"></div>
 <!-- Slider Start-->
+<% end %>

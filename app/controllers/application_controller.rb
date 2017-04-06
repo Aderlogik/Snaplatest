@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     if params[:controller] == "devise/sessions" || params[:controller] == "users/sessions"
       "landing"
     elsif params[:controller] == "users/passwords"
-      "register"
+      "landing"
     else
       "application"
     end

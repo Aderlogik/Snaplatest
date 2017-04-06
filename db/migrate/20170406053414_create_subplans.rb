@@ -4,6 +4,7 @@ class CreateSubplans < ActiveRecord::Migration[5.0]
       t.string :name
       t.integer :price
       t.integer :plan_id
+      t.integer :services_commited
 
       t.timestamps
     end

@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
-	def show
+class UsersController < ActionController::Base
+	def destroy
 	end
 end

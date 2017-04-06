@@ -44,8 +44,9 @@ ActiveRecord::Schema.define(version: 20170406063150) do
     t.string   "name"
     t.integer  "price"
     t.integer  "plan_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "services_commited"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
