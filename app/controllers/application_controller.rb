@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.user_role?
-      user_services_path(resource)
+      user_subscriptions_path(resource)
     else
       admin_dashboard_path(resource)
     end

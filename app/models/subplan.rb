@@ -1,0 +1,2 @@
+class Subplan < ApplicationRecord
+end

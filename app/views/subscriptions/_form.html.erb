@@ -1,0 +1,288 @@
+<%#= form_for([@subscription.user, @subscription]) do |f| %>
+  <%# if @subscription.errors.any? %>
+    <!-- <div id="error_explanation"> -->
+      <!-- <h2><%#= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2> -->
+
+      <!-- <ul> -->
+      <%# @subscription.errors.full_messages.each do |msg| %>
+        <!-- <li><%#= msg %></li> -->
+      <!-- <%# end %> -->
+      <!-- </ul> -->
+    <!-- </div> -->
+  <%# end %>
+
+  <!-- <div class="field"> -->
+    <%#= f.label :plan_id %>
+    <!-- <br /> -->
+    <%#= f.number_field :plan_id %>
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+    <%#= f.label :sub_plan_id %>
+    <!-- <br /> -->
+    <%#= f.text_field :sub_plan_id %>
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+    <%#= f.label :schedule_id %>
+    <!-- <br /> -->
+    <%#= f.number_field :schedule_id %>
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+    <%#= f.label :user_id %>
+    <!-- <br /> -->
+    <%#= f.number_field :user_id %>
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+    <%#= f.label :technician_id %>
+    <!-- <br /> -->
+    <%#= f.number_field :technician_id %>
+  <!-- </div> -->
+  <!-- <div class="actions"> -->
+    <%#= f.submit %>
+  <!-- </div> -->
+<%# end %>
+
+
+<div class="page-container01 user-setting">
+  <div class="col-md-9  white-bg no-padding">
+    <div class="pane-header">
+      <h4> Information </h4>
+    </div>
+    <div class="panel-body">
+      <div class="row ">
+        <div class="col-md-12">
+          <p>Please provide the address of the loca@on you want services for.<br />
+            On the map you will find a tool to calculate the size of your property</p>
+          <div class="form-group ">
+            <div class="icon-addon addon-lg">
+              <input type="text" placeholder="Address" class="form-control location-search">
+              <label for="email" class="glyphicon glyphicon-search"></label>
+            </div>
+          </div>
+          <div><img src="/assets/map02.png" width="100%" height="316"></div>
+          <div class="row">
+            <div class="col-md-6">Area: 12394 feet, 0.28 acres</div>
+            <div class="col-md-6 text-right"> <a href="javascript:void(0);" class="btn btn-small">Remove last Marker</a> <a href="javascript:void(0);" class="btn btn-small">Clear Markers</a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pane-header">
+      <h4> Renew your plan </h4>
+    </div>
+    <div class="panel-body">
+      <p>The landscaping plan consists on the following services. You can <br />
+        choose the frequency that be=er fits your needs</p>
+      <ul class="font-bold">
+        <li>Mowing Fine Lawn Areas</li>
+        <li>Trimming all turf borders as neccessary</li>
+        <li>Cleaning all landscape areas of liter & debris</li>
+        <li>Cleaning all paved areas of clippings & debris</li>
+      </ul>
+      <h1 class="head">Time span and frequency</h1>
+      <p>Select the minimum plan term that you want to sign up <br />
+        for. The frequency will only apply for this plan.</p>
+      
+      <!-- Tab Holder-->
+      <div class="tab-holder">
+        <ul class="nav nav-pills">
+          <li><a class="tab active" href="javascript:void(0);">WEEKLY</a></li>
+          <li role="presentation"><a href="javascript:void(0);" class="tab">BI-WEEKLY</a></li>
+        </ul>
+      </div>
+      <div> 
+        
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="plan">
+            <div class="col-md-12">
+              <div class="col-md-4 plan-holder">
+                <h2>1 Month</h2>
+                <div class="plan-price">$100</div>
+                <div class="plan-service">/service <br />
+                  (commitment 2 services)</div>
+                <div>
+                  <div class="roundedOne">
+                    <input type="checkbox" value="None" id="plan01" name="check01" />
+                    <label for="plan01"></label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 plan-holder">
+                <h2>3 Months</h2>
+                <div class="plan-price">$85</div>
+                <div class="plan-service">/service <br />
+                  (commitment 6 services)</div>
+                <div>
+                  <div class="roundedOne">
+                    <input type="checkbox" value="None" id="plan02" name="check02" />
+                    <label for="plan02"></label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 plan-holder">
+                <h2>6 Months</h2>
+                <div class="plan-price">$75</div>
+                <div class="plan-service">/service <br />
+                  (commitment 12 services)</div>
+                <div>
+                  <div class="roundedOne">
+                    <input type="checkbox" value="None" id="plan03" name="check03" />
+                    <label for="plan03"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tab Holder End--> 
+    </div>
+    <!--Schedule -->
+     <div class="pane-header">
+      <h4> Schedule </h4>
+    </div>
+    <div class="panel-body">
+      <h4>What day of the week is best for service?</h4>
+        <div class="col-md-2"> </div>
+        <div class="col-md-10">
+          <input type="text" placeholder="Monday"/>
+            <div class="margintop-15">
+              <button type="button" class="btn btn-solid-small">Monday</button>
+                <button type="button" class="btn btn-bordered-small">Tuesday</button>
+                <button type="button" class="btn btn-bordered-small">Wednesday</button>
+                <button type="button" class="btn btn-bordered-small">Thursday</button>
+                <button type="button" class="btn btn-bordered-small">Friday</button>
+                <button type="button" class="btn btn-bordered-small">Saturday</button>
+            </div>
+        </div>
+    </div>
+    <!--Schedule End -->
+    <!-- Extra Services-->
+     <div class="pane-header">
+      <h4> Extra Services </h4>
+    </div>
+    <div class="panel-body">
+      <h4>These services require their own schedule. Some require mul@ple<br />
+passes and some depend on the season to be scheduled.</h4>
+
+<div class="row">
+  <div class="extra-services">
+  <div class="white-bg container-fluid">
+      <div class="col-md-5">
+        <table cellpadding="0" cellspacing="0" class="extra-services-list">
+          <tr>
+              <td><div class="roundedOne">
+                    <input type="checkbox" value="None" id="s1" name="check03" />
+                    <label for="s1"></label>
+             </div></td>
+                <td>Edging of shrub & plant beds
+to maintain neat appearance</td>
+            </tr>
+            <tr>
+              <td><div class="roundedOne">
+                    <input type="checkbox" value="None" id="s2" name="check03" />
+                    <label for="s2"></label>
+             </div></td>
+                <td>Shrub trimming</td>
+            </tr>
+            <tr>
+              <td><div class="roundedOne">
+                    <input type="checkbox" value="None" id="s3" name="check03" />
+                    <label for="s3"></label>
+             </div></td>
+                <td>Tree pruning</td>
+            </tr>
+            <tr>
+              <td><div class="roundedOne">
+                    <input type="checkbox" value="None" id="s4" name="check03" />
+                    <label for="s4"></label>
+             </div></td>
+                <td>Planting</td>
+            </tr>
+            <tr>
+              <td><div class="roundedOne">
+                    <input type="checkbox" value="None" id="s5" name="check03" />
+                    <label for="s5"></label>
+             </div></td>
+                <td>Mulching</td>
+            </tr>
+            <tr>
+              <td><div class="roundedOne">
+                    <input type="checkbox" value="None" id="s6" name="check03" />
+                    <label for="s6"></label>
+             </div></td>
+                <td>GuBer / Grate cleaning</td>
+            </tr>
+             <tr>
+              <td><div class="roundedOne">
+                    <input type="checkbox" value="None" id="s7" name="check03" />
+                    <label for="s7"></label>
+             </div></td>
+                <td>Clean Up</td>
+            </tr>
+             <tr>
+              <td><div class="roundedOne">
+                    <input type="checkbox" value="None" id="s8" name="check03" />
+                    <label for="s8"></label>
+             </div></td>
+                <td>Power Washing</td>
+            </tr>
+        </table>
+           
+        </div>
+        <div class="col-md-7 selected-service">
+          <h2 class="service-text-add">ADD AN EXTRA SERVICE</h2>
+        </div>
+    </div>
+</div>
+</div>
+    </div>
+    <!-- Extra Services End-->
+    
+     <div class="pane-header">
+      <h4> Summary </h4>
+    </div>
+    <div class="panel-body">
+      <h1 class="summary-title">Billing Review</h1>
+        <div class="extra-services row">
+        <div class="col-md-2"></div>
+        <div class="billing-summary col-md-10">
+          <div class="col-md-5">
+              <h5>Plan</h5>
+                <p>Bi-Weekly Landscaping Plan Minimum 6 months</p>
+                <h5>Property</h5>
+                <p>0.28 Acres</p>
+            </div>
+            <div class="col-md-5">
+              <h5>Billing</h5>
+                <table cellpadding="0" cellspacing="0" class="billing-total">
+                  <tr>
+                      <td>Lanscaping Package</td>
+                        <td>$55</td>
+                    </tr>
+                    <tr class="border-bottom">
+                      <td>Fee</td>
+                        <td>$3</td>
+                    </tr>
+                     <tr class="border-bottom">
+                      <td class="font-lato-regulor">Recurring Weekly total</td>
+                        <td class="font-lato-regulor">$58</td>
+                    </tr>
+                     <tr>
+                      <td class="font-lato-regulor">Today's total</td>
+                        <td class="font-lato-regulor">$58</td>
+                    </tr>
+                </table>
+            
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <div class="btn-save-continue"><a href="javascript:void(0);">save & continue</a></div>
+  </div>
+</div>
+</div>
+<!-- Login Form End-->
+<div class="clearfix"></div>
+<!-- Slider Start-->

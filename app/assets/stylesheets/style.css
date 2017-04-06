@@ -5,25 +5,25 @@ body {
 /* Fonts  */
 @font-face {
  font-family: 'latobold';
- src: url('../fonts/lato-bold-webfont.woff2') format('woff2'),  url('../fonts/lato-bold-webfont.woff') format('woff');
+ src: url('/assets/lato-bold-webfont.woff2') format('woff2'),  url('/assets/lato-bold-webfont.woff') format('woff');
  font-weight: normal;
  font-style: normal;
 }
 @font-face {
  font-family: 'latolight';
- src: url('../fonts/lato-light-webfont.woff2') format('woff2'),  url('../fonts/lato-light-webfont.woff') format('woff');
+ src: url('/assets/lato-light-webfont.woff2') format('woff2'),  url('/assets/lato-light-webfont.woff') format('woff');
  font-weight: normal;
  font-style: normal;
 }
 @font-face {
  font-family: 'latomedium';
- src: url('../fonts/lato-medium-webfont.woff2') format('woff2'),  url('../fonts/lato-medium-webfont.woff') format('woff');
+ src: url('/assets/lato-medium-webfont.woff2') format('woff2'),  url('/assets/lato-medium-webfont.woff') format('woff');
  font-weight: normal;
  font-style: normal;
 }
 @font-face {
  font-family: 'latoregular';
- src: url('../fonts/lato-regular-webfont.woff2') format('woff2'),  url('../fonts/lato-regular-webfont.woff') format('woff');
+ src: url('/assets/lato-regular-webfont.woff2') format('woff2'),  url('/assets/lato-regular-webfont.woff') format('woff');
  font-weight: normal;
  font-style: normal;
 }
@@ -102,13 +102,13 @@ body {
 	display:block;
 }
 .left-sidebar ul li a i.services {
-	background:no-repeat url(../images/service.png);
+	background:no-repeat url(/assets/service.png);
 	width:48px;
 	height:48px;
 	margin:0 auto;
 }
 .left-sidebar ul li a:hover i.services {
-	background:no-repeat url(../images/service_hov.png);
+	background:no-repeat url(/assets/service_hov.png);
 	width:48px;
 	height:48px;
 	margin:0 auto;
@@ -148,7 +148,7 @@ body {
 	color:#fff;
 }
 .left-sidebar ul li.active a i.services {
-	background:no-repeat url(../images/service_hov.png);
+	background:no-repeat url(/assets/service_hov.png);
 	width:48px;
 	height:48px;
 	margin:0 auto;
@@ -163,7 +163,7 @@ body {
 	padding:40px 50px;
 }
 .page-bg {
-	background:no-repeat url(../images/page-bg.png) right bottom;
+	background:no-repeat url(/assets/page-bg.png) right bottom;
 	height:100%;
 	background-attachment:fixed;
 }

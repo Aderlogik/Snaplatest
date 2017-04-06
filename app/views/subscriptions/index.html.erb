@@ -1,0 +1,38 @@
+<!-- <h1>Listing subscriptions</h1>
+
+<table>
+  <tr>
+    <th>Plan</th>
+    <th>Sub plan</th>
+    <th>Schedule</th>
+    <th>User</th>
+    <th>Technician</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<%# @subscriptions.each do |subscription| %>
+  <tr>
+    <td><%#= subscription.plan_id %></td>
+    <td><%#= subscription.sub_plan_id %></td>
+    <td><%#= subscription.schedule_id %></td>
+    <td><%#= subscription.user_id %></td>
+    <td><%#= subscription.technician_id %></td>
+    <td><%#= link_to 'Show', [subscription.user, subscription] %></td>
+    <td><%#= link_to 'Edit', edit_user_subscription_path(subscription.user, subscription) %></td>
+    <td><#%= link_to 'Destroy', [subscription.user, subscription], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<%# end %>
+</table>
+
+<br /> -->
+
+<%#= link_to 'New Subscription', new_user_subscription_path(params[:user_id]) %>
+
+<div class="page-container service-page ">
+    <div class="big-text">You don't have any services scheduled</div>
+    <p class="mid-text">Sign up to one of our plans to have full coverage for your <br />backyard and landscape.</p>
+
+    <p><%= link_to "Book service", new_user_subscription_path(current_user.id), class: "btn btn-book-service" %></p>
+</div>

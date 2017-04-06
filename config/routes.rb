@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :users do
+    resources :subscriptions
+  end
+  get 'subscriptions/index'
+
   get 'home/index'
   # root to: "home#index"
 
@@ -15,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :services
+    # resources :services
+    resources :subscriptions
   end
 end
