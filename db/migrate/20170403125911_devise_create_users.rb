@@ -22,6 +22,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string :last_name
       t.integer :secondary_phone
       t.integer :phone
+      t.string :personal_email
       t.string :address
 
       ## Confirmable

@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+ before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -60,6 +60,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
+   def configure_account_update_params
+     devise_parameter_sanitizer.permit(:account_update, keys: [:phone, :secondary_phone, :personal_email])
+   end
+  
   def after_update_path_for(resource)
     edit_user_registration_path
   end

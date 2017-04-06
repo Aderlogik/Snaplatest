@@ -16,7 +16,7 @@
   }
 
   devise_scope :user do
-    root to: "devise/sessions#new"
+    root to: "users/sessions#new"
   end
 
   resources :users do
