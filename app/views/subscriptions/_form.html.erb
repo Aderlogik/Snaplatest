@@ -1,46 +1,3 @@
-<%#= form_for([@subscription.user, @subscription]) do |f| %>
-  <%# if @subscription.errors.any? %>
-    <!-- <div id="error_explanation"> -->
-      <!-- <h2><%#= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2> -->
-
-      <!-- <ul> -->
-      <%# @subscription.errors.full_messages.each do |msg| %>
-        <!-- <li><%#= msg %></li> -->
-      <!-- <%# end %> -->
-      <!-- </ul> -->
-    <!-- </div> -->
-  <%# end %>
-
-  <!-- <div class="field"> -->
-    <%#= f.label :plan_id %>
-    <!-- <br /> -->
-    <%#= f.number_field :plan_id %>
-  <!-- </div> -->
-  <!-- <div class="field"> -->
-    <%#= f.label :sub_plan_id %>
-    <!-- <br /> -->
-    <%#= f.text_field :sub_plan_id %>
-  <!-- </div> -->
-  <!-- <div class="field"> -->
-    <%#= f.label :schedule_id %>
-    <!-- <br /> -->
-    <%#= f.number_field :schedule_id %>
-  <!-- </div> -->
-  <!-- <div class="field"> -->
-    <%#= f.label :user_id %>
-    <!-- <br /> -->
-    <%#= f.number_field :user_id %>
-  <!-- </div> -->
-  <!-- <div class="field"> -->
-    <%#= f.label :technician_id %>
-    <!-- <br /> -->
-    <%#= f.number_field :technician_id %>
-  <!-- </div> -->
-  <!-- <div class="actions"> -->
-    <%#= f.submit %>
-  <!-- </div> -->
-<%# end %>
-
 <%= form_for([@subscription.user, @subscription]) do |f| %>
   <div class="page-container01 user-setting">
     <div class="col-md-9  white-bg no-padding">
@@ -98,7 +55,7 @@
         <div class="tab-holder">
           <ul class="nav nav-pills">
             <% Plan.all.each do |plan| %>
-              <li><a class="tab active" href="javascript:void(0);"><%= plan.name %></a></li>
+              <li><a class="tab" href="javascript:void(0);"><%= plan.name %></a></li>
             <% end %>
           </ul>
         </div>
@@ -108,6 +65,7 @@
         <div class="tab-content">
           <div class="plan">
             <div class="col-md-12">
+              <%= f.hidden_field :sub_plan_id, id: "sub_plan", value: '' %>
               <% Subplan.all.each do |subplan|%>
                 <div class="col-md-4 plan-holder">
                   <h2>
@@ -119,12 +77,12 @@
                       6 Months
                     <% end %>
                     </h2>
-                  <div class="plan-price"><%= subplan.price %></div>
+                  <div class="plan-price">$<%= subplan.price %></div>
                   <div class="plan-service">/service <br />
                   (commitment <%= subplan.services_commited %> services)</div>
                   <div>
                     <div class="roundedOne">
-                      <input type="checkbox" value="None" id="plan01" name="check01" />
+                      <%= f.check_box :sub_plan_id_temp, include_hidden: false, :onclick => "set_sub_plan(#{subplan.id});", type: "checkbox", id: "plan01", value: '' %>
                       <label for="plan01"></label>
                     </div>
                   </div>
@@ -144,15 +102,14 @@
       <h4>What day of the week is best for service?</h4>
         <div class="col-md-2"> </div>
         <div class="col-md-10">
-          <input type="text" placeholder="Monday"/>
+          <%= f.text_field :schedule_id, type: "text", placeholder: "Monday", value: '1' %>
             <div class="margintop-15">
-
-                <button type="button" class="btn btn-solid-small">Monday</button>
-                <button type="button" class="btn btn-bordered-small">Tuesday</button>
-                <button type="button" class="btn btn-bordered-small">Wednesday</button>
-                <button type="button" class="btn btn-bordered-small">Thursday</button>
-                <button type="button" class="btn btn-bordered-small">Friday</button>
-                <button type="button" class="btn btn-bordered-small">Saturday</button>
+              <% Schedule.all.each do |schedule| %>
+                <button type="button" class="btn btn-bordered-small">
+                <%= %>
+                  <%= schedule.name %>
+                </button>
+              <% end %>
             </div>
         </div>
     </div>
@@ -170,63 +127,18 @@ passes and some depend on the season to be scheduled.</h4>
   <div class="white-bg container-fluid">
       <div class="col-md-5">
         <table cellpadding="0" cellspacing="0" class="extra-services-list">
-          <tr>
-              <td><div class="roundedOne">
-                    <input type="checkbox" value="None" id="s1" name="check03" />
-                    <label for="s1"></label>
-             </div></td>
-                <td>Edging of shrub & plant beds
-to maintain neat appearance</td>
-            </tr>
+          <%= f.hidden_field :service_id, id: "service_id", value: '' %>
+          <% Service.all.each do |service| %>
             <tr>
-              <td><div class="roundedOne">
-                    <input type="checkbox" value="None" id="s2" name="check03" />
-                    <label for="s2"></label>
-             </div></td>
-                <td>Shrub trimming</td>
+              <td>
+                <div class="roundedOne">
+                  <%= f.check_box :service_id_temp, include_hidden: false, :onclick => "set_service(#{service.id});", type: "checkbox", id: "s1", value: service.id %>
+                  <label for="s1"></label>
+                </div>
+              </td>
+              <td><%= service.service_name %></td>
             </tr>
-            <tr>
-              <td><div class="roundedOne">
-                    <input type="checkbox" value="None" id="s3" name="check03" />
-                    <label for="s3"></label>
-             </div></td>
-                <td>Tree pruning</td>
-            </tr>
-            <tr>
-              <td><div class="roundedOne">
-                    <input type="checkbox" value="None" id="s4" name="check03" />
-                    <label for="s4"></label>
-             </div></td>
-                <td>Planting</td>
-            </tr>
-            <tr>
-              <td><div class="roundedOne">
-                    <input type="checkbox" value="None" id="s5" name="check03" />
-                    <label for="s5"></label>
-             </div></td>
-                <td>Mulching</td>
-            </tr>
-            <tr>
-              <td><div class="roundedOne">
-                    <input type="checkbox" value="None" id="s6" name="check03" />
-                    <label for="s6"></label>
-             </div></td>
-                <td>GuBer / Grate cleaning</td>
-            </tr>
-             <tr>
-              <td><div class="roundedOne">
-                    <input type="checkbox" value="None" id="s7" name="check03" />
-                    <label for="s7"></label>
-             </div></td>
-                <td>Clean Up</td>
-            </tr>
-             <tr>
-              <td><div class="roundedOne">
-                    <input type="checkbox" value="None" id="s8" name="check03" />
-                    <label for="s8"></label>
-             </div></td>
-                <td>Power Washing</td>
-            </tr>
+          <% end %>
         </table>
            
         </div>
@@ -279,7 +191,8 @@ to maintain neat appearance</td>
         </div>
     </div>
     
-    <div class="btn-save-continue"><a href="javascript:void(0);">save & continue</a></div>
+    <div class="btn-save-continue"> <%= f.submit "save & continue" %>
+    </div>
   </div>
 </div>
 </div>
@@ -296,14 +209,12 @@ var selectedShape;
 var colors = ['#1E90FF', '#FF1493', '#32CD32', '#FF8C00', '#4B0082'];
 var selectedColor;
 var colorButtons = {};
-
 function clearSelection() {
   if (selectedShape) {
     selectedShape.setEditable(false);
     selectedShape = null;
   }
 }
-
 function setSelection(shape) {
   clearSelection();
   selectedShape = shape;
@@ -312,44 +223,36 @@ function setSelection(shape) {
   google.maps.event.addListener(shape.getPath(), 'set_at', calcar);
   google.maps.event.addListener(shape.getPath(), 'insert_at', calcar);
 }
-
 function calcar() {
     var area = google.maps.geometry.spherical.computeArea(selectedShape.getPath());
     document.getElementById("area").innerHTML = "Area =" + area.toFixed(2);
 }
-
 function deleteSelectedShape() {
   if (selectedShape) {
     selectedShape.setMap(null);
   }
 }
-
 function selectColor(color) {
   selectedColor = color;
   for (var i = 0; i < colors.length; ++i) {
     var currColor = colors[i];
     colorButtons[currColor].style.border = currColor == color ? '2px solid #789' : '2px solid #fff';
   }
-
   // Retrieves the current options from the drawing manager and replaces the
   // stroke or fill color as appropriate.
   var polylineOptions = drawingManager.get('polylineOptions');
   polylineOptions.strokeColor = color;
   drawingManager.set('polylineOptions', polylineOptions);
-
   var rectangleOptions = drawingManager.get('rectangleOptions');
   rectangleOptions.fillColor = color;
   drawingManager.set('rectangleOptions', rectangleOptions);
-
   var circleOptions = drawingManager.get('circleOptions');
   circleOptions.fillColor = color;
   drawingManager.set('circleOptions', circleOptions);
-
   var polygonOptions = drawingManager.get('polygonOptions');
   polygonOptions.fillColor = color;
   drawingManager.set('polygonOptions', polygonOptions);
 }
-
 function setSelectedShapeColor(color) {
   if (selectedShape) {
     if (selectedShape.type == google.maps.drawing.OverlayType.POLYLINE) {
@@ -359,7 +262,6 @@ function setSelectedShapeColor(color) {
     }
   }
 }
-
 function makeColorButton(color) {
   var button = document.createElement('span');
   button.className = 'color-button';
@@ -368,10 +270,8 @@ function makeColorButton(color) {
     selectColor(color);
     setSelectedShapeColor(color);
   });
-
   return button;
 }
-
 function buildColorPalette() {
   var colorPalette = document.getElementById('color-palette');
   for (var i = 0; i < colors.length; ++i) {
@@ -382,7 +282,6 @@ function buildColorPalette() {
   }
   selectColor(colors[0]);
 }
-
 function initialize() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 10,
@@ -391,7 +290,6 @@ function initialize() {
     disableDefaultUI: true,
     zoomControl: true
   });
-
   var polyOptions = {
     strokeWeight: 0,
     fillOpacity: 0.45,
@@ -412,12 +310,10 @@ function initialize() {
     polygonOptions: polyOptions,
     map: map
   });
-
   google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
     if (e.type != google.maps.drawing.OverlayType.MARKER) {
       // Switch back to non-drawing mode after drawing a shape.
       drawingManager.setDrawingMode(null);
-
       // Add an event listener that selects the newly-drawn shape when the user
       // mouses down on it.
       var newShape = e.overlay;
@@ -433,13 +329,11 @@ function initialize() {
       setSelection(newShape);
     }
   });
-
   // Clear the current selection when the drawing mode is changed, or when the
   // map is clicked.
   google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
   google.maps.event.addListener(map, 'click', clearSelection);
   google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
-
   buildColorPalette();
 }
 google.maps.event.addDomListener(window, 'load', initialize);
