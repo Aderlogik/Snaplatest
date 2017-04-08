@@ -421,3 +421,8 @@ color:#4a4a4a;}
 .img-circle{
 	width: 70px;
 }
+
+#map {
+        width: 1100px;
+        height: 300px;
+      }

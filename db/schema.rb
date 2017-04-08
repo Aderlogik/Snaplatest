@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20170406063150) do
     t.string   "last_name"
     t.integer  "secondary_phone"
     t.integer  "phone"
+    t.string   "personal_email"
     t.string   "address"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
