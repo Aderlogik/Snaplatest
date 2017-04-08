@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406063150) do
+ActiveRecord::Schema.define(version: 20170408062525) do
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country"
+    t.integer  "user_id"
+    t.string   "subscription_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "plans", force: :cascade do |t|
     t.string   "name"
@@ -20,17 +33,10 @@ ActiveRecord::Schema.define(version: 20170406063150) do
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.boolean  "monday"
-    t.boolean  "tuesday"
-    t.boolean  "wednsday"
-    t.boolean  "thursday"
-    t.boolean  "friday"
-    t.boolean  "saturday"
-    t.boolean  "sunday"
-    t.integer  "user_id"
-    t.integer  "subscription_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "name"
+    t.date     "schedule_datetime"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "services", force: :cascade do |t|
@@ -57,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170406063150) do
     t.integer  "technician_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "service_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
