@@ -1,3 +1,46 @@
+<%#= form_for([@subscription.user, @subscription]) do |f| %>
+  <%# if @subscription.errors.any? %>
+    <!-- <div id="error_explanation"> -->
+      <!-- <h2><%#= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2> -->
+
+      <!-- <ul> -->
+      <%# @subscription.errors.full_messages.each do |msg| %>
+        <!-- <li><%#= msg %></li> -->
+      <!-- <%# end %> -->
+      <!-- </ul> -->
+    <!-- </div> -->
+  <%# end %>
+
+  <!-- <div class="field"> -->
+    <%#= f.label :plan_id %>
+    <!-- <br /> -->
+    <%#= f.number_field :plan_id %>
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+    <%#= f.label :sub_plan_id %>
+    <!-- <br /> -->
+    <%#= f.text_field :sub_plan_id %>
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+    <%#= f.label :schedule_id %>
+    <!-- <br /> -->
+    <%#= f.number_field :schedule_id %>
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+    <%#= f.label :user_id %>
+    <!-- <br /> -->
+    <%#= f.number_field :user_id %>
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+    <%#= f.label :technician_id %>
+    <!-- <br /> -->
+    <%#= f.number_field :technician_id %>
+  <!-- </div> -->
+  <!-- <div class="actions"> -->
+    <%#= f.submit %>
+  <!-- </div> -->
+<%# end %>
+
 <%= form_for([@subscription.user, @subscription]) do |f| %>
   <div class="page-container01 user-setting">
     <div class="col-md-9  white-bg no-padding">
@@ -11,21 +54,25 @@
             On the map you will find a tool to calculate the size of your property</p>
             <div class="form-group ">
               <div class="icon-addon addon-lg">
-                <input type="text" id="map_address" placeholder="Address">
+                <input type="text" placeholder="Address" class="form-control location-search">
+                <label for="email" class="glyphicon glyphicon-search"></label>
               </div>
             </div>
             <div>
               <title>Drawing Tools</title>
                 <div id="panel">
-                  <%#*<div id="color-palette"></div>%>
+                  <div id="color-palette"></div>
                   <div>
                     <button id="delete-button">Delete Selected Shape</button>
+                    <%#= link_to "calculate area", "#", :id => "calculate", :remote => true %>
+                    <%= link_to "calculate area", "#", :html => {:onclick => "calcar();"}, :remote => true %>
+                    <div id="area"></div>
                   </div>
                 </div>
                 <div id="map"></div>
             </div>
             <div class="row">
-                <div class="col-md-6">Area: <span id="area_in_sq_f"></span> feet, <span id="area_in_acre"></span> acres</div>
+              <div class="col-md-6">Area: 12394 feet, 0.28 acres</div>
               <div class="col-md-6 text-right"> <a href="javascript:void(0);" class="btn btn-small">Remove last Marker</a> <a href="javascript:void(0);" class="btn btn-small">Clear Markers</a> </div>
             </div>
           </div>
@@ -242,7 +289,7 @@ to maintain neat appearance</td>
 <% end %>
 
 
-<script src="http://maps.google.com/maps/api/js?libraries=geometry,places,drawing&key=AIzaSyD3FGfnc2no3EslsMiWWInbvbQeypNgjTk" type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/js?libraries=geometry,drawing&key=AIzaSyD3FGfnc2no3EslsMiWWInbvbQeypNgjTk" type="text/javascript"></script>
 <script type="text/javascript">
 var drawingManager;
 var selectedShape;
@@ -280,8 +327,8 @@ function deleteSelectedShape() {
 function selectColor(color) {
   selectedColor = color;
   for (var i = 0; i < colors.length; ++i) {
-    <%#*var currColor = colors[i];%>
-    <%#*colorButtons[currColor].style.border = currColor == color ? '2px solid #789' : '2px solid #fff';%>
+    var currColor = colors[i];
+    colorButtons[currColor].style.border = currColor == color ? '2px solid #789' : '2px solid #fff';
   }
 
   // Retrieves the current options from the drawing manager and replaces the
@@ -326,20 +373,20 @@ function makeColorButton(color) {
 }
 
 function buildColorPalette() {
-  <%#*var colorPalette = document.getElementById('color-palette');%>
-  <%#*for (var i = 0; i < colors.length; ++i) {%>
-    <%#*var currColor = colors[i];%>
-    <%#*var colorButton = makeColorButton(currColor);%>
-    <%#*colorPalette.appendChild(colorButton);%>
-    <%#*colorButtons[currColor] = colorButton;%>
-  <%#*}%>
+  var colorPalette = document.getElementById('color-palette');
+  for (var i = 0; i < colors.length; ++i) {
+    var currColor = colors[i];
+    var colorButton = makeColorButton(currColor);
+    colorPalette.appendChild(colorButton);
+    colorButtons[currColor] = colorButton;
+  }
   selectColor(colors[0]);
 }
 
 function initialize() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 10,
-    center: new google.maps.LatLng(40.71, -74.00),
+    center: new google.maps.LatLng(22.344, 114.048),
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     disableDefaultUI: true,
     zoomControl: true
@@ -360,10 +407,6 @@ function initialize() {
     polylineOptions: {
       editable: true
     },
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_LEFT  ,
-      drawingModes: ['marker', 'polygon', 'polyline']
-    },   
     rectangleOptions: polyOptions,
     circleOptions: polyOptions,
     polygonOptions: polyOptions,
@@ -383,11 +426,10 @@ function initialize() {
         setSelection(newShape);
       });
       var area = google.maps.geometry.spherical.computeArea(newShape.getPath());
-      var area_in_sq_m = area.toFixed(2);
-      var area_in_sq_f = (area * 10.764).toFixed(2);
-      var area_in_acre = (area * 0.00024711).toFixed(2);
-      document.getElementById("area_in_sq_f").innerHTML = area_in_sq_f;
-      document.getElementById("area_in_acre").innerHTML = area_in_acre;
+      console.log("++++++++++");
+      console.log(area);
+      console.log("++++++++++");
+      document.getElementById("area").innerHTML = "Area =" + area.toFixed(2);
       setSelection(newShape);
     }
   });
@@ -399,63 +441,6 @@ function initialize() {
   google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
 
   buildColorPalette();
-  
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('map_address');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
-        });
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-            return;
-          }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-        });  
-  
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
