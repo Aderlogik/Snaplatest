@@ -426,3 +426,19 @@ color:#4a4a4a;}
         width: 1100px;
         height: 300px;
       }
+      
+#map_address {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 75%;
+}
+
+#map_address:focus {
+  border-color: #4d90fe;
+}
+      
