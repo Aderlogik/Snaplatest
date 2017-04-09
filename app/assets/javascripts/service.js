@@ -22,7 +22,8 @@ function set_plan(plan, el) {
 }
 
 function set_schedule(schedule, el, name){
-	$(".btn-solid-small").toggleClass('btn btn-bordered-small');
-	$(el).toggleClass('btn btn-solid-small');
+	$(".btn-solid-small").removeClass('btn btn-solid-small').addClass('btn btn-bordered-small');
+	$(el).addClass('btn btn-solid-small');
 	document.getElementById("schedule_id").value = schedule;
+        document.getElementById("schedule_day").value = name;
 }
