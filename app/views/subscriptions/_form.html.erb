@@ -1,11 +1,10 @@
 <%= form_for([@subscription.user, @subscription]) do |f| %>
   <div class="page-container01">
-    <div class="col-md-9  white-bg no-padding">
+    <div class="col-md-12 white-bg no-padding">
       <div class="pane-header">
         <h4> Information </h4>
       </div>
       <div class="panel-body">
-        <div class="row ">
           <div class="col-md-2l-md-12">
             <p>Please provide the address of the loca@on you want services for.<br />
             On the map you will find a tool to calculate the size of your property</p>
@@ -33,7 +32,6 @@
           <div class="row">
             <div class="col-md-6">Area: <span id="area_in_sq_f"></span> feet, <span id="area_in_acre"></span> acres</div>
             <div class="col-md-6 text-right"> <a href="javascript:void(0);" class="btn btn-small">Remove last Marker</a> <a href="javascript:void(0);" class="btn btn-small">Clear Markers</a> </div>
-          </div>
           </div>
         </div>
       </div>
@@ -430,209 +428,204 @@
           <div class="btn-save-continue"><%= f.submit "save & continue" %></div>
         </div>
       </div>
-    <% end %>
-<script src="/assets/jquery-min.js"></script> 
-<!-- Include all compiled plugins (below), or include individual files as needed --> 
-<script src="/assets/bootstrap.min.js"></script> 
-<!-- Scrollbar--> 
-<script src="/assets/jquery.mCustomScrollbar.concat.min.js"></script> 
-<script src="http://maps.google.com/maps/api/js?libraries=geometry,places,drawing&key=AIzaSyD3FGfnc2no3EslsMiWWInbvbQeypNgjTk" type="text/javascript"></script>
+<% end %>
+
 <script type="text/javascript">
-var drawingManager;
-var selectedShape;
-var colors = ['#1E90FF', '#FF1493', '#32CD32', '#FF8C00', '#4B0082'];
-var selectedColor;
-var colorButtons = {};
-function clearSelection() {
-  if (selectedShape) {
-    selectedShape.setEditable(false);
-    selectedShape = null;
-  }
-}
-function setSelection(shape) {
-  clearSelection();
-  selectedShape = shape;
-  shape.setEditable(true);
-  selectColor(shape.get('fillColor') || shape.get('strokeColor'));
-  google.maps.event.addListener(shape.getPath(), 'set_at', calcar);
-  google.maps.event.addListener(shape.getPath(), 'insert_at', calcar);
-}
-function calcar() {
-    var area = google.maps.geometry.spherical.computeArea(selectedShape.getPath());
-    document.getElementById("area").innerHTML = "Area =" + area.toFixed(2);
-}
-function deleteSelectedShape() {
-  if (selectedShape) {
-    selectedShape.setMap(null);
-  }
-}
-function selectColor(color) {
-  selectedColor = color;
-  for (var i = 0; i < colors.length; ++i) {
-    <%#*var currColor = colors[i];%>
-    <%#*colorButtons[currColor].style.border = currColor == color ? '2px solid #789' : '2px solid #fff';%>
-  }
-  // Retrieves the current options from the drawing manager and replaces the
-  // stroke or fill color as appropriate.
-  var polylineOptions = drawingManager.get('polylineOptions');
-  polylineOptions.strokeColor = color;
-  drawingManager.set('polylineOptions', polylineOptions);
-  var rectangleOptions = drawingManager.get('rectangleOptions');
-  rectangleOptions.fillColor = color;
-  drawingManager.set('rectangleOptions', rectangleOptions);
-  var circleOptions = drawingManager.get('circleOptions');
-  circleOptions.fillColor = color;
-  drawingManager.set('circleOptions', circleOptions);
-  var polygonOptions = drawingManager.get('polygonOptions');
-  polygonOptions.fillColor = color;
-  drawingManager.set('polygonOptions', polygonOptions);
-}
-function setSelectedShapeColor(color) {
-  if (selectedShape) {
-    if (selectedShape.type == google.maps.drawing.OverlayType.POLYLINE) {
-      selectedShape.set('strokeColor', color);
-    } else {
-      selectedShape.set('fillColor', color);
+  var drawingManager;
+  var selectedShape;
+  var colors = ['#1E90FF', '#FF1493', '#32CD32', '#FF8C00', '#4B0082'];
+  var selectedColor;
+  var colorButtons = {};
+  function clearSelection() {
+    if (selectedShape) {
+      selectedShape.setEditable(false);
+      selectedShape = null;
     }
   }
-}
-function makeColorButton(color) {
-  var button = document.createElement('span');
-  button.className = 'color-button';
-  button.style.backgroundColor = color;
-  google.maps.event.addDomListener(button, 'click', function() {
-    selectColor(color);
-    setSelectedShapeColor(color);
-  });
-  return button;
-}
-function buildColorPalette() {
-  <%#*var colorPalette = document.getElementById('color-palette');%>
-  <%#*for (var i = 0; i < colors.length; ++i) {%>
-    <%#*var currColor = colors[i];%>
-    <%#*var colorButton = makeColorButton(currColor);%>
-    <%#*colorPalette.appendChild(colorButton);%>
-    <%#*colorButtons[currColor] = colorButton;%>
-  <%#*}%>
-  selectColor(colors[0]);
-}
-function initialize() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
-    center: new google.maps.LatLng(40.71, -74.00),
-    mapTypeId: google.maps.MapTypeId.SATELLITE,
-    disableDefaultUI: true,
-    zoomControl: true
-  });
-  var polyOptions = {
-    strokeWeight: 0,
-    fillOpacity: 0.45,
-    editable: true
-  };
-  // Creates a drawing manager attached to the map that allows the user to draw
-  // markers, lines, and shapes.
-  drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.POLYGON,
-    markerOptions: {
-      draggable: true
-    },
-    polylineOptions: {
+  function setSelection(shape) {
+    clearSelection();
+    selectedShape = shape;
+    shape.setEditable(true);
+    selectColor(shape.get('fillColor') || shape.get('strokeColor'));
+    google.maps.event.addListener(shape.getPath(), 'set_at', calcar);
+    google.maps.event.addListener(shape.getPath(), 'insert_at', calcar);
+  }
+  function calcar() {
+      var area = google.maps.geometry.spherical.computeArea(selectedShape.getPath());
+      document.getElementById("area").innerHTML = "Area =" + area.toFixed(2);
+  }
+  function deleteSelectedShape() {
+    if (selectedShape) {
+      selectedShape.setMap(null);
+    }
+  }
+  function selectColor(color) {
+    selectedColor = color;
+    for (var i = 0; i < colors.length; ++i) {
+      <%#*var currColor = colors[i];%>
+      <%#*colorButtons[currColor].style.border = currColor == color ? '2px solid #789' : '2px solid #fff';%>
+    }
+    // Retrieves the current options from the drawing manager and replaces the
+    // stroke or fill color as appropriate.
+    var polylineOptions = drawingManager.get('polylineOptions');
+    polylineOptions.strokeColor = color;
+    drawingManager.set('polylineOptions', polylineOptions);
+    var rectangleOptions = drawingManager.get('rectangleOptions');
+    rectangleOptions.fillColor = color;
+    drawingManager.set('rectangleOptions', rectangleOptions);
+    var circleOptions = drawingManager.get('circleOptions');
+    circleOptions.fillColor = color;
+    drawingManager.set('circleOptions', circleOptions);
+    var polygonOptions = drawingManager.get('polygonOptions');
+    polygonOptions.fillColor = color;
+    drawingManager.set('polygonOptions', polygonOptions);
+  }
+  function setSelectedShapeColor(color) {
+    if (selectedShape) {
+      if (selectedShape.type == google.maps.drawing.OverlayType.POLYLINE) {
+        selectedShape.set('strokeColor', color);
+      } else {
+        selectedShape.set('fillColor', color);
+      }
+    }
+  }
+  function makeColorButton(color) {
+    var button = document.createElement('span');
+    button.className = 'color-button';
+    button.style.backgroundColor = color;
+    google.maps.event.addDomListener(button, 'click', function() {
+      selectColor(color);
+      setSelectedShapeColor(color);
+    });
+    return button;
+  }
+  function buildColorPalette() {
+    <%#*var colorPalette = document.getElementById('color-palette');%>
+    <%#*for (var i = 0; i < colors.length; ++i) {%>
+      <%#*var currColor = colors[i];%>
+      <%#*var colorButton = makeColorButton(currColor);%>
+      <%#*colorPalette.appendChild(colorButton);%>
+      <%#*colorButtons[currColor] = colorButton;%>
+    <%#*}%>
+    selectColor(colors[0]);
+  }
+  function initialize() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: new google.maps.LatLng(40.71, -74.00),
+      mapTypeId: google.maps.MapTypeId.SATELLITE,
+      disableDefaultUI: true,
+      zoomControl: true
+    });
+    var polyOptions = {
+      strokeWeight: 0,
+      fillOpacity: 0.45,
       editable: true
-    },
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_LEFT  ,
-      drawingModes: ['marker', 'polygon', 'polyline']
-    },   
-    rectangleOptions: polyOptions,
-    circleOptions: polyOptions,
-    polygonOptions: polyOptions,
-    map: map
-  });
-  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
-    if (e.type != google.maps.drawing.OverlayType.MARKER) {
-      // Switch back to non-drawing mode after drawing a shape.
-      drawingManager.setDrawingMode(null);
-      // Add an event listener that selects the newly-drawn shape when the user
-      // mouses down on it.
-      var newShape = e.overlay;
-      newShape.type = e.type;
-      google.maps.event.addListener(newShape, 'click', function() {
-        setSelection(newShape);
-      });
-      var area = google.maps.geometry.spherical.computeArea(newShape.getPath());
-      var area_in_sq_m = area.toFixed(2);
-      var area_in_sq_f = (area * 10.764).toFixed(2);
-      var area_in_acre = (area * 0.00024711).toFixed(2);
-      document.getElementById("area_in_sq_f").innerHTML = area_in_sq_f;
-      document.getElementById("area_in_acre").innerHTML = area_in_acre;
-      setSelection(newShape);
-    }
-  });
-  // Clear the current selection when the drawing mode is changed, or when the
-  // map is clicked.
-  google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
-  google.maps.event.addListener(map, 'click', clearSelection);
-  google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
-  buildColorPalette();
-  
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('map_address');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
+    };
+    // Creates a drawing manager attached to the map that allows the user to draw
+    // markers, lines, and shapes.
+    drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      markerOptions: {
+        draggable: true
+      },
+      polylineOptions: {
+        editable: true
+      },
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_LEFT  ,
+        drawingModes: ['marker', 'polygon', 'polyline']
+      },   
+      rectangleOptions: polyOptions,
+      circleOptions: polyOptions,
+      polygonOptions: polyOptions,
+      map: map
+    });
+    google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
+      if (e.type != google.maps.drawing.OverlayType.MARKER) {
+        // Switch back to non-drawing mode after drawing a shape.
+        drawingManager.setDrawingMode(null);
+        // Add an event listener that selects the newly-drawn shape when the user
+        // mouses down on it.
+        var newShape = e.overlay;
+        newShape.type = e.type;
+        google.maps.event.addListener(newShape, 'click', function() {
+          setSelection(newShape);
         });
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-            return;
-          }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-        });  
+        var area = google.maps.geometry.spherical.computeArea(newShape.getPath());
+        var area_in_sq_m = area.toFixed(2);
+        var area_in_sq_f = (area * 10.764).toFixed(2);
+        var area_in_acre = (area * 0.00024711).toFixed(2);
+        document.getElementById("area_in_sq_f").innerHTML = area_in_sq_f;
+        document.getElementById("area_in_acre").innerHTML = area_in_acre;
+        setSelection(newShape);
+      }
+    });
+    // Clear the current selection when the drawing mode is changed, or when the
+    // map is clicked.
+    google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
+    google.maps.event.addListener(map, 'click', clearSelection);
+    google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
+    buildColorPalette();
   
-}
-google.maps.event.addDomListener(window, 'load', initialize);
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('map_address');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function() {
+      searchBox.setBounds(map.getBounds());
+    });
+    var markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+
+      // Clear out the old markers.
+      markers.forEach(function(marker) {
+        marker.setMap(null);
+      });
+      markers = [];
+
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+        var icon = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25)
+        };
+
+        // Create a marker for each place.
+        markers.push(new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: place.name,
+          position: place.geometry.location
+        }));
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      map.fitBounds(bounds);
+    });  
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, 'turbolinks:load', initialize);
 
 </script>
 <script type="text/javascript">
@@ -662,5 +655,3 @@ google.maps.event.addDomListener(window, 'load', initialize);
   });
 });
     </script>
-</body>
-</html>
