@@ -13,10 +13,16 @@ function set_service(serviceid){
 	document.getElementById('service_id').value = serviceid;
 }
 
-function set_plan (plan, el) {
+function set_plan(plan, el) {
 	console.log("I am here");
 	console.log(el);
 	$(".tab").removeClass('active');
 	$(el).addClass('tab active');
 	document.getElementById('plan').value = plan;
+}
+
+function set_schedule(schedule, el, name){
+	$(".btn-solid-small").toggleClass('btn btn-bordered-small');
+	$(el).toggleClass('btn btn-solid-small');
+	document.getElementById("schedule_id").value = schedule;
 }

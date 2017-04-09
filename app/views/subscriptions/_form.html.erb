@@ -9,12 +9,6 @@
             <p>Please provide the address of the loca@on you want services for.<br />
             On the map you will find a tool to calculate the size of your property</p>
             <div class="form-group ">
-              <%= f.fields_for :location do |l| %>
-                <% l.hidden_field :name, class: "location_name", value: "test_name"%>
-                <% l.hidden_field :address, class: "location_address", value: "test_address" %>
-                <% l.hidden_field :acres, class: "location_acres", value: "test_acres"%>
-                <% l.hidden_field :area, class: "location_area", value: "test_area"%>
-              <% end %>
               <div class="icon-addon addon-lg">
                 <input type="text" id="map_address" placeholder="Address">
               </div>
@@ -31,6 +25,12 @@
             </div>
           <div class="row">
             <div class="col-md-6">Area: <span id="area_in_sq_f"></span> feet, <span id="area_in_acre"></span> acres</div>
+            <%= f.fields_for :location, Location.new do | location| %>
+              <%= location.hidden_field :name, class: "location_name", value: "test_name"%>
+              <%= location.hidden_field :address, class: "location_address", value: 0 %>
+              <%= location.hidden_field :acres, class: "feet_hidden_field", value: 0 %>
+              <%= location.hidden_field :area, class: "area_hidden_field", value: 0 %>
+            <% end %>
             <div class="col-md-6 text-right"> <a href="javascript:void(0);" class="btn btn-small">Remove last Marker</a> <a href="javascript:void(0);" class="btn btn-small">Clear Markers</a> </div>
           </div>
         </div>
@@ -85,8 +85,8 @@
                     (commitment <%= subplan.services_commited %> services)</div>
                     <div>
                       <div class="roundedOne">
-                        <%= f.check_box :sub_plan_id_temp, include_hidden: false, :onclick => "set_sub_plan(#{subplan.id});", type: "checkbox", id: "plan01", value: '' %>
-                        <label for="plan01"></label>
+                        <%= f.check_box :sub_plan_id_temp, include_hidden: false, :onclick => "set_sub_plan(#{subplan.id});", type: "checkbox", id: "plan0#{subplan.id}", value: '' %>
+                        <label for="plan0<%= subplan.id %>"></label>
                       </div>
                     </div>
                   </div>
@@ -105,12 +105,12 @@
         <h4>What day of the week is best for service?</h4>
         <div class="col-md-2"> </div>
         <div class="col-md-10">
-          <input type="text" placeholder="Monday"/>
+          <%= f.text_field :schedule_id, id: "schedule_id", value: Schedule.first.id %>
           <div class="margintop-15">
             <% Schedule.all.each do |schedule| %>
-              <button type="button" class="btn btn-bordered-small">
+              <a type="button", class="btn btn-bordered-small", onclick="set_schedule(<%= schedule.id %>, this, '<%= schedule.name %>')">
                 <%= schedule.name %>
-              </button>
+              </a>
             <% end %>
           </div>
         </div>
@@ -133,8 +133,8 @@
                     <tr>
                       <td>
                         <div class="roundedOne">
-                          <%= f.check_box :service_id_temp, include_hidden: false, :onclick => "set_service(#{service.id});", type: "checkbox", id: "s1", value: service.id %>
-                          <label for="s1"></label>
+                          <%= f.check_box :service_id_temp, include_hidden: false, class: "service_check", :onclick => "set_service(#{service.id});", type: "checkbox", id: "s#{service.id}", value: service.id %>
+                          <label for="s<%= service.id %>"></label>
                         </div>
                       </td>
                       <td><%= service.service_name %></td>
@@ -453,6 +453,9 @@
   function calcar() {
       var area = google.maps.geometry.spherical.computeArea(selectedShape.getPath());
       document.getElementById("area").innerHTML = "Area =" + area.toFixed(2);
+      console.log("I am here");
+      console.log(area.toFixed(2));
+      console.log("I am here");
   }
   function deleteSelectedShape() {
     if (selectedShape) {
@@ -558,6 +561,10 @@
         var area_in_acre = (area * 0.00024711).toFixed(2);
         document.getElementById("area_in_sq_f").innerHTML = area_in_sq_f;
         document.getElementById("area_in_acre").innerHTML = area_in_acre;
+        console.log(area_in_sq_f);
+        console.log(area_in_acre);
+        $(".area_hidden_field").value = area_in_acre;
+        $(".feet_hidden_field").value = area_in_sq_f;
         setSelection(newShape);
       }
     });
@@ -629,11 +636,39 @@
 
 </script>
 <script type="text/javascript">
-        $(function () {
-            $("#s1").click(function () {
-                if ($(this).is(":checked")) {
-                    $(".service01").toggle();
-          // $(".service02", ".service03",".service04",".service05",".service06",".service07",".service08").hide();
+  $(".service_check").click(function () {
+    if ($("#s1").is(":checked")) {
+      $(".service02, .service03, .service04, .service05, .service06, .service07, .service08").hide();
+      $(".service1").show();
+    }else if ($("#s2").is(":checked")){
+      $(".service01, .service03, .service04, .service05, .service06, .service07, .service08").hide();
+      $(".service02").show();
+    }else if ($("#s3").is(":checked")){
+      $(".service01, .service02, .service04, .service05, .service06, .service07, .service08").hide();
+      $(".service03").show();
+    }else if ($("#s4").is(":checked")){
+      $(".service01, .service02, .service03, .service05, .service06, .service07, .service08").hide();
+      $(".service04").show();
+    }else if ($("#s5").is(":checked")){
+      $(".service01, .service02, .service03, .service04, .service06, .service07, .service08").hide();
+      $(".service05").show();
+    }else if ($("#s6").is(":checked")){
+      $(".service01, .service02, .service03, .service04, .service05, .service07, .service08").hide();
+      $(".service06").show();
+    }else if ($("#s7").is(":checked")){
+      $(".service01, .service02, .service03, .service04, .service05, .service06, .service08").hide();
+      $(".service07").show();
+    }else if ($("#s7").is(":checked")){
+      $(".service01, .service02, .service03, .service04, .service05, .service06, .service07").hide();
+      $(".service08").show();
+    }
+  });
+  $(function () {
+    console.log("I am here checked");
+    $("#s1").click(function () {
+      if ($(this).is(":checked")) {
+        $(".service01").toggle();
+          $(".service02", ".service03",".service04",".service05",".service06",".service07",".service08").hide();
                 } else {
                     $(".service01").hide();
                 }

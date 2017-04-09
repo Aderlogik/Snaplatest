@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170408200632) do
+ActiveRecord::Schema.define(version: 20170409135409) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -22,8 +22,9 @@ ActiveRecord::Schema.define(version: 20170408200632) do
     t.string   "country"
     t.integer  "area"
     t.integer  "acres"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "subscription_id"
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
