@@ -14,7 +14,8 @@
     <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-eval' => false %>
     <%= stylesheet_link_tag "font-awesome.min", media: "all" %>
     <%= stylesheet_link_tag "overrides", media: "all" %>
-    
+    <%= stylesheet_link_tag "jquery.mCustomScrollbar", media: "all" %>
+    <%= stylesheet_link_tag "service", media: "all" %>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -88,5 +89,34 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <%= javascript_include_tag "jquery-min" %>
     <%= javascript_include_tag "bootstrap.min.js", 'data-turbolinks-eval' => false %>
+    <%= javascript_include_tag "jquery.mCustomScrollbar.concat.min.js", 'data-turbolinks-eval' => false %>
+    
+<script type="text/javascript">
+        $(function () {
+            $("#s1").click(function () {
+                if ($(this).is(":checked")) {
+                    $(".service01").toggle();
+          // $(".service02", ".service03",".service04",".service05",".service06",".service07",".service08").hide();
+                } else {
+                    $(".service01").hide();
+                }
+            });
+      
+      
+        });
+    $(window).on("load",function(){
+  
+  
+  
+  $("#content-1").mCustomScrollbar({
+    live:true,
+    theme:"minimal"
+  });
+  $("#content-2").mCustomScrollbar({
+    live:true,
+    theme:"minimal"
+  });
+});
+    </script>
   </body>
 </html>

@@ -7,10 +7,16 @@ $(document).ready( function () {
 
 function set_sub_plan(subplanid){
 	document.getElementById('sub_plan').value = subplanid;
-	console.log("======");
 }
 
 function set_service(serviceid){
 	document.getElementById('service_id').value = serviceid;
-	console.log("======");
+}
+
+function set_plan (plan, el) {
+	console.log("I am here");
+	console.log(el);
+	$(".tab").removeClass('active');
+	$(el).addClass('tab active');
+	document.getElementById('plan').value = plan;
 }

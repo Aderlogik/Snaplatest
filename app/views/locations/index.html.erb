@@ -1,0 +1,37 @@
+<h1>Listing locations</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th>Country</th>
+    <th>Area</th>
+    <th>Acres</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @locations.each do |location| %>
+  <tr>
+    <td><%= location.name %></td>
+    <td><%= location.address %></td>
+    <td><%= location.city %></td>
+    <td><%= location.state %></td>
+    <td><%= location.zip %></td>
+    <td><%= location.country %></td>
+    <td><%= location.area %></td>
+    <td><%= location.acres %></td>
+    <td><%= link_to 'Show', [location.user, location] %></td>
+    <td><%= link_to 'Edit', edit_user_location_path(location.user, location) %></td>
+    <td><%= link_to 'Destroy', [location.user, location], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Location', new_user_location_path(params[:user_id]) %>
