@@ -1,7 +1,7 @@
  Rails.application.routes.draw do
-  resources :users do
-    resources :locations
-  end
+#  resources :users do
+#    resources :locations
+#  end
 #  resources :users do
 #    resources :subscriptions
 #  end
