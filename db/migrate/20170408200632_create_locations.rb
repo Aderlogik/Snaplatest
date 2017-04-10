@@ -8,8 +8,10 @@ class CreateLocations < ActiveRecord::Migration[5.0]
       t.string :state
       t.string :zip
       t.string :country
-      t.integer :area
-      t.integer :acres
+      t.string :area_in_feet
+      t.string :area_in_acres
+      t.integer :subscription_id
+      t.string :map_url
 
       t.timestamps
     end
