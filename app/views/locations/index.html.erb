@@ -1,37 +1,68 @@
-<h1>Listing locations</h1>
+<div class="page-container01">
+    <div class="col-md-9  white-bg">
+        <table cellpadding="0" cellspacing="0" class="table" width="100%">
+            <tr>
+                <td class="text-left"><strong>Address</strong></td>
+                <td class="text-right"><strong>Action</strong></td>
+            </tr>
+        </table>
+        <div class="panel-group locations" id="accordion" role="tablist" aria-multiselectable="false">
+            <% Location.all.each do |location| %>
+            <div class="location">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <table cellpadding="0" cellspacing="0" class="accordin-table">
+                            <tr>
+                                <td><%= location.address %></td>
+                                <td class="text-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> EDIT </a></td>
+                            </tr>
+                        </table>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Address</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Zip</th>
-    <th>Country</th>
-    <th>Area</th>
-    <th>Acres</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body location-map">
+                        <div><div class="form-group">
+                                <div class="icon-addon addon-lg">
+                                    <input type="text" placeholder="Beach 146th St" class="form-control">
+                                    <label for="email" class="glyphicon glyphicon-search"></label>
+                                </div>
+                            </div></div>
+                        <div>
+                            <%#*<img src="/assets/map02.png" width="100%" height="316">%>
+                            <div id="map" data-lat="<%= location.latitude %>" data-lng="<%= location.longitude %>"></div>
+                        </div>
 
-<% @locations.each do |location| %>
-  <tr>
-    <td><%= location.name %></td>
-    <td><%= location.address %></td>
-    <td><%= location.city %></td>
-    <td><%= location.state %></td>
-    <td><%= location.zip %></td>
-    <td><%= location.country %></td>
-    <td><%= location.area %></td>
-    <td><%= location.acres %></td>
-    <td><%= link_to 'Show', [location.user, location] %></td>
-    <td><%= link_to 'Edit', edit_user_location_path(location.user, location) %></td>
-    <td><%= link_to 'Destroy', [location.user, location], :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+                        <div class="row">
+                            <div class="col-md-6">Area: <%= location.area_in_feet %> feet, <%= location.area_in_acres %> acres</div>
+                            <div class="col-md-6 text-right">
+                                <a href="javascript:void(0);" class="btn btn-small">Remove last Marker</a>
+                                <a href="javascript:void(0);" class="btn btn-small">Clear Markers</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
 
-<br />
+<script type="text/javascript">
+  $( ".location" ).each(function( index ) {
+    console.log("123");
+    var myLatLng = {lat: -25.363, lng: 131.044};
 
-<%= link_to 'New Location', new_user_location_path(params[:user_id]) %>
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: myLatLng
+    });
+    console.log(map);
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Hello World!'
+    });   
+    console.log(marker);
+  });
+</script>
