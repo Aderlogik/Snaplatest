@@ -31,6 +31,8 @@
               <%= location.hidden_field :city, class: "location_city" %>
               <%= location.hidden_field :state, class: "location_state" %>
               <%= location.hidden_field :country, class: "location_country" %>
+              <%= location.hidden_field :latitude, class: "location_latitude" %>
+              <%= location.hidden_field :longitude, class: "location_longitude" %>
               <%= location.hidden_field :zip, class: "location_zip" %>
               <%= location.hidden_field :area_in_acres, class: "feet_hidden_field", value: 0 %>
               <%= location.hidden_field :area_in_feet, class: "area_hidden_field", value: 0 %>
@@ -552,6 +554,8 @@
     $("#subscription_location_attributes_state").val(location_state);
     $("#subscription_location_attributes_zip").val(location_zip);
     $("#subscription_location_attributes_country").val(location_country);
+    $("#subscription_location_attributes_latitude").val(place.geometry.location.lat());
+    $("#subscription_location_attributes_longitude").val(place.geometry.location.lng());
     $("#subscription_location_attributes_map_url").val(place.url);
   }
   
@@ -654,6 +658,7 @@
           anchor: new google.maps.Point(17, 34),
           scaledSize: new google.maps.Size(25, 25)
         };
+        console.log(place.geometry.location);
         get_address_components(place);
         // Create a marker for each place.
         markers.push(new google.maps.Marker({
@@ -673,7 +678,7 @@
     });  
   }
   google.maps.event.addDomListener(window, 'load', initialize);
-  <%#*google.maps.event.addDomListener(window, 'turbolinks:load', initialize);%>
+  google.maps.event.addDomListener(window, 'turbolinks:load', initialize);
 
 </script>
 <script type="text/javascript">
