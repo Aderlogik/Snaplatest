@@ -1,13 +1,71 @@
-<div class="page-container01">
-  <div class="col-md-12 white-bg no-padding">    
-    <div class="pane-header">
-      <h4></h4>
-    </div>  
-    <div style="margin-top: 40px; margin-left: 50px;">  
-      <div class="big-text">You don't have any services scheduled</div>
-      <p class="mid-text">Sign up to one of our plans to have full coverage for your <br />backyard and landscape.</p>
+<% if @subscriptions.empty? %> 
+  <div class="page-container01">
+    <div class="col-md-12 white-bg no-padding">    
+      <div class="pane-header">
+        <h4></h4>
+      </div>  
+      <div style="margin-top: 40px; margin-left: 50px;">  
+        <div class="big-text">You don't have any services scheduled</div>
+        <p class="mid-text">Sign up to one of our plans to have full coverage for your <br />backyard and landscape.</p>
 
-      <p><%= link_to "Book service", new_user_subscription_path(current_user.id), class: "btn btn-book-service" %></p>
+        <p><%= link_to "Book service", new_user_subscription_path(current_user.id), class: "btn btn-book-service" %></p>
+      </div>  
     </div>  
-  </div>  
-</div>
+  </div>
+<% else %>
+  <div class="page-container">
+    <div class="col-md-5">
+              <% @subscriptions.each do |subscription|%>
+                <div class="list-panel">
+                    <div class="list-panel-header"></div>
+                    <div class="list-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="list-date"><%= subscription.created_at.strftime("%Y/%m/%d") %></div>
+                                <div class="list-text"><%= subscription.location.name %> <br /> <%= subscription.plan.name %> </div>
+                            </div>
+                            <div class="col-md-3 text-right"><a href="javascript:void(0);" class="btn btn-view">VIEW</a></div>
+                        </div>
+                        <div class="service">
+                            <i class="service-line service-green"></i> 
+                            <h4><%= subscription.service.service_name %></h4>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+              <% end %>
+                
+            </div>
+            <!-- List End-->
+            <div class="col-md-5 white-bg">
+                <div class="services-header">
+                    <p>Beach 146th St</p>
+                </div>
+                <div><img src="images/map.png" width="100%"></div>
+                <div class="date-holder">
+                    Saturday, January 04  
+                    <div class="text-right">
+                        <a href="javascript:void(0);" class="btn btn-send-note">Send note</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="service-header">Services</div>
+                <div class="service">
+                    <i class="service-line service-green"></i> 
+                    <h4>Mowing Fine Lawn Areas</h4>
+                </div>
+                <div class="service">
+                    <i class="service-line service-green"></i> 
+                    <h4>Trimming all turf borders as neccessary</h4>
+                </div>
+                <div class="service">
+                    <i class="service-line service-green"></i> 
+                    <h4>Cleaning all landscape areas of liter & debris</h4>
+                </div>
+                <div class="service">
+                    <i class="service-line service-green"></i> 
+                    <h4>Cleaning all paved areas of clippings & debris</h4>
+                </div>
+            </div>
+  </div>
+<% end %>

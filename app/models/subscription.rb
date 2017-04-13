@@ -2,7 +2,7 @@ class Subscription < ApplicationRecord
   belongs_to :user
   belongs_to :sub_plan
   belongs_to :plan
-  has_many :services
+  belongs_to :service
   belongs_to :schedule
   has_one :location
 
