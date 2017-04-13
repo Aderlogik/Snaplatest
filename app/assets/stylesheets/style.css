@@ -771,7 +771,7 @@ input[type=checkbox] {
 	text-align:center;
 }
 .card-input-bg input.small {
-	width:25%;
+	width:100%;
 }
 .card-input-bg input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
  color: #fff;
