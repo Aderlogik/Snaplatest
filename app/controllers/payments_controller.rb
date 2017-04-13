@@ -27,18 +27,14 @@ class PaymentsController < ApplicationController
     @amount = 500
     require "stripe"
     Stripe.api_key = "sk_test_1pi6OyXmiHrPyIyq3PNF3oFY"
-    binding.pry
-
     token = Stripe::Token.create(:card => {:number => params[:payment][:card_number],:exp_month => params[:payment][:exp_month], :exp_year => params[:payment][:exp_year],:cvc => params[:payment][:cvc]})
 
-    binding.pry
 
     customer = Stripe::Customer.create(
       email: "prashant@example.com",
       source: token
     )
 
-    binding.pry
 
     charge = Stripe::Charge.create(
       customer: customer.id,
@@ -47,11 +43,9 @@ class PaymentsController < ApplicationController
       currency: 'usd'
     )
 
-    binding.pry
     rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to new_payment_path
-    binding.pry
 
     @payment = Payment.new(payment_params)
 
