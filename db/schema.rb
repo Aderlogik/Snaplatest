@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409135409) do
+ActiveRecord::Schema.define(version: 20170410173130) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -20,12 +20,27 @@ ActiveRecord::Schema.define(version: 20170409135409) do
     t.string   "state"
     t.string   "zip"
     t.string   "country"
-    t.integer  "area"
-    t.integer  "acres"
+    t.string   "area_in_feet"
+    t.string   "area_in_acres"
+    t.integer  "subscription_id"
+    t.string   "map_url"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "subscription_id"
     t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string   "card_number"
+    t.string   "card_holder_name"
+    t.string   "cvc"
+    t.integer  "subscription_id"
+    t.integer  "location_id"
+    t.integer  "user_id"
+    t.integer  "exp_month"
+    t.string   "stripe_card_token"
+    t.integer  "exp_year"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "plans", force: :cascade do |t|

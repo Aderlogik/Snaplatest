@@ -25,7 +25,7 @@ class SubscriptionsController < ApplicationController
   def create
     @subscription = @user.subscriptions.build(subscription_params)
     if @subscription.save
-      redirect_to([@subscription.user, @subscription], notice: 'Subscription was successfully created.')
+      redirect_to new_payment_path
     else
       render action: 'new'
     end
