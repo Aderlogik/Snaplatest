@@ -1,8 +1,10 @@
 $(document).ready( function () {
-	$("#plan01")[0].checked = true;
-	$("#s1")[0].checked = true;
-	$(".tab")[0].className = "tab active";
-	$(".btn-bordered-small")[0].className = "btn btn-solid-small";
+    if($("#plan01")[0]){
+        $("#plan01")[0].checked = true;
+        $("#s1")[0].checked = true;
+        $(".tab")[0].className = "tab active";
+        $(".btn-bordered-small")[0].className = "btn btn-solid-small";
+    }    
 });
 
 function set_sub_plan(subplanid){
