@@ -20,8 +20,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string   :last_sign_in_ip
       t.string :first_name
       t.string :last_name
-      t.integer :secondary_phone
-      t.integer :phone
+      t.string :secondary_phone
+      t.string :phone
       t.string :personal_email
       t.string :address
 
