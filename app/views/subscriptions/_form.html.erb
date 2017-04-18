@@ -6,7 +6,7 @@
       </div>
       <div class="panel-body">
           <div class="col-md-2l-md-12">
-            <p>Please provide the address of the loca@on you want services for.<br />
+            <p>Please provide the address of the location you want services for.<br />
             On the map you will find a tool to calculate the size of your property</p>
             <div class="form-group ">
               <div class="icon-addon addon-lg">
@@ -17,9 +17,9 @@
               <title>Drawing Tools</title>
                 <div id="panel">
                   <%#*<div id="color-palette"></div>%>
-                  <div>
-                    <button id="delete-button">Delete Selected Shape</button>
-                  </div>
+                  <%#*<div>%>
+                    <%#*<button id="delete-button">Delete Selected Shape</button>%>
+                  <%#*</div>%>
                 </div>
                 <div id="map"></div>
             </div>
@@ -47,7 +47,7 @@
       </div>
       <div class="panel-body">
         <p>The landscaping plan consists on the following services. You can <br />
-        choose the frequency that be=er fits your needs</p>
+        choose the frequency that better fits your needs</p>
         <ul class="font-bold">
           <li>Mowing Fine Lawn Areas</li>
           <li>Trimming all turf borders as neccessary</li>
@@ -617,7 +617,7 @@
     // map is clicked.
     google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
     google.maps.event.addListener(map, 'click', clearSelection);
-    google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
+    <%#*google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);%>
     buildColorPalette();
   
     // Create the search box and link it to the UI element.

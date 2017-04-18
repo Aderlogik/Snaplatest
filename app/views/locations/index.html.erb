@@ -14,13 +14,19 @@
                         <table cellpadding="0" cellspacing="0" class="accordin-table">
                             <tr>
                                 <td><%= location.address %></td>
-                                <td class="text-right"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= location.id %>" aria-expanded="true" aria-controls="collapseOne"> EDIT </a></td>
+                                <td class="text-right">
+                                    <a class="asd" role="button" data-toggle="collapse" onclick="init_map(this, <%= location.id %>)"
+                                      data-parent="#accordion" href="#collapse<%= location.id %>" 
+                                      aria-expanded="true" aria-controls="collapseOne"> 
+                                      EDIT 
+                                    </a>
+                                </td>
                             </tr>
                         </table>
 
                     </h4>
                 </div>
-                <div id="collapse<%= location.id %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div id="collapse<%= location.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body location-map">
                         <div><div class="form-group">
                                 <div class="icon-addon addon-lg">
@@ -48,10 +54,14 @@
 </div>
 
 <script type="text/javascript">
-  $( ".location" ).each(function( index ) {
-    var myLatLng = {lat: parseFloat($(this).find("#map").attr("data-lat")), lng: parseFloat($(this).find("#map").attr("data-lng"))};
+  <%#*$( ".location" ).each(function( index ) {%>
+    
+  function init_map(ctrl, location_id){ 
+    $("#collapse"+location_id).collapse("toggle");
+    var map_dom = $(ctrl).closest(".location").find("#map");
+    var myLatLng = {lat: parseFloat(map_dom.attr("data-lat")), lng: parseFloat(map_dom.attr("data-lng"))};
 
-    var map = new google.maps.Map($(this).find("#map")[0], {
+    var map = new google.maps.Map(map_dom[0], {
       zoom: 15,
       center: myLatLng,
       mapTypeId: google.maps.MapTypeId.HYBRID
@@ -60,7 +70,8 @@
     var marker = new google.maps.Marker({
       position: myLatLng,
       map: map,
-      title: $(this).find("#map").attr("data-title")
-    });   
-  });
+      title: map_dom.attr("data-title")
+    });  
+  }  
+  <%#*});%>
 </script>
