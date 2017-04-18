@@ -64,7 +64,7 @@
             <%= f.hidden_field :plan_id, id: "plan", value: Plan.first.id %>
             <% Plan.all.each do |plan| %>
               <li>
-                <a class="tab", onclick="set_plan(<%= plan.id %>, this)"><%= plan.name %></a>
+                <a class="tab", onclick="set_plan(<%= plan.id %>, this)", id=plan_<%= plan.id %>><%= plan.name %></a>
               </li>
             <% end %>
           </ul>
@@ -76,7 +76,9 @@
             <div class="plan">
               <div class="col-md-12">
                 <%= f.hidden_field :sub_plan_id, id: "sub_plan", value: Subplan.first.id %>
+                
                   <% Subplan.all.each do |subplan|%>
+                  <div id="subplan_<%= subplan.id %>">
                     <div class="col-md-4 plan-holder">
                     <h2>
                       <% if subplan.name == "Monthly" %>
@@ -96,7 +98,9 @@
                         <label for="plan0<%= subplan.id %>"></label>
                       </div>
                     </div>
+                
                   </div>
+                </div>
                 <% end %>
               </div>
             </div>
@@ -151,7 +155,7 @@
                 </table>
               </div>
               <div class="col-md-7 selected-service"> 
-                <!-- <h2 class="service-text-add">ADD AN EXTRA SERVICE</h2>-->
+                 <!-- <h2 class="service-text-add">ADD AN EXTRA SERVICE</h2> -->
                 <div class="service01 services-details">
                   <h3>Description</h3>
                   <p>Edging of flower beds to maintain neat appearance.</p>
@@ -682,6 +686,33 @@
 
 </script>
 <script type="text/javascript">
+  $( document ).ready(function() {
+    $(".service01, .service02, .service03, .service04, .service05, .service06, .service07, .service08").hide();
+    $("#plan_1").removeClass("tab");
+    $("#plan_1").addClass("tab active");
+    $("#subplan_1").show();
+    $("#subplan_2").show();
+    $("#subplan_3").show();
+    $("#subplan_4").hide();
+    $("#subplan_5").hide();
+    $("#subplan_6").hide();
+  });
+  $("#plan_2").click(function () {
+    $("#subplan_1").hide();
+    $("#subplan_2").hide();
+    $("#subplan_3").hide();
+    $("#subplan_4").show();
+    $("#subplan_5").show();
+    $("#subplan_6").show();
+  });
+  $("#plan_1").click(function () {
+    $("#subplan_1").show();
+    $("#subplan_2").show();
+    $("#subplan_3").show();
+    $("#subplan_4").hide();
+    $("#subplan_5").hide();
+    $("#subplan_6").hide();
+  });
   $(".service_check").click(function () {
     if ($("#s1").is(":checked")) {
       $(".service02, .service03, .service04, .service05, .service06, .service07, .service08").hide();

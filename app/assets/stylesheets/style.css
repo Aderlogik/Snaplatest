@@ -610,6 +610,7 @@ input[type=checkbox] {
 	font-family: 'latoregular';
 	font-size:28px;
 	color:#979797;
+	margin-top: 150px;
 }
 .summary-title {
 	font-family: 'latolight';
