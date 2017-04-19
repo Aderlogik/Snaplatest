@@ -4,6 +4,18 @@
       <div class="pane-header">
         <h4> Information </h4>
       </div>
+
+      <% if @subscription.errors.any? %>
+                <div id="error_explanation", class="alert alert-danger">
+                  <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this customer from being saved:</h2>
+                  <ul>
+                    <% @subscription.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+      
       <div class="panel-body">
           <div class="col-md-2l-md-12">
             <p>Please provide the address of the location you want services for.<br />
