@@ -10,7 +10,7 @@
 
         <p><%= link_to "Book service", new_user_subscription_path(current_user.id), class: "btn btn-book-service" %></p>
       </div>  
-    </div>  
+    </div> 
   </div>
 <% else %>
   <div class="page-container">
@@ -28,7 +28,7 @@
                         </div>
                         <div class="service">
                             <i class="service-line service-green"></i> 
-                            <h4><%= subscription.service.service_name %></h4>
+                            <h4><%= truncate(subscription.service.service_name) %></h4>
                         </div>
                         <div class="clearfix"></div>
                     </div>
