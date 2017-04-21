@@ -10,7 +10,7 @@ class PaymentsController < ApplicationController
   # GET /payments/1
   # GET /payments/1.json
   def show
-    
+
   end
 
   # GET /payments/new
@@ -30,7 +30,7 @@ class PaymentsController < ApplicationController
     Stripe.api_key = "sk_test_1pi6OyXmiHrPyIyq3PNF3oFY"
     token = Stripe::Token.create(:card => {:number => params[:payment][:card_number],:exp_month => params[:payment][:exp_month], :exp_year => params[:payment][:exp_year],:cvc => params[:payment][:cvc]})
 
-binding.pry
+
     customer = Stripe::Customer.create(
       email: "prashant@example.com",
       source: token
@@ -50,7 +50,7 @@ binding.pry
 
     respond_to do |format|
       if @payment.save
-        format.html { redirect_to user_subscriptions_path(current_user), notice: 'Payment was successfully created.' }
+        format.html { redirect_to payments_path, notice: 'Payment was successfully created.' }
         format.json { render :show, status: :created, location: @payment }
       else
         format.html { render :new }
