@@ -74,7 +74,8 @@
                 LOCATIONS
                 </a>
             </li>
-            <li><a href="javascript:void(0);"><i class="fa fa-credit-card" aria-hidden="true"></i> PAYMENTS</a></li>
+            <li><a href="<%= payments_path %>"><i class="fa fa-credit-card" aria-hidden="true"></i> PAYMENTS</a>
+            </li>
             <li class="new-services"><a href="<%= new_user_subscription_path(current_user.id) %>"><i class="fa fa-plus" aria-hidden="true"></i> NEW SERVICE</a></li>
         </ul>
         

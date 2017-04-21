@@ -10,6 +10,7 @@ class PaymentsController < ApplicationController
   # GET /payments/1
   # GET /payments/1.json
   def show
+    
   end
 
   # GET /payments/new
@@ -29,24 +30,22 @@ class PaymentsController < ApplicationController
     Stripe.api_key = "sk_test_1pi6OyXmiHrPyIyq3PNF3oFY"
     token = Stripe::Token.create(:card => {:number => params[:payment][:card_number],:exp_month => params[:payment][:exp_month], :exp_year => params[:payment][:exp_year],:cvc => params[:payment][:cvc]})
 
-
+binding.pry
     customer = Stripe::Customer.create(
       email: "prashant@example.com",
       source: token
     )
-
-
+    
     charge = Stripe::Charge.create(
       customer: customer.id,
       amount: @amount,
       description: 'Rails Stripe customer',
       currency: 'usd'
     )
-
-    rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_payment_path
-
+    
+    # rescue Stripe::CardError => e
+    # flash[:error] = e.message
+    
     @payment = Payment.new(payment_params)
 
     respond_to do |format|
