@@ -1,5 +1,5 @@
  Rails.application.routes.draw do
-  resources :payments
+  
 #  resources :users do
 #    resources :locations
 #  end
@@ -26,5 +26,7 @@
   resources :users do
     resources :subscriptions
     resources :locations
+    resources :payments
+    
   end
 end
