@@ -23,10 +23,9 @@
     root to: "users/sessions#new"
   end
 
+  resources :payments
   resources :users do
     resources :subscriptions
     resources :locations
-    resources :payments
-    
   end
 end
