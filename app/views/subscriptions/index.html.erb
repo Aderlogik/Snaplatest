@@ -21,10 +21,12 @@
                     <div class="list-body">
                         <div class="row">
                             <div class="col-md-9">
-                                <div class="list-date"><%= subscription.created_at.strftime("%Y/%m/%d") %></div>
+                                <div class="list-date"><%= subscription.created_at.strftime("%m/%d/%Y") %></div>
                                 <div class="list-text"><%= subscription.location.name %> <br /> <%= subscription.plan.name %> </div>
                             </div>
-                            <div class="col-md-3 text-right"><a href="javascript:void(0);" class="btn btn-view">VIEW</a></div>
+                            <div class="col-md-3 text-right">
+                                <%= link_to 'VIEW', "javascript:void(0)", class: 'btn btn-view view-subscription' %>
+                            </div>
                         </div>
                         <div class="service">
                             <i class="service-line service-green"></i> 
@@ -37,37 +39,40 @@
                 
             </div>
             <!-- List End-->
-            <div class="col-md-5 white-bg">
-                <div class="services-header">
-                    <p>Beach 146th St</p>
-                </div>
-                <div><img src="/assets/map.png" width="100%"></div>
-                <div class="date-holder">
-                    Saturday, January 04  
-                    <div class="text-right">
-                        <a href="javascript:void(0);" class="btn btn-send-note">Send note</a>
+            <div class="google-map" id="gmap-wrapper">
+                <div class="col-md-5 white-bg">
+                    <div class="services-header">
+                        <p>Beach 146th St</p>
                     </div>
+                    <div><img src="/assets/map.png" width="100%"></div>
+                    <div class="date-holder">
+                        Saturday, January 04  
+                        <div class="text-right">
+                            <%= link_to 'Send note', "javascript:void(0)", class: 'btn btn-send-note' %>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="service-header">Services</div>
+                    <div class="service">
+                        <i class="service-line service-green"></i> 
+                        <h4>Mowing Fine Lawn Areas</h4>
+                    </div>
+                    <div class="service">
+                        <i class="service-line service-green"></i> 
+                        <h4>Trimming all turf borders as neccessary</h4>
+                    </div>
+                    <div class="service">
+                        <i class="service-line service-green"></i> 
+                        <h4>Cleaning all landscape areas of liter & debris</h4>
+                    </div>
+                    <div class="service">
+                        <i class="service-line service-green"></i> 
+                        <h4>Cleaning all paved areas of clippings & debris</h4>
+                    </div></br>
+                    
                 </div>
-                <div class="clearfix"></div>
-                <div class="service-header">Services</div>
-                <div class="service">
-                    <i class="service-line service-green"></i> 
-                    <h4>Mowing Fine Lawn Areas</h4>
-                </div>
-                <div class="service">
-                    <i class="service-line service-green"></i> 
-                    <h4>Trimming all turf borders as neccessary</h4>
-                </div>
-                <div class="service">
-                    <i class="service-line service-green"></i> 
-                    <h4>Cleaning all landscape areas of liter & debris</h4>
-                </div>
-                <div class="service">
-                    <i class="service-line service-green"></i> 
-                    <h4>Cleaning all paved areas of clippings & debris</h4>
-                </div></br>
-                
             </div>
 
   </div>
 <% end %>
+<%= render 'subscription_data_modal' %>
