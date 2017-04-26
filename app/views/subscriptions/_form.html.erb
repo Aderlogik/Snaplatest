@@ -76,7 +76,7 @@
             <%= f.hidden_field :plan_id, id: "plan", value: Plan.first.id %>
             <% Plan.all.each do |plan| %>
               <li>
-                <a class="tab", onclick="set_plan(<%= plan.id %>, this)", id=plan_<%= plan.id %>><%= plan.name %></a>
+                <a href="javascript:void(0);" class="tab" onclick="set_plan(<%= plan.id %>, this)" id=plan_<%= plan.id %>><%= plan.name %></a>
               </li>
             <% end %>
           </ul>
@@ -121,8 +121,8 @@
       <!-- Tab Holder End--> 
       </div>
       <!--Schedule -->
-      <div class="pane-header">
-        <h4> Schedule </h4>
+      <div style="padding-left: 20px;">
+        <h1 class="head"> Schedule </h1>
       </div>
       <div class="panel-body">
         <h4>What day of the week is best for service?</h4>
@@ -449,7 +449,7 @@
               </div>
             </div>
           </div>
-          <div class="btn-save-continue"><%= f.submit "save & continue" %></div>
+          <div class="btn-save-continue"><%= f.submit "SAVE & CONTINUE", style: "border: none;background: #d8d8d8;" %></div>
         </div>
       </div>
 <% end %>
