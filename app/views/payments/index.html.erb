@@ -4,7 +4,7 @@
       <h4><strong>Payment method</strong></h4>
       <div class="font-bold">
          <table cellpadding="0" cellspacing="0" width="100%">
-          <% if @payments.nil? == false %>
+          <% if !@payments.nil? && !@payments.first.nil? %>
             <tr>
                <td><img src="/assets/visa.png" width="50"></td>
                <td><%= @payments.first.card_number %></td>
@@ -90,3 +90,8 @@
 </div>
 <!-- Login Form End-->
 <div class="clearfix"></div>
+
+<script type="text/javascript">
+    $('.left-sidebar li.active').removeClass('active');
+    $("li.payment").addClass('active');
+</script>    

@@ -54,6 +54,8 @@
 </div>
 
 <script type="text/javascript">
+  $('.left-sidebar li.active').removeClass('active');
+  $("li.location_tab").addClass('active');
   <%#*$( ".location" ).each(function( index ) {%>
     
   function init_map(ctrl, location_id){ 

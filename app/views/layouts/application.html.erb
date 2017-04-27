@@ -11,13 +11,7 @@
     <title>Services</title>
 
     <!-- Bootstrap -->  
-    <%#= stylesheet_link_tag "bootstrap", media: "all" %>
-    <%#= stylesheet_link_tag "application", media: "all" %>
     <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-eval' => false %>
-    <%#= stylesheet_link_tag "font-awesome.min", media: "all" %>
-    <%#= stylesheet_link_tag "overrides", media: "all" %>
-    <%#= stylesheet_link_tag "jquery.mCustomScrollbar", media: "all" %>
-    <%#= stylesheet_link_tag "service", media: "all" %>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -63,20 +57,24 @@
     <!-- Login Form Start-->
     <div class="left-sidebar">
         <ul>
-          <li class="active">
+          <li class="service_tab">
               <a href="<%= user_subscriptions_path(current_user.id) %>">
                   <i class="services"></i>
                 Services
                 </a>
             </li>
-            <li><a href="<%= user_locations_path(current_user.id) %>">
-              <i class="fa fa-map-marker" aria-hidden="true"></i> 
-                LOCATIONS
+            <li class="location_tab">
+                <a href="<%= user_locations_path(current_user.id) %>">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i> 
+                  LOCATIONS
                 </a>
             </li>
-            <li><a href="<%= payments_path %>"><i class="fa fa-credit-card" aria-hidden="true"></i> PAYMENTS</a>
+            <li class="payment">
+                <a href="<%= payments_path %>"><i class="fa fa-credit-card" aria-hidden="true"></i> PAYMENTS</a>
             </li>
-            <li class="new-services"><a href="<%= new_user_subscription_path(current_user.id) %>"><i class="fa fa-plus" aria-hidden="true"></i> NEW SERVICE</a></li>
+            <li class="new-services">
+                <a href="<%= new_user_subscription_path(current_user.id) %>"><i class="fa fa-plus" aria-hidden="true"></i> NEW SERVICE</a>
+            </li>
         </ul>
         
         <div class="bottom-logo">SNAP4</div>
@@ -89,10 +87,6 @@
     
 <!-- Slider End-->
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <%#= javascript_include_tag "jquery-min" %>
-    <%#= javascript_include_tag "bootstrap.min.js", 'data-turbolinks-eval' => false %>
-    <%#= javascript_include_tag "jquery.mCustomScrollbar.concat.min.js", 'data-turbolinks-eval' => false %>
     
 <script type="text/javascript">
         $(function () {
@@ -119,7 +113,7 @@
     live:true,
     theme:"minimal"
   });
-});
+}); 
     </script>
   </body>
 </html>

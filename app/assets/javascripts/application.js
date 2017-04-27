@@ -15,3 +15,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(window).on("turbolinks:load",function(){
+    $('.left-sidebar').on('click', 'a', function() {
+        $('.left-sidebar li.active').removeClass('active');
+        $(this).closest("li").addClass('active');
+    });
+}); 
