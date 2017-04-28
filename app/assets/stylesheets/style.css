@@ -801,3 +801,6 @@ input[type=checkbox] {
 .scrollbar {
 	height:400px
 }
+.center-text{
+    text-align: center;
+}
