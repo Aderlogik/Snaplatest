@@ -5,6 +5,7 @@ class Subscription < ApplicationRecord
   belongs_to :service
   belongs_to :schedule
   has_one :location
+  has_many :payment_methods
 
   attr_accessor :sub_plan_id_temp, :service_id_temp
   accepts_nested_attributes_for :location
