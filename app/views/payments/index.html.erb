@@ -14,7 +14,8 @@
           <% end %>
          </table>
       </div>
-      <h4 class="text-right"><strong>Add Payment Method</strong></h4>
+      <h4 class="text-right"><%= link_to 'Add Payment Method', new_payment_method_path,data: { no_turbolink: true }, class: 'add_payment' %>
+</h4>
       <h4><strong>Service history</strong></h4>
       <% @payments.each do |payment| %>
         <div class="list-panel">

@@ -22,7 +22,7 @@
   devise_scope :user do
     root to: "users/sessions#new"
   end
-
+  resources :payment_methods
   resources :payments
   resources :users do
     resources :subscriptions
