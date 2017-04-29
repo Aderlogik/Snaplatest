@@ -1,0 +1,113 @@
+<%= form_for(@payment_method) do |f| %>
+
+  <div class="page-container01 user-setting">
+    <div class="col-md-9  white-bg no-padding">
+      <div class="pane-header">
+        <h4>Payment</h4>
+      </div>
+      <% if payment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(payment_method.errors.count, "error") %> prohibited this payment from being saved:</h2>
+          <ul>
+            <% payment_method.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.hidden_field :stripe_card_token %>
+
+      <div class="panel-body">
+        <h4>Credit Card Type</h4>
+        <div> <a href="javascript:void(0);"><img src="/assets/visa.png" width="94" height="58" alt="Visa"></a> <a href="javascript:void(0);"><img src="/assets/masterCard.png" alt="Visa"></a> <a href="javascript:void(0);"><img src="/assets/ae.png"  alt="Visa"></a> </div>
+        <div class="card-bg margintop-15">
+          <div class="card-front">
+            <div class="text-right"><img src="/assets/visa-logo.png" width="106" height="37"></div>
+            <div class="row card-details">
+              <div class="col-md-9">
+                <div>CARD NUMBER</div>
+                <div class="card-input-bg">
+                  <%= f.text_field :card_number, class: "small", type: "text", placeholder: "XXXXX XXXXX XXXX XXXX" %>
+                </div>
+              </div>
+            </div>
+            <div class="row margintop30">
+              <div class="col-md-8">
+                <div>CARD HOLDER</div>
+                <div class="card-input-bg">
+                  <%= f.text_field :card_holder_name, type: "text", class: "text-left", placeholder: "e.g. NAME LASTNAME", style: "text-align:left;"%>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <div>EXPIRATION DATE</div>
+                  <div class="col-md-6">
+                    <div class="card-input-bg">
+                      <%= f.text_field :exp_month, type: "text", placeholder: "MM"%>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card-input-bg">
+                      <%= f.text_field :exp_year, type: "text", placeholder: "YY"%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-back">
+            <div class="">
+              <div>CVC/CVV</div>
+              <div class="card-input-bg">
+                <%= f.text_field :cvv, type: "text", class: "text-left", placeholder: "XXXX-X"%>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+      <div class="panel-body">
+      <h1 class="summary-title">Billing Review</h1>
+      <div class="extra-services row">
+        <div class="col-md-2"></div>
+        <div class="billing-summary col-md-10">
+          <div class="col-md-5">
+            <h5>Plan</h5>
+            <p>Bi-Weekly Landscaping Plan Minimum 6 months</p>
+            <h5>Extras</h5>
+            <p>Edging of shrub & plant beds /w Mulching /w</p>
+            <h5>Property</h5>
+            <p>0.28 Acres</p>
+          </div>
+          <div class="col-md-5">
+            <h5>Billing</h5>
+            <table cellpadding="0" cellspacing="0" class="billing-total">
+              <tr>
+                <td>Lanscaping Package</td>
+                <td>$55</td>
+              </tr>
+              <tr class="border-bottom">
+                <td>Fee</td>
+                <td>$3</td>
+              </tr>
+              <tr class="border-bottom">
+                <td class="font-lato-regulor">Recurring Weekly total</td>
+                <td class="font-lato-regulor">$58</td>
+              </tr>
+              <tr>
+                <td class="font-lato-regulor">Today's total</td>
+                <td class="font-lato-regulor">$58</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+        <div class="text-right">
+          <%#= f.submit "ACCEPT", type: "button", class: "btn btn-solid"%>
+          <%= f.submit %>
+        </div>
+    </div>
+    </div>
+  </div>
+<% end %>

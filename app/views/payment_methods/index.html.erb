@@ -1,0 +1,98 @@
+<div class="page-container">
+   <!-- List Start-->
+   <div class="col-md-5">
+      <h4><strong>Payment method</strong></h4>
+      <div class="font-bold">
+         <table cellpadding="0" cellspacing="0" width="100%">
+          <% if !@payment_methods.nil? && !@payment_methods.first.nil? %>
+            <tr>
+               <td><img src="/assets/visa.png" width="50"></td>
+               <td><%= @payment_methods.first.card_number %></td>
+               <td><%= @payment_methods.first.card_holder_name %></td>
+               <td class="text-right"><a href="javascript:void(0);" class="btn btn-view">EDIT</a></td>
+            </tr>
+          <% end %>
+         </table>
+      </div>
+      <h4 class="text-right"><%= link_to 'Add Payment Method', new_payment_method_path,data: { no_turbolink: true }, class: 'add_payment' %>
+</h4>
+      <h4><strong>Service history</strong></h4>
+      <% @payment_methods.each do |payment| %>
+        <div class="list-panel">
+         <div class="list-panel-header-gray"></div>
+         <div class="list-body">
+            <div class="row">
+               <div class="col-md-9">
+                  <div class="list-date"><%= payment.created_at %></div>
+                  <div class="list-text">10:00 AM - 12:00PM</div>
+                  <%# if payment.location_id.nil? == false %>
+                    <div><%#= payment.address %><br>Weekly Service</div>
+                  <%# end %>
+               </div>
+               <div class="col-md-3 text-right">
+                  <%= link_to 'View', payment_methods_path,data: { no_turbolink: true }, class: 'add_payment' %>
+                  <div class="list-text text-right" style="text-align:center;">$50</div>
+               </div>
+            </div>
+            <div class="service">
+               <i class="service-line service-green"></i> 
+               <h4>Weekly Maintenance</h4>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+        </div>
+      <% end %>
+   </div>
+   <!-- List End-->
+   <div class="col-md-5 white-bg">
+      <div class="services-header">
+         <p>Beach 146th St</p>
+      </div>
+      <div><img src="/assets/map.png" width="100%"></div>
+      <div class="date-holder font-bold">Saturday, January 04 <br>10:00 AM - 12:00 PM  </div>
+      <div class="clearfix"></div>
+      <div class="service-header">Bill</div>
+      <div class="panel-body">
+         <div class=" row">
+            <div class="billing-summary col-md-12">
+               <div class="col-md-12">
+                  <h5>Plan</h5>
+                  <p>Bi-Weekly Landscaping Plan Minimum 6 months</p>
+                  <h5>Extras</h5>
+                  <p>Edging of shrub & plant beds /w Mulching /w</p>
+                  <h5>Property</h5>
+                  <p>0.28 Acres</p>
+               </div>
+               <div class="col-md-12">
+                  <h5>Billing</h5>
+                  <table cellpadding="0" cellspacing="0" class="billing-total">
+                     <tr>
+                        <td>Lanscaping Package</td>
+                        <td>$55</td>
+                     </tr>
+                     <tr class="border-bottom">
+                        <td>Fee</td>
+                        <td>$3</td>
+                     </tr>
+                     <tr class="border-bottom">
+                        <td class="font-lato-regulor">Recurring Weekly total</td>
+                        <td class="font-lato-regulor">$58</td>
+                     </tr>
+                     <tr>
+                        <td class="font-lato-regulor">Today's total</td>
+                        <td class="font-lato-regulor">$58</td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Login Form End-->
+<div class="clearfix"></div>
+
+<script type="text/javascript">
+    $('.left-sidebar li.active').removeClass('active');
+    $("li.payment").addClass('active');
+</script>    
