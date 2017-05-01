@@ -1,0 +1,57 @@
+<div class="google-map" id="gmap-wrapper">
+    <div class="col-md-6 white-bg">
+        <div class="services-header">
+            <p><%= @location.address %></p>
+        </div>
+        <div>
+            <div id="map" data-title="<%= @location.address %>" data-lat="<%= @location.latitude %>" data-lng="<%= @location.longitude %>"></div>
+        </div>
+        <div class="date-holder">
+            <div>Area: <%= @location.area_in_acres %> acres</div>   
+            <%=  @subscription.created_at.strftime("%A, %B %d") %>
+            <div class="text-right">
+                <%= link_to 'Call', "javascript:void(0)", class: 'btn btn-send-note' %>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="service-header">Services</div>
+        <div class="service">
+            <i class="service-line service-green"></i> 
+            <h4>Mowing Fine Lawn Areas</h4>
+        </div>
+        <div class="service">
+            <i class="service-line service-green"></i> 
+            <h4>Trimming all turf borders as neccessary</h4>
+        </div>
+        <div class="service">
+            <i class="service-line service-green"></i> 
+            <h4>Cleaning all landscape areas of liter & debris</h4>
+        </div>
+        <div class="service">
+            <i class="service-line service-green"></i> 
+            <h4>Cleaning all paved areas of clippings & debris</h4>
+        </div></br>
+
+    </div>
+</div>
+
+<script>
+  $('.btn-send-note').click(function(){
+    $('#subscriptions_modal').modal('show');
+  })
+  
+    var map_dom = $("#map");
+    var myLatLng = {lat: parseFloat(map_dom.attr("data-lat")), lng: parseFloat(map_dom.attr("data-lng"))};
+
+    var map = new google.maps.Map(map_dom[0], {
+      zoom: 15,
+      center: myLatLng,
+      mapTypeId: google.maps.MapTypeId.HYBRID
+    });
+    
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: map_dom.attr("data-title")
+    });  
+</script>  

@@ -9,6 +9,7 @@ class SubscriptionsController < ApplicationController
 
   # GET users/1/subscriptions/1
   def show
+    @location = @subscription.location
   end
 
   # GET users/1/subscriptions/new
