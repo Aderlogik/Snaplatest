@@ -8,7 +8,8 @@ class PaymentMethodsController < ApplicationController
   end
 
 	def create 
-	@amount = 500
+	 begin
+     @amount = 500
     require "stripe"
     Stripe.api_key = "sk_test_1pi6OyXmiHrPyIyq3PNF3oFY"
     token = Stripe::Token.create(:card => {:number => params[:payment_method][:card_number],:exp_month => params[:payment_method][:exp_month], :exp_year => params[:payment_method][:exp_year],:cvc => params[:payment_method][:cvc]})
@@ -39,6 +40,12 @@ class PaymentMethodsController < ApplicationController
         format.json { render json: @payment_method.errors, status: :unprocessable_entity }
       end
     end
+   rescue Exception => e
+     respond_to do |format|
+      format.html { redirect_to payment_methods_path, alert: '#{e.message}' }
+     end
+   end
+   
 	end
   private
     # Use callbacks to share common setup or constraints between actions.
