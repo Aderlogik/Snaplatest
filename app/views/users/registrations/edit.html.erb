@@ -1,6 +1,8 @@
 <div>
   <% flash.each do |key, value| %>
-    <%= content_tag :div, value, class: "flash #{key}" %>
+    <% if !value.downcase.include? "signed" %>
+      <%= content_tag :div, value, class: "flash #{key}" %>
+    <% end %>
   <% end %>
 </div>    
 

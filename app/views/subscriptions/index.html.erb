@@ -22,11 +22,10 @@
                   <div class="row">
                       <div class="col-md-9">
                           <div class="list-date"><%= subscription.created_at.strftime("%m/%d/%Y") %></div>
-                          <div class="list-text"><%= subscription.location.name %> <br /> <%= subscription.plan.name %> </div>
+                          <div class="list-text"><%= subscription.location.address %> <br /> <%= subscription.plan.name %> </div>
                       </div>
                       <div class="col-md-3 text-right">
                           <a href="<%= user_subscription_path(current_user.id, subscription.id) %>" class="btn btn-view view-subscription" data-remote="true">VIEW</a>
-                          <%#= link_to 'VIEW', "javascript:void(0)", class: 'btn btn-view view-subscription' %>
                       </div>
                   </div>
                   <div class="service">

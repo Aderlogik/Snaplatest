@@ -23,7 +23,7 @@
          <div class="list-body">
             <div class="row">
                <div class="col-md-9">
-                  <div class="list-date"><%= payment.created_at %></div>
+                  <div class="list-date"><%= payment.created_at.strftime("%m/%d/%Y") %></div>
                   <div class="list-text">10:00 AM - 12:00PM</div>
                   <% if payment.location_id.nil? == false %>
                     <div><%= payment.address %><br>Weekly Service</div>

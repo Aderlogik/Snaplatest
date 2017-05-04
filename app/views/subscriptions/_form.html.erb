@@ -1,4 +1,4 @@
-<%= form_for([@subscription.user, @subscription]) do |f| %>
+  A Q<%= form_for([@subscription.user, @subscription], :html => { :onsubmit => "return validate()" }) do |f| %>
   <div class="page-container01">
     <div class="col-md-12 white-bg no-padding">
       <div class="pane-header">
@@ -768,16 +768,21 @@
       
         });
     $(window).on("load",function(){
-  
-  
-  
-  $("#content-1").mCustomScrollbar({
-    live:true,
-    theme:"minimal"
+      $("#content-1").mCustomScrollbar({
+        live:true,
+        theme:"minimal"
+      });
+      $("#content-2").mCustomScrollbar({
+        live:true,
+        theme:"minimal"
+      });
   });
-  $("#content-2").mCustomScrollbar({
-    live:true,
-    theme:"minimal"
-  });
-});
-    </script>
+  
+  function validate(){
+    var area = $("#subscription_location_attributes_area_in_acres").val();
+    if(area === "0"){
+      alert("Please select your location on map");
+      return false;
+    }
+  }
+</script>
