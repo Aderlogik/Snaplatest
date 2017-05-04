@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410173130) do
+ActiveRecord::Schema.define(version: 20170429065144) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -29,6 +29,20 @@ ActiveRecord::Schema.define(version: 20170410173130) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
+  create_table "payment_methods", force: :cascade do |t|
+    t.string   "card_number"
+    t.integer  "payment_id"
+    t.integer  "subscription_id"
+    t.integer  "cvv"
+    t.integer  "default_card"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "card_holder_name"
+    t.string   "stripe_card_token"
+    t.integer  "exp_month"
+    t.integer  "exp_year"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -100,8 +114,8 @@ ActiveRecord::Schema.define(version: 20170410173130) do
     t.string   "last_sign_in_ip"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "secondary_phone"
-    t.integer  "phone"
+    t.string   "secondary_phone"
+    t.string   "phone"
     t.string   "personal_email"
     t.string   "address"
     t.datetime "created_at",                          null: false
