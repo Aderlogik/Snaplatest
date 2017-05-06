@@ -1,8 +1,8 @@
   function subscription_validate(){
     //Map location validation  
     var location = $("#subscription_location_attributes_address").val(); 
-    if(location === "0" || area === ""){
-      alert("Please select your location on map");
+    if(location === "0" || location === ""){
+      alert("Please select your proper location on map");
       return false;
     }    
       
