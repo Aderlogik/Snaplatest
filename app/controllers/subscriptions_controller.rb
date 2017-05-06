@@ -15,7 +15,6 @@ class SubscriptionsController < ApplicationController
   # GET users/1/subscriptions/new
   def new
     @subscription = @user.subscriptions.build
-    @location = Location.new(:user=>@user)
   end
 
   # GET users/1/subscriptions/1/edit
@@ -26,7 +25,7 @@ class SubscriptionsController < ApplicationController
   def create
     @subscription = @user.subscriptions.build(subscription_params)
     if @subscription.save
-      redirect_to new_payment_path(current_user)
+      redirect_to new_user_subscription_payment_path(current_user, @subscription.id)
     else
       render action: 'new'
     end

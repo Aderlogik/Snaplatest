@@ -1,5 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_and_subscription, only: [:new, :show, :create]
 
   # GET /payments
   # GET /payments.json
@@ -10,12 +11,12 @@ class PaymentsController < ApplicationController
   # GET /payments/1
   # GET /payments/1.json
   def show
-
+    @location = @subscription.location  
   end
 
   # GET /payments/new
   def new
-    @payment = Payment.new
+    @payment = Payment.new(:user => @user, :subscription => @subscription)
   end
 
   # GET /payments/1/edit
@@ -47,6 +48,8 @@ class PaymentsController < ApplicationController
     # flash[:error] = e.message
     
     @payment = Payment.new(payment_params)
+    @payment.user = @user
+    @payment.subscription = @subscription 
 
     respond_to do |format|
       if @payment.save
@@ -88,9 +91,14 @@ class PaymentsController < ApplicationController
   def set_payment
     @payment = Payment.find(params[:id])
   end
+  
+  def set_user_and_subscription
+    @user = User.find(params[:user_id])
+    @subscription = Subscription.find(params[:subscription_id])
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def payment_params
-    params.require(:payment).permit(:card_number, :card_holder_name, :cvv, :subscription_id, :location_id, :user_id)
+    params.require(:payment).permit(:card_number, :card_holder_name, :exp_month, :exp_year, :cvc)
   end
 end

@@ -23,9 +23,11 @@
     root to: "users/sessions#new"
   end
   resources :payment_methods
-  resources :payments
+  resources :payments, only: [:index]
   resources :users do
-    resources :subscriptions
+    resources :subscriptions do
+      resources :payments, only: [:create, :new, :show]
+    end
     resources :locations
   end
 end

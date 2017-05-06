@@ -1,4 +1,4 @@
-<%= form_for(@payment) do |f| %>
+<%= form_for([@payment.user, @payment.subscription, @payment]) do |f| %>
 
   <div class="page-container01 user-setting">
     <div class="col-md-9  white-bg no-padding">
@@ -78,7 +78,7 @@
             <h5>Extras</h5>
             <p>Edging of shrub & plant beds /w Mulching /w</p>
             <h5>Property</h5>
-            <p>0.28 Acres</p>
+            <p><%= @subscription.location.area_in_acres %> Acres</p>
           </div>
           <div class="col-md-5">
             <h5>Billing</h5>
@@ -104,7 +104,6 @@
         </div>
       </div>
         <div class="text-right">
-          <%#= f.submit "ACCEPT", type: "button", class: "btn btn-solid"%>
           <%= f.submit %>
         </div>
     </div>

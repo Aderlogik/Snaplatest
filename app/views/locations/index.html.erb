@@ -7,7 +7,7 @@
             </tr>
         </table>
         <div class="panel-group locations" id="accordion" role="tablist" aria-multiselectable="false">
-            <% Location.all.each do |location| %>
+            <% @locations.each do |location| %>
             <% next if (location.address == "0" || location.address == "") %>
             <div class="location">
                 <div class="panel-heading" role="tab" id="headingOne">

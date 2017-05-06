@@ -1,0 +1,65 @@
+   <div class="col-md-6 white-bg">
+      <div class="services-header">
+         <p><%= @location.address %></p>
+      </div>
+      <div><div id="map" data-title="<%= @location.address %>" data-lat="<%= @location.latitude %>" data-lng="<%= @location.longitude %>"></div></div>
+      <div class="date-holder font-bold"><%=  @subscription.created_at.strftime("%A, %B %d") %><br>10:00 AM - 12:00 PM  </div>
+      <div class="clearfix"></div>
+      <div class="service-header">Bill</div>
+      <div class="panel-body">
+         <div class=" row">
+            <div class="billing-summary col-md-12">
+               <div class="col-md-12">
+                  <h5>Plan</h5>
+                  <p>Bi-Weekly Landscaping Plan Minimum 6 months</p>
+                  <h5>Extras</h5>
+                  <p>Edging of shrub & plant beds /w Mulching /w</p>
+                  <h5>Property</h5>
+                  <p><%= @location.area_in_acres %> Acres</p>
+               </div>
+               <div class="col-md-12">
+                  <h5>Billing</h5>
+                  <table cellpadding="0" cellspacing="0" class="billing-total">
+                     <tr>
+                        <td>Lanscaping Package</td>
+                        <td>$55</td>
+                     </tr>
+                     <tr class="border-bottom">
+                        <td>Fee</td>
+                        <td>$3</td>
+                     </tr>
+                     <tr class="border-bottom">
+                        <td class="font-lato-regulor">Recurring Weekly total</td>
+                        <td class="font-lato-regulor">$58</td>
+                     </tr>
+                     <tr>
+                        <td class="font-lato-regulor">Today's total</td>
+                        <td class="font-lato-regulor">$58</td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+<script>
+  $('.btn-send-note').click(function(){
+    $('#subscriptions_modal').modal('show');
+  })
+  
+    var map_dom = $("#map");
+    var myLatLng = {lat: parseFloat(map_dom.attr("data-lat")), lng: parseFloat(map_dom.attr("data-lng"))};
+
+    var map = new google.maps.Map(map_dom[0], {
+      zoom: 15,
+      center: myLatLng,
+      mapTypeId: google.maps.MapTypeId.HYBRID
+    });
+    
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: map_dom.attr("data-title")
+    });  
+</script>  
