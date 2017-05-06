@@ -1,8 +1,15 @@
   function subscription_validate(){
-    //Map validation  
+    //Map location validation  
+    var location = $("#subscription_location_attributes_address").val(); 
+    if(location === "0" || area === ""){
+      alert("Please select your location on map");
+      return false;
+    }    
+      
+    //Map area validation  
     var area = $("#subscription_location_attributes_area_in_acres").val();
     if(area === "0" || area === ""){
-      alert("Please select your location on map");
+      alert("Please select your area on map");
       return false;
     }
     
