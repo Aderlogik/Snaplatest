@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429065144) do
+ActiveRecord::Schema.define(version: 20170507102453) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170429065144) do
     t.string   "stripe_card_token"
     t.integer  "exp_month"
     t.integer  "exp_year"
+    t.integer  "user_id"
   end
 
   create_table "payments", force: :cascade do |t|
