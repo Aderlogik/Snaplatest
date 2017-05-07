@@ -1,4 +1,3 @@
 class PaymentMethod < ApplicationRecord
-	belongs_to :payment
-	belongs_to :subscription
+  belongs_to :user
 end

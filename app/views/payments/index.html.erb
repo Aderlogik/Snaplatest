@@ -4,17 +4,17 @@
       <h4><strong>Payment method</strong></h4>
       <div class="font-bold">
          <table cellpadding="0" cellspacing="0" width="100%">
-          <% if !@payments.nil? && !@payments.first.nil? %>
+          <% @payment_methods.each do |method| %>
             <tr>
                <td><img src="/assets/visa.png" width="50"></td>
-               <td><%= @payments.first.card_number %></td>
-               <td><%= @payments.first.card_holder_name %></td>
-               <td class="text-right"><a href="javascript:void(0);" class="btn btn-view">EDIT</a></td>
+               <td><%= method.card_number %></td>
+               <td><%= method.card_holder_name %></td>
+               <td class="text-right"><a href="<%= edit_payment_method_path(method.id) %>" class="btn btn-view">EDIT</a></td>
             </tr>
           <% end %>
          </table>
       </div>
-      <h4 class="text-right"><%= link_to 'Add Payment Method', "#",data: { no_turbolink: true }, class: 'add_payment' %>
+      <h4 class="text-right"><%= link_to 'Add Payment Method', new_payment_method_path,data: { no_turbolink: true }, class: 'add_payment' %>
 </h4>
       <h4><strong>Service history</strong></h4>
       <% @payments.each do |payment| %>
