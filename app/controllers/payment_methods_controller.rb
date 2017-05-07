@@ -40,12 +40,11 @@ class PaymentMethodsController < ApplicationController
         format.json { render json: @payment_method.errors, status: :unprocessable_entity }
       end
     end
-   rescue Exception => e
-     respond_to do |format|
-      format.html { redirect_to payment_methods_path, alert: '#{e.message}' }
-     end
-   end
-   
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      redirect_to payment_methods_path
+      flash[:notice] = "Please try again"
+    end
 	end
   private
     # Use callbacks to share common setup or constraints between actions.
