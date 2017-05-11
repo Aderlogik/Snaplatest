@@ -9,6 +9,7 @@
   get 'subscriptions/index'
 
   get 'home/index'
+  get 'book_service' => "home#book_service"
   # root to: "home#index"
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -29,5 +30,8 @@
       resources :payments, only: [:create, :new, :show]
     end
     resources :locations
+  end
+  scope "new" do
+    resources :subscriptions, only: [:new]
   end
 end
