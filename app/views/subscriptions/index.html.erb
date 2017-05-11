@@ -31,8 +31,14 @@
                   </div>
                   <div class="service">
                       <i class="service-line service-green"></i> 
-                      <h4><%= truncate(subscription.service.service_name) %></h4>
-                  </div>
+                      <h4>Landscaping plan</h4>
+                  </div>    
+                  <% subscription.subscription_extra_services.each do |es| %>
+                    <div class="service">
+                        <i class="service-line service-green"></i> 
+                        <h4><%= truncate(es.service.service_name) %></h4>
+                    </div>
+                  <% end %>
                   <div class="clearfix"></div>
               </div>
           </div>

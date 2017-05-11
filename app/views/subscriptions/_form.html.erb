@@ -42,7 +42,7 @@
               <%= location.hidden_field :zip, class: "location_zip" %>
               <%= location.hidden_field :area_in_acres, class: "feet_hidden_field", value: 0 %>
               <%= location.hidden_field :area_in_feet, class: "area_hidden_field", value: 0 %>
-            <%= location.hidden_field :map_url, class: "map_url_hidden_field" %>
+              <%= location.hidden_field :map_url, class: "map_url_hidden_field" %>
             <% end %>
             <div class="col-md-6 text-right"> <a href="javascript:void(0);" class="btn btn-small">Remove last Marker</a> <a href="javascript:void(0);" class="btn btn-small">Clear Markers</a> </div>
           </div>
@@ -56,7 +56,7 @@
         choose the frequency that better fits your needs</p>
         <ul class="font-bold">
           <li>Mowing Fine Lawn Areas</li>
-          <li>Trimming all turf borders as neccessary</li>
+          <li>Trimming all turf borders as necessary</li>
           <li>Cleaning all landscape areas of liter & debris</li>
           <li>Cleaning all paved areas of clippings & debris</li>
         </ul>
@@ -100,7 +100,7 @@
                     (commitment <%= subplan.services_commited %> services)</div>
                     <div>
                       <div class="roundedOne">
-                        <%= f.check_box :sub_plan_id_temp, include_hidden: false, :onclick => "set_sub_plan(#{subplan.id});", type: "checkbox", id: "plan0#{subplan.id}", value: '' %>
+                        <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id});", type: "checkbox", id: "plan0#{subplan.id}" %>
                         <label for="plan0<%= subplan.id %>"></label>
                       </div>
                     </div>
@@ -141,6 +141,7 @@
         <h4>These services require their own schedule. Some require mul@ple<br />
         passes and some depend on the season to be scheduled.</h4>
         <div class="row">
+          <div id="selected_extra_services"></div>  
           <div class="extra-services">
             <div class="white-bg container-fluid">
               <div class="col-md-5 scrollbar" id="content-2">
@@ -150,7 +151,7 @@
                     <tr>
                       <td>
                         <div class="roundedOne">
-                          <%= f.check_box :service_id_temp, include_hidden: false, class: "service_check", :onclick => "set_service(#{service.id});", type: "checkbox", id: "s#{service.id}", value: service.id %>
+                          <%= f.radio_button :service_id_temp, service.id, class: "service_check", :onclick => "set_service(#{service.id});", type: "checkbox", id: "s#{service.id}" %>
                           <label for="s<%= service.id %>"></label>
                         </div>
                       </td>
@@ -185,7 +186,7 @@
                   <div class="clearfix"></div>
                   <div class="note">* Pricing will depend on the amount of man hours it takes to complete the job.</div>
                   <div class="text-right">
-                    <button class="btn btn-add-gray">ADD</button>
+                    <button type="button" class="btn btn-add-gray" onclick="add_extra_service('01');">ADD</button>
                   </div>
                 </div>
                 <div class="service02 services-details">
@@ -222,7 +223,7 @@
                   </div>
                   <div class="note">* Pricing will depend on the amount of man hours it takes to complete the job.</div>
                   <div class="text-right">
-                    <button class="btn btn-add-gray">ADD</button>
+                    <button type="button" class="btn btn-add-gray" onclick="add_extra_service('02')">ADD</button>
                   </div>
                 </div>
                 <div class="service03 services-details">
@@ -257,9 +258,9 @@
                   <div class="form-group">
                     <textarea class="textarea"></textarea>
                   </div>
-                  <div class="note">* Pricing will depend on the ammount of man hours it takes to complete the job.</div>
+                  <div class="note">* Pricing will depend on the amount of man hours it takes to complete the job.</div>
                   <div class="text-right">
-                    <button class="btn btn-add-gray">ADD</button>
+                    <button type="button" class="btn btn-add-gray" onclick="add_extra_service('03');">ADD</button>
                   </div>
                 </div>
                 <div class="service04 services-details">
@@ -276,7 +277,7 @@
                     <div class="clearfix"></div>
                     <div class="note">* Pricing will depend on the amount of man hours it takes to complete the job.</div>
                       <div class="text-right">
-                        <button class="btn btn-add-gray">ADD</button>
+                        <button type="button" class="btn btn-add-gray" onclick="add_extra_service('04');">ADD</button>
                       </div>
                     </div>
                 <div class="service05 services-details">
@@ -372,7 +373,7 @@
                   <div class="clearfix"></div>
                   <div class="note">* We recommend edging of shrub & plant beds before mulching.</div>
                   <div class="text-right">
-                    <button class="btn btn-add-gray">ADD</button>
+                    <button type="button" class="btn btn-add-gray" onclick="add_extra_service('05');">ADD</button>
                   </div>
                 </div>
                 <div class="service06 services-details">
@@ -392,9 +393,9 @@
                   <br />
                   <br />
                   <div class="clearfix"></div>
-                  <div class="note">* Pricing will depend on the ammount of man hours it takes to complete the job.</div>
+                  <div class="note">* Pricing will depend on the amount of man hours it takes to complete the job.</div>
                   <div class="text-right">
-                    <button class="btn btn-add-gray">ADD</button>
+                    <button type="button" class="btn btn-add-gray" onclick="add_extra_service('06');">ADD</button>
                   </div>
                 </div>
                 <div class="service07 services-details">
@@ -417,7 +418,7 @@
                   <div class="note">* Pricing will depend on the amount of man hours it takes to complete the job.</div>
                   <div class="note">* Each client is subject to dump fees.</div>
                   <div class="text-right">
-                    <button class="btn btn-add-gray">ADD</button>
+                    <button type="button" class="btn btn-add-gray" onclick="add_extra_service('07');">ADD</button>
                   </div>
                 </div>
                 <div class="service08 services-details">
@@ -439,9 +440,17 @@
                   <div class="clearfix"></div>
                   <div class="note">* Pricing will depend on the amount of man hours it takes to complete the job.</div>
                   <div class="text-right">
-                    <button class="btn btn-add-gray">ADD</button>
+                    <button type="button" class="btn btn-add-gray" onclick="add_extra_service('08');">Add</button>
                   </div>
                 </div>
+                 <div class='add_service_seccess'>
+                  <div class="panel panel-default" style="margin-top: 15%">
+                      <div class="panel-body">
+                          <div>NEW SERVICE ADDED!</div>
+                          <div style="margin-top: 3%;margin-bottom: 3%">You can change the service settings now or after scheduling if necessary.</div>
+                          <button type="button" class="btn-sm" onclick="reset_service()">OK</button>
+                      </div>
+                  </div> 
               </div>
             </div>
           </div>
@@ -467,7 +476,7 @@
                   <h5>Billing</h5>
                   <table cellpadding="0" cellspacing="0" class="billing-total">
                     <tr>
-                      <td>Lanscaping Package</td>
+                      <td>Landscaping Package</td>
                       <td>$55</td>
                     </tr>
                     <tr class="border-bottom">
@@ -663,7 +672,7 @@
   $("li.service_tab").addClass('active'); 
   $("input[type='submit']").removeAttr('data-disable-with');
   $( document ).ready(function() {
-    $(".service01, .service02, .service03, .service04, .service05, .service06, .service07, .service08").hide();
+    $(".service02, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
     $("#plan_1").removeClass("tab");
     $("#plan_1").addClass("tab active");
     $("#subplan_1").show();
@@ -692,28 +701,28 @@
   
   $(".service_check").click(function () {
     if ($("#s1").is(":checked")) {
-      $(".service02, .service03, .service04, .service05, .service06, .service07, .service08").hide();
+      $(".service02, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
       $(".service01").show();
     }else if ($("#s2").is(":checked")){
-      $(".service01, .service03, .service04, .service05, .service06, .service07, .service08").hide();
+      $(".service01, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
       $(".service02").show();
     }else if ($("#s3").is(":checked")){
-      $(".service01, .service02, .service04, .service05, .service06, .service07, .service08").hide();
+      $(".service01, .service02, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
       $(".service03").show();
     }else if ($("#s4").is(":checked")){
-      $(".service01, .service02, .service03, .service05, .service06, .service07, .service08").hide();
+      $(".service01, .service02, .service03, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
       $(".service04").show();
     }else if ($("#s5").is(":checked")){
-      $(".service01, .service02, .service03, .service04, .service06, .service07, .service08").hide();
+      $(".service01, .service02, .service03, .service04, .service06, .service07, .service08, .add_service_seccess").hide();
       $(".service05").show();
     }else if ($("#s6").is(":checked")){
-      $(".service01, .service02, .service03, .service04, .service05, .service07, .service08").hide();
+      $(".service01, .service02, .service03, .service04, .service05, .service07, .service08, .add_service_seccess").hide();
       $(".service06").show();
     }else if ($("#s7").is(":checked")){
-      $(".service01, .service02, .service03, .service04, .service05, .service06, .service08").hide();
+      $(".service01, .service02, .service03, .service04, .service05, .service06, .service08, .add_service_seccess").hide();
       $(".service07").show();
     }else if ($("#s8").is(":checked")){
-      $(".service01, .service02, .service03, .service04, .service05, .service06, .service07").hide();
+      $(".service01, .service02, .service03, .service04, .service05, .service06, .service07, .add_service_seccess").hide();
       $(".service08").show();
     }
   });

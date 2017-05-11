@@ -25,6 +25,9 @@ class SubscriptionsController < ApplicationController
   def create
     @subscription = @user.subscriptions.build(subscription_params)
     if @subscription.save
+      params["subcription_extra_service"].each{|id, attributes|
+        SubscriptionExtraService.create!(:subscription_id => @subscription.id, :service_id => id)
+      }
       redirect_to new_user_subscription_payment_path(current_user, @subscription.id)
     else
       render action: 'new'

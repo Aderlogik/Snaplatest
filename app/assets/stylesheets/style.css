@@ -241,7 +241,7 @@ body {
 	text-align:center;
 }
 .list-body .service {
-	margin-top:40px;
+	margin-top:10px;
 }
 .service {
 	background:#e1e1e1;
@@ -509,6 +509,9 @@ body {
 input[type=checkbox] {
 	visibility: hidden;
 }
+input[type=radio] {
+	visibility: hidden;
+}
 /* ROUNDED ONE */
 .roundedOne {
 	width: 28px;
@@ -553,6 +556,11 @@ input[type=checkbox] {
 	left: 0px;
 }
 .roundedOne input[type=checkbox]:checked + label:after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+.roundedOne input[type=radio]:checked + label:after {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 	filter: alpha(opacity=100);
 	opacity: 1;

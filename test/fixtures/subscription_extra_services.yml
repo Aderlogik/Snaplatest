@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_id: 
+  subscription_id: 1
+  setup_date: 2017-05-11
+  setup_season: MyString
+  description: MyText
+
+two:
+  service_id: 
+  subscription_id: 1
+  setup_date: 2017-05-11
+  setup_season: MyString
+  description: MyText

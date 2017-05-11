@@ -21,7 +21,7 @@
         </div>
         <div class="service">
             <i class="service-line service-green"></i> 
-            <h4>Trimming all turf borders as neccessary</h4>
+            <h4>Trimming all turf borders as necessary</h4>
         </div>
         <div class="service">
             <i class="service-line service-green"></i> 
@@ -30,7 +30,14 @@
         <div class="service">
             <i class="service-line service-green"></i> 
             <h4>Cleaning all paved areas of clippings & debris</h4>
-        </div></br>
+        </div>
+        <% @subscription.subscription_extra_services.each do |es| %>
+          <div class="service">
+              <i class="service-line service-green"></i> 
+              <h4><%= truncate(es.service.service_name) %></h4>
+          </div>
+        <% end %>        
+        </br>
 
     </div>
 </div>
