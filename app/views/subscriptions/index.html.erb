@@ -15,7 +15,7 @@
 <% else %>
   <div class="page-container">
     <div class="col-md-6">
-        <% @subscriptions.each do |subscription|%>
+          <% @subscriptions.each do |subscription|%>
           <% next if(subscription.location.address == "" || subscription.location.address == "0") %>
           <div class="list-panel">
               <div class="list-panel-header"></div>
@@ -44,7 +44,7 @@
           </div>
         <% end %>
     </div>
-    <div id="show_sub"></div> 
+    <div id="show_sub"><%= render 'show' %></div> 
   </div>
 <% end %>
 

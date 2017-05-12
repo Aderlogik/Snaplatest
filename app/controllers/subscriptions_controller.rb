@@ -5,6 +5,8 @@ class SubscriptionsController < ApplicationController
   # GET users/1/subscriptions
   def index
     @subscriptions = @user.subscriptions
+    @subscription = @subscriptions.first
+    @location = @subscription.location
   end
 
   # GET users/1/subscriptions/1
