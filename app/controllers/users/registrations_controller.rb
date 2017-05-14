@@ -1,6 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
  before_action :configure_account_update_params, only: [:update]
+ before_action :configure_user_create_params, only: [:create]
+ layout false, only: [:new]
 
   # GET /resource/sign_up
   # def new
@@ -8,9 +10,42 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+   def create
+     super
+     
+     Rails.logger.debug resource.errors.details
+     resource.skip_confirmation!
+     resource.user_role = true
+     if resource.save
+       #update user for newly created subscription
+       @subscription = Subscription.find(params["subcription_id"])
+       @subscription.update(:user_id => resource.id)
+       @subscription.location.update(:user_id => resource.id)
+       #payment
+        @amount = 500
+        require "stripe"
+        Stripe.api_key = "sk_test_1pi6OyXmiHrPyIyq3PNF3oFY"
+        token = Stripe::Token.create(:card => {:number => params["card_number"],:exp_month => params["exp_month"], :exp_year => params["exp_year"],:cvc => params["cvc"]})
+
+
+        customer = Stripe::Customer.create(
+          email: "prashant@example.com",
+          source: token
+        )
+
+        charge = Stripe::Charge.create(
+          customer: customer.id,
+          amount: @amount,
+          description: 'Rails Stripe customer',
+          currency: 'usd'
+        )
+
+        @payment = Payment.new({:card_number => params["card_number"], :card_holder_name => params["card_holder_name"],:exp_month => params["exp_month"], :exp_year => params["exp_year"],:cvc => params["cvc"]})
+        @payment.user_id = resource.id
+        @payment.subscription = @subscription        
+        @payment.save
+     end
+   end
 
   # GET /resource/edit
   # def edit
@@ -63,10 +98,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
    def configure_account_update_params
      devise_parameter_sanitizer.permit(:account_update, keys: [:phone, :secondary_phone, :personal_email])
    end
+   
+   def configure_user_create_params
+     devise_parameter_sanitizer.permit(:user, keys: [:email, :first_name, :last_name, :phone])
+   end
   
   def after_update_path_for(resource)
     edit_user_registration_path
-  end
+  end 
 
   def update_resource(resource, params)
     if params[:password].nil?
