@@ -538,47 +538,6 @@
 <!-- Slider End--> 
 
 <script type="text/javascript">
-  function get_address_components(place){
-    var address_components = place.address_components;
-    var location_address = "";
-    var location_city = "";
-    var location_state = "";
-    var location_zip = "";
-    var location_country = "";        
-    if(address_components !== null && address_components.length > 0){
-      $.each(address_components, function( index, value ) {
-        if(value.types[0] && (value.types[0] === "street_number" || value.types[0] === "route") ){
-          location_address += value.long_name + " ";
-        }
-        
-        if(value.types[0] && value.types[0] === "administrative_area_level_1"){
-          location_city = value.long_name;
-        }
-        
-        if(value.types[0] && value.types[0] === "administrative_area_level_1"){
-          location_state = value.short_name;
-        }
-        
-        if(value.types[0] && value.types[0] === "postal_code"){
-          location_zip = value.long_name;
-        }
-        
-        if(value.types[0] && value.types[0] === "country"){
-          location_country = value.short_name;
-        }
-      });
-    }
-    
-    $("#subscription_location_attributes_address").val($.trim(location_address));
-    $("#subscription_location_attributes_city").val(location_city);
-    $("#subscription_location_attributes_state").val(location_state);
-    $("#subscription_location_attributes_zip").val(location_zip);
-    $("#subscription_location_attributes_country").val(location_country);
-    $("#subscription_location_attributes_latitude").val(place.geometry.location.lat());
-    $("#subscription_location_attributes_longitude").val(place.geometry.location.lng());
-    $("#subscription_location_attributes_map_url").val(place.url);
-  }
-  
   function initialize() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
@@ -705,6 +664,7 @@
   $('.left-sidebar li.active').removeClass('active');
   $("li.service_tab").addClass('active'); 
   $("input[type='submit']").removeAttr('data-disable-with');
+  
   $( document ).ready(function() {
     $(".service02, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
     $("#plan_1").removeClass("tab");
@@ -734,42 +694,9 @@
   });
   
   $(".service_check").click(function () {
-    if ($("#s1").is(":checked")) {
-      $(".service02, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
-      $(".service01").show();
-    }else if ($("#s2").is(":checked")){
-      $(".service01, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
-      $(".service02").show();
-    }else if ($("#s3").is(":checked")){
-      $(".service01, .service02, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
-      $(".service03").show();
-    }else if ($("#s4").is(":checked")){
-      $(".service01, .service02, .service03, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
-      $(".service04").show();
-    }else if ($("#s5").is(":checked")){
-      $(".service01, .service02, .service03, .service04, .service06, .service07, .service08, .add_service_seccess").hide();
-      $(".service05").show();
-    }else if ($("#s6").is(":checked")){
-      $(".service01, .service02, .service03, .service04, .service05, .service07, .service08, .add_service_seccess").hide();
-      $(".service06").show();
-    }else if ($("#s7").is(":checked")){
-      $(".service01, .service02, .service03, .service04, .service05, .service06, .service08, .add_service_seccess").hide();
-      $(".service07").show();
-    }else if ($("#s8").is(":checked")){
-      $(".service01, .service02, .service03, .service04, .service05, .service06, .service07, .add_service_seccess").hide();
-      $(".service08").show();
-    }
+    show_extra_services();
   });
-  $(function () {
-    $("#s1").click(function () {
-      if ($(this).is(":checked")) {
-        $(".service01").toggle();
-          $(".service02", ".service03",".service04",".service05",".service06",".service07",".service08").hide();
-                } else {
-                    $(".service01").hide();
-                }
-            });
-        });
+
   $(window).on("load",function(){
       $("#content-1").mCustomScrollbar({
         live:true,

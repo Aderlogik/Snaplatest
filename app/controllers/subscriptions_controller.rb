@@ -5,8 +5,10 @@ class SubscriptionsController < ApplicationController
   # GET users/1/subscriptions
   def index
     @subscriptions = @user.subscriptions
-    @subscription = @subscriptions.first
-    @location = @subscription.location
+    
+    # to show first subscription view by default
+    @subscription = @subscriptions.first 
+    @location = @subscription.location if !@subscription.nil?
   end
 
   # GET users/1/subscriptions/1
@@ -27,6 +29,7 @@ class SubscriptionsController < ApplicationController
   def create
     @subscription = @user.subscriptions.build(subscription_params)
     if @subscription.save
+      #save extra services
       params["subcription_extra_service"].each{|id, attributes|
         SubscriptionExtraService.create!(:subscription_id => @subscription.id, :service_id => id)
       }

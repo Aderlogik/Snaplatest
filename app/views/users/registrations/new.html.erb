@@ -162,31 +162,16 @@
 <!-- Slider End--> 
 
 <script type="text/javascript">
-        $(function () {
-            $("#s1").click(function () {
-                if ($(this).is(":checked")) {
-                    $(".service01").toggle();
-					// $(".service02", ".service03",".service04",".service05",".service06",".service07",".service08").hide();
-                } else {
-                    $(".service01").hide();
-                }
-            });
-			
-			
-        });
-		$(window).on("load",function(){
-	
-	
-	
-	$("#content-1").mCustomScrollbar({
-		live:true,
-		theme:"minimal"
-	});
-	$("#content-2").mCustomScrollbar({
-		live:true,
-		theme:"minimal"
-	});
-});
-    </script>
+  $(window).on("load",function(){
+    $("#content-1").mCustomScrollbar({
+            live:true,
+            theme:"minimal"
+    });
+    $("#content-2").mCustomScrollbar({
+            live:true,
+            theme:"minimal"
+    });
+  });
+</script>
 </body>
 </html>

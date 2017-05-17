@@ -44,7 +44,11 @@
       <% end %>
    </div>
    <!-- List End-->
-   <div id="show_payment"><%= render 'show' %></div>
+   <div id="show_payment">
+      <% if @payments.size > 0 %> 
+        <%= render 'show' %>
+      <% end %> 
+   </div>
 </div>
 <!-- Login Form End-->
 <div class="clearfix"></div>

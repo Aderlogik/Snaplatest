@@ -7,10 +7,13 @@ class PaymentsController < ApplicationController
   def index
     @payments = current_user.payments
     @payment_methods = current_user.payment_methods
-    @payment = @payments.first
-    @user = User.find(@payment.user_id)
-    @subscription = Subscription.find(@payment.subscription_id)
-    @location = @subscription.location  
+    
+    if @payments.size > 0
+      @payment = @payments.first
+      @user = User.find(@payment.user_id)
+      @subscription = Subscription.find(@payment.subscription_id)
+      @location = @subscription.location  
+    end
   end
 
   # GET /payments/1
