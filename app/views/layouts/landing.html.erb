@@ -38,8 +38,14 @@
     </nav>
     <!-- Login Form Start-->
     	<div class="container">
-        	<%= yield %>
-        	
+            <div style="color: red">
+              <% flash.each do |key, value| %>
+                <% if (!value.downcase.include?("confirmation link")) %>
+                  <%= content_tag :div, value, class: "flash #{key}" %>
+                <% end %>
+              <% end %>
+            </div>  
+            <%= yield %>
         </div>
     <!-- Login Form End-->
     <div class="clearfix"></div>

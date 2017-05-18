@@ -22,7 +22,7 @@
 <!-- Login Form Start-->
 
 <div class="page-container01">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :onsubmit => "return signup_validation()" }) do |f| %>  
     <div class="col-md-9  white-bg no-padding">
     <div class="pane-header">
       <div class="pull-right header-navigation"> <a href="#">+1(646)681-3626</a> <a href="#">INFO@SNAPFOURSERVICE.COM</a> <a href="#" class="btn login-button">Login</a> </div>
@@ -51,7 +51,7 @@
               <%= f.text_field :last_name, class: "form-control", type: "text", placeholder: "Last Name" %>  
             </div>
             <div class="form-group col-md-6">
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Type your password again">
+              <input type="password" class="form-control" id="user_confirm_password" placeholder="Type your password again">
             </div>
             <div class="form-group col-md-6">
                 <%= f.text_field :phone, class: "form-control", type: "text", placeholder: "Phone number" %>
@@ -162,6 +162,7 @@
 <!-- Slider End--> 
 
 <script type="text/javascript">
+  $("input[type='submit']").removeAttr('data-disable-with');
   $(window).on("load",function(){
     $("#content-1").mCustomScrollbar({
             live:true,
