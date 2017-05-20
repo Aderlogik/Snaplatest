@@ -48,17 +48,17 @@ class LocationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_locations
-      @user = User.find(params[:user_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_locations
+    @user = User.find(params[:user_id])
+  end
 
-    def set_location
-      @location = @user.locations.find(params[:id])
-    end
+  def set_location
+    @location = @user.locations.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def location_params
-      params.require(:location).permit(:name, :address, :city, :state, :zip, :country, :area, :acres)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def location_params
+    params.require(:location).permit(:name, :address, :city, :state, :zip, :country, :area, :acres)
+  end
 end

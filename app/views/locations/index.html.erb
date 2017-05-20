@@ -31,21 +31,21 @@
                                     </td>
                                 </tr>
                             </table>
-
                         </h4>
                     </div>
                     <div id="collapse<%= location.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body location-map">
-                            <div><div class="form-group">
+                            <div>
+                                <div class="form-group">
                                     <div class="icon-addon addon-lg">
                                         <input type="text" placeholder="<%= location.address %>" class="form-control">
                                         <label for="email" class="glyphicon glyphicon-search"></label>
                                     </div>
-                                </div></div>
+                                </div>
+                            </div>
                             <div>
                                 <div id="map" data-title="<%= location.address %>" data-lat="<%= location.latitude %>" data-lng="<%= location.longitude %>"></div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-6">Area: <%= location.area_in_feet %> feet, <%= location.area_in_acres %> acres</div>
                                 <div class="col-md-6 text-right">
@@ -65,7 +65,6 @@
 <script type="text/javascript">
   $('.left-sidebar li.active').removeClass('active');
   $("li.location_tab").addClass('active');
-  <%#*$( ".location" ).each(function( index ) {%>
     
   function init_map(ctrl, location_id){ 
     $("#collapse"+location_id).collapse("toggle");
@@ -84,5 +83,4 @@
       title: map_dom.attr("data-title")
     });  
   }  
-  <%#*});%>
 </script>

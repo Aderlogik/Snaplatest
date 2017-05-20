@@ -7,8 +7,9 @@ $(document).ready( function () {
     }    
 });
 
-function set_sub_plan(subplanid){
+function set_sub_plan(subplanid, sub_plan_month){
 	document.getElementById('sub_plan').value = subplanid;
+        $("#selected_sub_plan_month").text(sub_plan_month);
 }
 
 function set_service(serviceid){
@@ -16,11 +17,10 @@ function set_service(serviceid){
 }
 
 function set_plan(plan, el) {
-	console.log("I am here");
-	console.log(el);
 	$(".tab").removeClass('active');
 	$(el).addClass('tab active');
 	document.getElementById('plan').value = plan;
+        $("#selected_plan").text($(el).text());
 }
 
 function set_schedule(schedule, el, name){

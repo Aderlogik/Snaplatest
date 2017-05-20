@@ -116,21 +116,19 @@
                   <% Subplan.all.each do |subplan| %>
                   <div id="subplan_<%= subplan.id %>">
                     <div class="col-md-4 plan-holder">
-                    <h2>
-                      <% if subplan.name == "Monthly" %>
-                        1 Month
-                      <% elsif subplan.name == "Quaterly"%>
-                        3 Months
-                      <% else %>
-                        6 Months
-                      <% end %>
-                    </h2>
+                    <% sub_plan_month = 6 %>      
+                    <% if subplan.name == "Monthly" %>
+                        <% sub_plan_month = 3 %>
+                    <% elsif subplan.name == "Quaterly"%>
+                        <% sub_plan_month = 6 %>
+                    <% end %>                        
+                    <h2><%= sub_plan_month %> Months</h2>
                     <div class="plan-price">$<%= subplan.price %></div>
                     <div class="plan-service">/service <br />
                     (commitment <%= subplan.services_commited %> services)</div>
                     <div>
                       <div class="roundedOne">
-                        <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id});", type: "checkbox", id: "plan0#{subplan.id}" %>
+                        <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id}, #{sub_plan_month});", type: "checkbox", id: "plan0#{subplan.id}" %>
                         <label for="plan0<%= subplan.id %>"></label>
                       </div>
                     </div>
@@ -498,7 +496,7 @@
               <div class="billing-summary col-md-10">
                 <div class="col-md-5">
                   <h5>Plan</h5>
-                  <p>-</p>
+                  <p><span id="selected_plan">Weekly</span> Landscaping Plan Minimum <span id="selected_sub_plan_month">1</span> months</p>
                   <h5>Property</h5>
                   <p><span id="area_in_acres_billing"></span> Acres</p>
                 </div>

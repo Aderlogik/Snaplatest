@@ -11,6 +11,7 @@ class HomeController < ApplicationController
   def new_service
     @subscription = Subscription.new(subscription_params)
     if @subscription.save
+      #save extra services
       params["subcription_extra_service"].each{|id, attributes|
         SubscriptionExtraService.create!(:subscription_id => @subscription.id, :service_id => id)
       }
