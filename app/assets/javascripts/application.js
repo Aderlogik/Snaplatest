@@ -39,3 +39,22 @@ function signup_validation(){
         return false;
     }
 }
+
+function calculate_price(){
+  var total_area = $("#subscription_location_attributes_area_in_acres").val();
+  var total_services = $(".subplan:visible input:checked").attr("data_committed_service");
+  if(total_area !== "0" && total_services !== undefined){
+      total_area = parseFloat(total_area).toFixed(1);
+      console.log("total_area - " + total_area);
+      var mod_of_acre = Math.ceil(total_area/0.3);
+      console.log("mod_of_acre - " + mod_of_acre);
+      var rate_of_service = 50 + ((mod_of_acre - 1) * 25);
+      console.log("rate_of_service - " + rate_of_service + " total_services - " + total_services);
+      var landscape_package_price = rate_of_service * parseInt(total_services);
+      console.log("landscape_package_price - " + landscape_package_price)
+      $("#landscape_package_price").text(landscape_package_price);
+      var total_price = landscape_package_price + 5;
+      console.log("processing fee - 5 total - " + total_price);
+      $("#total_price").text(total_price);
+  }
+}

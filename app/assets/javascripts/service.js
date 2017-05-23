@@ -10,6 +10,7 @@ $(document).ready( function () {
 function set_sub_plan(subplanid, sub_plan_month){
 	document.getElementById('sub_plan').value = subplanid;
         $("#selected_sub_plan_month").text(sub_plan_month);
+        calculate_price();
 }
 
 function set_service(serviceid){
