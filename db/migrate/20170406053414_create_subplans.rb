@@ -9,4 +9,15 @@ class CreateNewSubplans < ActiveRecord::Migration[5.0]
       t.timestamps
     end
   end 
+  
+  def up
+    create_table :subplans do |t|
+      t.string :name
+      t.integer :price
+      t.integer :plan_id
+      t.integer :services_commited
+
+      t.timestamps
+    end
+  end  
 end
