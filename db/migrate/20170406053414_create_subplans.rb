@@ -10,6 +10,10 @@ class CreateSubplans < ActiveRecord::Migration[5.0]
     end
   end
   
+  def down
+    
+  end
+  
   def up
     create_table :subplans do |t|
       t.string :name
