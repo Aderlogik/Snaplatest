@@ -15,5 +15,5 @@ user.save
 
 Service.create!([{service_name: "Edge of shrub & plant beds to maintain neat appearance"}, {service_name: "Shrub trimming"}, {service_name: "Tree pruning"}, {service_name: "Planting"}, {service_name: "Mulching"}, {service_name: "Gutter / Gate Cleaning"}, {service_name: "Clean Up"}, {service_name: "Power Washing"}])
 Plan.create!([{name: "Weekly"}, {name: "Bi-Weekly"}])
-Subplan.create!([{name: "Monthly", price: 100, services_commited: 2, plan_id: 1}, {name: "Quaterly", price: 85, services_commited: 6, plan_id: 1}, {name: "Half Yearly", price: 75, services_commited: 12, plan_id: 1}, {name: "Monthly", price: 90, services_commited: 2, plan_id: 2}, {name: "Quaterly", price: 80, services_commited: 6, plan_id: 2}, {name: "Half Yearly", price: 70, services_commited: 12, plan_id: 2}])
+Subplan.create!([{name: "Monthly", price: 100, services_commited: 4, plan_id: 1}, {name: "Quaterly", price: 85, services_commited: 12, plan_id: 1}, {name: "Half Yearly", price: 75, services_commited: 24, plan_id: 1}, {name: "Monthly", price: 90, services_commited: 2, plan_id: 2}, {name: "Quaterly", price: 80, services_commited: 6, plan_id: 2}, {name: "Half Yearly", price: 70, services_commited: 12, plan_id: 2}])
 Schedule.create!([{name: "Monday"}, {name: "Tuesday"}, {name: "Wednsday"}, {name: "Thursday"}, {name: "Friday"}, {name: "Saturday"}, {name: "Sunday"}])
