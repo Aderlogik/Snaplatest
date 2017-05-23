@@ -1,4 +1,4 @@
-class CreateSubplans < ActiveRecord::Migration[5.0]
+class CreateNewSubplans < ActiveRecord::Migration[5.0]
   def change
     create_table :subplans do |t|
       t.string :name
