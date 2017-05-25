@@ -113,8 +113,8 @@
               <div class="col-md-12">
                 <%= f.hidden_field :sub_plan_id, id: "sub_plan", value: Subplan.first.id %>
                 
-                  <% Subplan.all.each do |subplan| %>
-                  <div id="subplan_<%= subplan.id %>">
+                <% Subplan.all.each do |subplan| %>
+                  <div id="subplan_<%= subplan.id %>" class="subplan" subplan_for="<%= subplan.plan_id %>">
                     <div class="col-md-4 plan-holder">
                       <h2><%= subplan.get_sub_plan_month %> Months</h2>
                       <div class="plan-price">$<%= subplan.price %></div>
@@ -665,22 +665,6 @@
     $(".service02, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
     $("#plan_1").removeClass("tab");
     $("#plan_1").addClass("tab active");
-    $("#subplan_1").show();
-    $("#subplan_2").show();
-    $("#subplan_3").show();
-    $("#subplan_4").hide();
-    $("#subplan_5").hide();
-    $("#subplan_6").hide();
-  });
-  $("#plan_2").click(function () {
-    $("#subplan_1").hide();
-    $("#subplan_2").hide();
-    $("#subplan_3").hide();
-    $("#subplan_4").show();
-    $("#subplan_5").show();
-    $("#subplan_6").show();
-  });
-  $("#plan_1").click(function () {
     $("#subplan_1").show();
     $("#subplan_2").show();
     $("#subplan_3").show();
