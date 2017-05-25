@@ -43,14 +43,15 @@ function signup_validation(){
 function calculate_price(){
   var total_area = $("#subscription_location_attributes_area_in_acres").val();
   var selected_plan = $("#service_plan .tab.active").attr("data-plan-id");
+  var selected_plan_name = $("#service_plan .tab.active").text();
   var total_services = $("input[data_for='plan-"+selected_plan+"']:checked").attr("data_committed_service");
   if(total_area !== "0" && total_services !== undefined && selected_plan !== undefined){
       var min_charges = 0;
       var floting_charges = 0;
-      if(selected_plan === "1"){
+      if(selected_plan_name === "Weekly"){
           min_charges = 50;
           floting_charges = 25;
-      }else if(selected_plan === "2"){
+      }else if(selected_plan === "Bi-Weekly"){
           min_charges = 55;
           floting_charges = 27.5;
       }
