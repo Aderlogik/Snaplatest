@@ -51,7 +51,7 @@ function calculate_price(){
       if(selected_plan_name === "Weekly"){
           min_charges = 50;
           floting_charges = 25;
-      }else if(selected_plan === "Bi-Weekly"){
+      }else if(selected_plan_name === "Bi-Weekly"){
           min_charges = 55;
           floting_charges = 27.5;
       }
