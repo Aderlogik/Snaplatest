@@ -83,23 +83,23 @@
               <div class="col-md-12">
                 <%= f.hidden_field :sub_plan_id, id: "sub_plan", value: Subplan.first.id %>
                 
-                  <% Subplan.all.each do |subplan| %>
-                    <div id="subplan_<%= subplan.id %>" class="subplan">
-                      <div class="col-md-4 plan-holder">
-                        <h2><%= subplan.get_sub_plan_month %> Months</h2>
-                        <div class="plan-price">$<%= subplan.price %></div>
-                        <div class="plan-service">/service <br />
-                        (commitment <%= subplan.services_commited %> services)</div>
-                        <div>
-                          <div class="roundedOne">
-                            <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id}, #{subplan.get_sub_plan_month}, #{subplan.price});", 
-                                                id: "plan0#{subplan.id}", data_committed_service: "#{subplan.services_commited}", data_for: "plan-#{subplan.plan_id}", checked: false %>
-                            <label for="plan0<%= subplan.id %>"></label>
-                          </div>
+                <% Subplan.all.each do |subplan| %>
+                  <div id="subplan_<%= subplan.id %>" class="subplan" subplan_for="<%= subplan.plan_id %>">
+                    <div class="col-md-4 plan-holder">
+                      <h2><%= subplan.get_sub_plan_month %> Months</h2>
+                      <div class="plan-price">$<%= subplan.price %></div>
+                      <div class="plan-service">/service <br />
+                      (commitment <%= subplan.services_commited %> services)</div>
+                      <div>
+                        <div class="roundedOne">
+                          <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id}, #{subplan.get_sub_plan_month}, #{subplan.price});", 
+                                              id: "plan0#{subplan.id}", data_committed_service: "#{subplan.services_commited}", data_for: "plan-#{subplan.plan_id}", checked: false %>
+                          <label for="plan0<%= subplan.id %>"></label>
                         </div>
                       </div>
                     </div>
-                  <% end %>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>
@@ -339,22 +339,7 @@
     $(".service02, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
     $("#plan_1").removeClass("tab");
     $("#plan_1").addClass("tab active");
-    $("#subplan_1").show();
-    $("#subplan_2").show();
-    $("#subplan_3").show();
-    $("#subplan_4").hide();
-    $("#subplan_5").hide();
-    $("#subplan_6").hide();
-  });
-  $("#plan_2").click(function () {
-    $("#subplan_1").hide();
-    $("#subplan_2").hide();
-    $("#subplan_3").hide();
-    $("#subplan_4").show();
-    $("#subplan_5").show();
-    $("#subplan_6").show();
-  });
-  $("#plan_1").click(function () {
+    
     $("#subplan_1").show();
     $("#subplan_2").show();
     $("#subplan_3").show();

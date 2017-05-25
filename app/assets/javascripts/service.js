@@ -24,6 +24,12 @@ function set_plan(plan, el) {
 	$(el).addClass('tab active');
 	document.getElementById('plan').value = plan;
         $("#selected_plan").text($(el).text());
+        
+        //show proper subplan
+        $(".subplan").hide();
+        $("div[subplan_for='"+plan+"']").show();
+        
+        //calculate service price
         calculate_price();
 }
 
