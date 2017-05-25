@@ -5,9 +5,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
  layout false, only: [:new]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+   def new
+     @subscription = Subscription.find(params["id"])
+     super
+   end
 
   # POST /resource
    def create
@@ -40,7 +41,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
           currency: 'usd'
         )
 
-        @payment = Payment.new({:card_number => params["card_number"], :card_holder_name => params["card_holder_name"],:exp_month => params["exp_month"], :exp_year => params["exp_year"],:cvc => params["cvc"]})
+        @payment = Payment.new({:card_number => params["card_number"], :card_holder_name => params["card_holder_name"],
+                                :exp_month => params["exp_month"], :exp_year => params["exp_year"], :cvc => params["cvc"],
+                                :price => params["price"], :recurring_fee => params["recurring_fee"], :processing_fee => params["processing_fee"]
+                              })
         @payment.user_id = resource.id
         @payment.subscription = @subscription        
         @payment.save

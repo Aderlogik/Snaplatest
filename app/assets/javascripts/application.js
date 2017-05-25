@@ -42,19 +42,38 @@ function signup_validation(){
 
 function calculate_price(){
   var total_area = $("#subscription_location_attributes_area_in_acres").val();
-  var total_services = $(".subplan:visible input:checked").attr("data_committed_service");
-  if(total_area !== "0" && total_services !== undefined){
+  var selected_plan = $("#service_plan .tab.active").attr("data-plan-id");
+  var total_services = $("input[data_for='plan-"+selected_plan+"']:checked").attr("data_committed_service");
+  if(total_area !== "0" && total_services !== undefined && selected_plan !== undefined){
+      var min_charges = 0;
+      var floting_charges = 0;
+      if(selected_plan === "1"){
+          min_charges = 50;
+          floting_charges = 25;
+      }else if(selected_plan === "2"){
+          min_charges = 55;
+          floting_charges = 27.5;
+      }
       total_area = parseFloat(total_area).toFixed(1);
       console.log("total_area - " + total_area);
       var mod_of_acre = Math.ceil(total_area/0.3);
       console.log("mod_of_acre - " + mod_of_acre);
-      var rate_of_service = 50 + ((mod_of_acre - 1) * 25);
+      if(mod_of_acre === 0){
+          mod_of_acre = 1;
+      }
+      var rate_of_service = min_charges + ((mod_of_acre - 1) * floting_charges);
       console.log("rate_of_service - " + rate_of_service + " total_services - " + total_services);
       var landscape_package_price = rate_of_service * parseInt(total_services);
-      console.log("landscape_package_price - " + landscape_package_price)
+      console.log("landscape_package_price - " + landscape_package_price);
       $("#landscape_package_price").text(landscape_package_price);
-      var total_price = landscape_package_price + 5;
-      console.log("processing fee - 5 total - " + total_price);
-      $("#total_price").text(total_price);
+      var processing_fee = parseInt($("#processing_fee_price").val());
+      console.log("processing_fee - " + processing_fee);
+      var recurring_price = parseInt($("#recurring_fee_price").val());
+      console.log("recurring_price - " + recurring_price);
+      var total_price = landscape_package_price + processing_fee + recurring_price;
+      console.log("total - " + total_price);
+      $("#total_price").text("$"+total_price);
+      $("#landscape_package_price").val(landscape_package_price);
+      $("#landscape_package_fee").text("$"+landscape_package_price);
   }
 }

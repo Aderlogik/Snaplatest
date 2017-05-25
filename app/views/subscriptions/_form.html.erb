@@ -69,8 +69,8 @@
           <ul class="nav nav-pills">
             <%= f.hidden_field :plan_id, id: "plan", value: Plan.first.id %>
             <% Plan.all.each do |plan| %>
-              <li>
-                <a href="javascript:void(0);" class="tab" onclick="set_plan(<%= plan.id %>, this)" id=plan_<%= plan.id %>><%= plan.name %></a>
+              <li id="service_plan">
+                <a href="javascript:void(0);" class="tab" onclick="set_plan(<%= plan.id %>, this);" data-plan-id="<%= plan.id %>" id=plan_<%= plan.id %>><%= plan.name %></a>
               </li>
             <% end %>
           </ul>
@@ -86,19 +86,14 @@
                   <% Subplan.all.each do |subplan| %>
                     <div id="subplan_<%= subplan.id %>" class="subplan">
                       <div class="col-md-4 plan-holder">
-                        <% sub_plan_month = 6 %>    
-                        <% if subplan.name == "Monthly" %>
-                          <% sub_plan_month = 1 %>
-                        <% elsif subplan.name == "Quaterly"%>
-                          <% sub_plan_month = 3 %>
-                        <% end %>                        
-                        <h2><%= sub_plan_month %> Months</h2>
+                        <h2><%= subplan.get_sub_plan_month %> Months</h2>
                         <div class="plan-price">$<%= subplan.price %></div>
                         <div class="plan-service">/service <br />
                         (commitment <%= subplan.services_commited %> services)</div>
                         <div>
                           <div class="roundedOne">
-                            <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id}, #{sub_plan_month});", id: "plan0#{subplan.id}", data_committed_service: "#{subplan.services_commited}" %>
+                            <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id}, #{subplan.get_sub_plan_month}, #{subplan.price});", 
+                                                id: "plan0#{subplan.id}", data_committed_service: "#{subplan.services_commited}", data_for: "plan-#{subplan.plan_id}", checked: false %>
                             <label for="plan0<%= subplan.id %>"></label>
                           </div>
                         </div>
@@ -159,7 +154,6 @@
                 </table>
               </div>
               <div class="col-md-7 selected-service"> 
-                 <!-- <h2 class="service-text-add">ADD AN EXTRA SERVICE</h2> -->
                  <%= render 'extra_services' %>
             </div>
           </div>
@@ -186,15 +180,18 @@
                   <table cellpadding="0" cellspacing="0" class="billing-total">
                     <tr>
                       <td>Landscaping Package</td>
-                      <td id="landscape_package_price">-</td>
+                      <%= f.hidden_field :price, id: "landscape_package_price" %>
+                      <td id="landscape_package_fee">-</td>
                     </tr>
                     <tr class="border-bottom">
                       <td>Fee</td>
+                      <%= f.hidden_field :processing_fee, id: "processing_fee_price", value: 5 %>
                       <td id="processing_fee">$5</td>
                     </tr>
                     <tr class="border-bottom">
                       <td class="font-lato-regulor">Recurring Weekly total</td>
-                      <td class="font-lato-regulor">-</td>
+                      <%= f.hidden_field :recurring_fee, id: "recurring_fee_price" %>
+                      <td class="font-lato-regulor" id="recurring_fee">-</td>
                     </tr>
                     <tr>
                       <td class="font-lato-regulor">Today's total</td>

@@ -17,7 +17,10 @@
       <% end %>
 
       <%= f.hidden_field :stripe_card_token %>
-
+      <%= f.hidden_field :price, value: @subscription.price %>
+      <%= f.hidden_field :recurring_fee, value: @subscription.recurring_fee %>
+      <%= f.hidden_field :processing_fee, value: @subscription.processing_fee %>
+        
       <div class="panel-body">
         <h4>Credit Card Type</h4>
         <div> <a href="javascript:void(0);"><img src="/assets/visa.png" width="94" height="58" alt="Visa"></a> <a href="javascript:void(0);"><img src="/assets/masterCard.png" alt="Visa"></a> <a href="javascript:void(0);"><img src="/assets/ae.png"  alt="Visa"></a> </div>
@@ -74,9 +77,13 @@
         <div class="billing-summary col-md-10">
           <div class="col-md-5">
             <h5>Plan</h5>
-            <p>Bi-Weekly Landscaping Plan Minimum 6 months</p>
+            <p><%= @subscription.plan.name %> Landscaping Plan Minimum <%= @subscription.subplan.get_sub_plan_month %> months</p>
             <h5>Extras</h5>
-            <p>Edging of shrub & plant beds /w Mulching /w</p>
+            <p>
+              <% @subscription.subscription_extra_services.each do |es| %>
+                <%= "#{es.service.service_name} \\w" %>
+              <% end %>  
+            </p>
             <h5>Property</h5>
             <p><%= @subscription.location.area_in_acres %> Acres</p>
           </div>
@@ -84,20 +91,20 @@
             <h5>Billing</h5>
             <table cellpadding="0" cellspacing="0" class="billing-total">
               <tr>
-                <td>Lanscaping Package</td>
-                <td>$55</td>
+                <td>Landscaping Package</td>
+                <td>$<%= @subscription.price.to_f %></td>
               </tr>
               <tr class="border-bottom">
                 <td>Fee</td>
-                <td>$3</td>
+                <td>$<%= @subscription.processing_fee.to_f %></td>
               </tr>
               <tr class="border-bottom">
                 <td class="font-lato-regulor">Recurring Weekly total</td>
-                <td class="font-lato-regulor">$58</td>
+                <td class="font-lato-regulor">$<%= @subscription.recurring_fee.to_f %></td>
               </tr>
               <tr>
                 <td class="font-lato-regulor">Today's total</td>
-                <td class="font-lato-regulor">$58</td>
+                <td class="font-lato-regulor">$<%= @subscription.get_total_price %></td>
               </tr>
             </table>
           </div>

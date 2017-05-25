@@ -31,7 +31,7 @@
                </div>
                <div class="col-md-3 text-right">
                    <a href="<%= user_subscription_payment_path(payment.user_id, payment.subscription_id, payment.id) %>" class="btn btn-view" data-remote="true">VIEW</a>
-                  <div class="list-text text-right" style="text-align:center;">$50</div>
+                  <div class="list-text text-right" style="text-align:center;">$<%= payment.get_total_price %></div>
                </div>
             </div>
             <div class="service">

@@ -7,9 +7,11 @@ $(document).ready( function () {
     }    
 });
 
-function set_sub_plan(subplanid, sub_plan_month){
+function set_sub_plan(subplanid, sub_plan_month, recurring_price){
 	document.getElementById('sub_plan').value = subplanid;
         $("#selected_sub_plan_month").text(sub_plan_month);
+        $("#recurring_fee_price").val(recurring_price);
+        $("td#recurring_fee").text("$"+recurring_price);
         calculate_price();
 }
 
@@ -22,6 +24,7 @@ function set_plan(plan, el) {
 	$(el).addClass('tab active');
 	document.getElementById('plan').value = plan;
         $("#selected_plan").text($(el).text());
+        calculate_price();
 }
 
 function set_schedule(schedule, el, name){

@@ -5,7 +5,7 @@
       alert("Please select your proper location on map");
       return false;
     }    
-      
+            
     //Map area validation  
     var area = $("#subscription_location_attributes_area_in_acres").val();
     if(area === "0" || area === ""){
@@ -19,6 +19,14 @@
         alert("Please select atleast one plan.");
         return false;
     }
+    
+    //Subplan validation  
+    var selected_plan = $("#service_plan .tab.active").attr("data-plan-id");
+    var selected_sub_plan = $("input[data_for='plan-"+selected_plan+"']:checked").attr("data_committed_service");;
+    if(selected_sub_plan === undefined){
+       alert("Please select plan in months"); 
+       return false;
+    }    
     
     //Extra service list validation
     var selected_services = $("div#selected_extra_services input").size();

@@ -52,9 +52,6 @@ class PaymentsController < ApplicationController
       currency: 'usd'
     )
     
-    # rescue Stripe::CardError => e
-    # flash[:error] = e.message
-    
     @payment = Payment.new(payment_params)
     @payment.user = @user
     @payment.subscription = @subscription 
@@ -107,6 +104,7 @@ class PaymentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def payment_params
-    params.require(:payment).permit(:card_number, :card_holder_name, :exp_month, :exp_year, :cvc)
+    params.require(:payment).permit(:card_number, :card_holder_name, :exp_month, 
+                                    :exp_year, :cvc, :price, :recurring_fee, :processing_fee)
   end
 end
