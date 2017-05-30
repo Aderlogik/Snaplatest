@@ -1,5 +1,5 @@
 class Subplan < ApplicationRecord
-	
+	belongs_to :plan
   def get_sub_plan_month
     if name == "Monthly"
       1

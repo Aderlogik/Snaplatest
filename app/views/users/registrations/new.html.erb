@@ -143,10 +143,6 @@
                 <td>Fee</td>
                 <td>$<%= @subscription.processing_fee.to_f %></td>
               </tr>
-              <tr class="border-bottom">
-                <td class="font-lato-regulor">Recurring Weekly total</td>
-                <td class="font-lato-regulor">$<%= @subscription.recurring_fee.to_f %></td>
-              </tr>
               <tr>
                 <td class="font-lato-regulor">Today's total</td>
                 <td class="font-lato-regulor">$<%= @subscription.get_total_price %></td>

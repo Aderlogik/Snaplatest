@@ -43,38 +43,50 @@ function signup_validation(){
 function calculate_price(){
   var total_area = $("#subscription_location_attributes_area_in_acres").val();
   var selected_plan = $("#service_plan .tab.active").attr("data-plan-id");
-  var selected_plan_name = $("#service_plan .tab.active").text();
   var total_services = $("input[data_for='plan-"+selected_plan+"']:checked").attr("data_committed_service");
-  if(total_area !== "0" && total_services !== undefined && selected_plan !== undefined){
-      var min_charges = 0;
-      var floting_charges = 0;
-      if(selected_plan_name === "Weekly"){
-          min_charges = 50;
-          floting_charges = 25;
-      }else if(selected_plan_name === "Bi-Weekly"){
-          min_charges = 55;
-          floting_charges = 27.5;
-      }
+  if(total_area !== "0"){
+      var weekly_min_charges = 50;
+      var weekly_floting_charges = 25;
+      var biweekly_min_changes = 55;
+      var biweekly_floting_charges = 27.5;
       total_area = parseFloat(total_area).toFixed(1);
       console.log("total_area - " + total_area);
-      var mod_of_acre = Math.ceil(total_area/0.3);
-      console.log("mod_of_acre - " + mod_of_acre);
-      if(mod_of_acre === 0){
-          mod_of_acre = 1;
+      var mod_of_acre = 0;
+      if(total_area > 0.3){
+          mod_of_acre = Math.ceil((total_area-0.3)/0.4);
       }
-      var rate_of_service = min_charges + ((mod_of_acre - 1) * floting_charges);
-      console.log("rate_of_service - " + rate_of_service + " total_services - " + total_services);
-      var landscape_package_price = rate_of_service * parseInt(total_services);
-      console.log("landscape_package_price - " + landscape_package_price);
-      $("#landscape_package_price").text(landscape_package_price);
-      var processing_fee = parseInt($("#processing_fee_price").val());
-      console.log("processing_fee - " + processing_fee);
-      var recurring_price = parseInt($("#recurring_fee_price").val());
-      console.log("recurring_price - " + recurring_price);
-      var total_price = landscape_package_price + processing_fee + recurring_price;
-      console.log("total - " + total_price);
-      $("#total_price").text("$"+total_price);
-      $("#landscape_package_price").val(landscape_package_price);
-      $("#landscape_package_fee").text("$"+landscape_package_price);
+      console.log("mod_of_acre - " + mod_of_acre);
+      var weekly_rate_of_service_for_monthly = weekly_min_charges + ((mod_of_acre) * weekly_floting_charges);
+      var weekly_rate_of_service_for_quaterly = weekly_rate_of_service_for_monthly - 5;
+      var weekly_rate_of_service_for_half_yearly = weekly_rate_of_service_for_monthly - 10;
+      
+      $(".weekly-monthly .plan-price").text("$"+weekly_rate_of_service_for_monthly);
+      $(".weekly-monthly input[data_for]").attr("data_price", weekly_rate_of_service_for_monthly);
+      $(".weekly-quaterly .plan-price").text("$"+weekly_rate_of_service_for_quaterly);
+      $(".weekly-quaterly input[data_for]").attr("data_price", weekly_rate_of_service_for_quaterly);
+      $(".weekly-half-yearly .plan-price").text("$"+weekly_rate_of_service_for_half_yearly);
+      $(".weekly-half-yearly input[data_for]").attr("data_price", weekly_rate_of_service_for_half_yearly);   
+      
+      var biweekly_rate_of_service_for_monthly = biweekly_min_changes + ((mod_of_acre) * biweekly_floting_charges);
+      var biweekly_rate_of_service_for_quaterly = biweekly_rate_of_service_for_monthly - 5;
+      var biweekly_rate_of_service_for_half_yearly = biweekly_rate_of_service_for_monthly - 10;
+      
+      $(".bi-weekly-monthly .plan-price").text("$"+biweekly_rate_of_service_for_monthly);
+      $(".bi-weekly-monthly input[data_for]").attr("data_price", biweekly_rate_of_service_for_monthly);
+      $(".bi-weekly-quaterly .plan-price").text("$"+biweekly_rate_of_service_for_quaterly);
+      $(".bi-weekly-quaterly input[data_for]").attr("data_price", biweekly_rate_of_service_for_quaterly);
+      $(".bi-weekly-half-yearly .plan-price").text("$"+biweekly_rate_of_service_for_half_yearly);
+      $(".bi-weekly-half-yearly input[data_for]").attr("data_price", biweekly_rate_of_service_for_half_yearly);      
+      
+      if(total_services !== undefined && selected_plan !== undefined){
+        var rate_of_service = $("input[data_for='plan-"+selected_plan+"']:checked").attr("data_price");
+        var landscape_package_price = rate_of_service * parseInt(total_services);
+        $("#landscape_package_price").text(landscape_package_price);
+        var processing_fee = parseInt($("#processing_fee_price").val());
+        var total_price = landscape_package_price + processing_fee;
+        $("#total_price").text("$"+total_price);
+        $("#landscape_package_price").val(landscape_package_price);
+        $("#landscape_package_fee").text("$"+landscape_package_price);
+    }
   }
 }
