@@ -86,7 +86,7 @@
                 <% Subplan.all.order("id").each do |subplan| %>
                   <div id="subplan_<%= subplan.id %>" class="subplan <%= "#{subplan.plan.name.downcase}-#{subplan.name.downcase.gsub(/\s/, '-')}" %>" subplan_for="<%= subplan.plan_id %>">
                     <div class="col-md-4 plan-holder">
-                      <h2><%= subplan.get_sub_plan_month %> Months</h2>
+                      <h2><%= subplan.get_sub_plan_month %> <%= subplan.get_sub_plan_month == 1 ? "Month" : "Months" %></h2>
                       <div class="plan-price">$<%= subplan.price %></div>
                       <div class="plan-service">/service <br />
                       (commitment <%= subplan.services_commited %> services)</div>
