@@ -99,29 +99,26 @@
       $(".add_service_seccess").effect( "pulsate", {times:1}, 1000 );
     }else{
       if ($("#s1").is(":checked")) {
-        $(".service02, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
+        $(".service02, .service03, .service04, .service05, .service06, .service07, .add_service_seccess").hide();
         $(".service01").show();
       }else if ($("#s2").is(":checked")){
-        $(".service01, .service03, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
+        $(".service01, .service03, .service04, .service05, .service06, .service07, .add_service_seccess").hide();
         $(".service02").show();
       }else if ($("#s3").is(":checked")){
-        $(".service01, .service02, .service04, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
+        $(".service01, .service02, .service04, .service05, .service06, .service07, .add_service_seccess").hide();
         $(".service03").show();
       }else if ($("#s4").is(":checked")){
-        $(".service01, .service02, .service03, .service05, .service06, .service07, .service08, .add_service_seccess").hide();
+        $(".service01, .service02, .service03, .service05, .service06, .service07, .add_service_seccess").hide();
         $(".service04").show();
       }else if ($("#s5").is(":checked")){
-        $(".service01, .service02, .service03, .service04, .service06, .service07, .service08, .add_service_seccess").hide();
+        $(".service01, .service02, .service03, .service04, .service06, .service07, .add_service_seccess").hide();
         $(".service05").show();
       }else if ($("#s6").is(":checked")){
-        $(".service01, .service02, .service03, .service04, .service05, .service07, .service08, .add_service_seccess").hide();
+        $(".service01, .service02, .service03, .service04, .service05, .service07, .add_service_seccess").hide();
         $(".service06").show();
       }else if ($("#s7").is(":checked")){
-        $(".service01, .service02, .service03, .service04, .service05, .service06, .service08, .add_service_seccess").hide();
+        $(".service01, .service02, .service03, .service04, .service05, .service06, .add_service_seccess").hide();
         $(".service07").show();
-      }else if ($("#s8").is(":checked")){
-        $(".service01, .service02, .service03, .service04, .service05, .service06, .service07, .add_service_seccess").hide();
-        $(".service08").show();
       }
     }
  } 

@@ -39,3 +39,8 @@ function set_schedule(schedule, el, name){
 	document.getElementById("schedule_id").value = schedule;
         document.getElementById("schedule_day").value = name;
 }
+
+function set_service_setup_period(ctrl){
+    var service_name = $(ctrl).find("div.service-name").text();
+    $(ctrl).closest("div.services-details").find("input").val(service_name);
+}
