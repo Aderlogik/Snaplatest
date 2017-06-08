@@ -820,3 +820,13 @@ input[type=radio] {
 	
 }
 .header-navigation .login-button{ border:1px solid #fff; border-radius:5px; padding:5px 15px;}
+.btn-blue{background: #d8d8d8;
+    border-radius: 4px;
+    font-size: 17px;
+    font-family: 'latobold';
+    padding: 10px 25px;
+    color: #4a4a4a;}
+
+.btn-blue:hover{background: #3b99fc; color:#fff;}
+.btn-blue.active{background: #3b99fc; color:#fff;}
+.selected{ border:1px solid #3b99fc; box-shadow:0px 1px 3px #333; border-radius:10px;}

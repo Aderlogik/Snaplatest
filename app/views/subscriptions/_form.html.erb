@@ -361,4 +361,12 @@
         theme:"minimal"
       });
   });
+  $(".serviceList").click(function(){
+      $(".serviceList").removeClass("selected")
+      $(this).toggleClass("selected");
+  });
+  $(".servicePlanList").click(function(){
+      $(".servicePlanList").removeClass("active");
+      $(this).toggleClass("active");
+  });  
 </script>

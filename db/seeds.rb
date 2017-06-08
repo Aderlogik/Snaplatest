@@ -13,7 +13,7 @@ user = User.new(email: 'customer@example.com', password: 'password', password_co
 user.skip_confirmation!
 user.save
 
-Service.create!([{service_name: "Edge of shrub & plant beds to maintain neat appearance"}, {service_name: "Shrub trimming"}, {service_name: "Tree pruning"}, {service_name: "Planting"}, {service_name: "Mulching"}, {service_name: "Gutter / Gate Cleaning"}, {service_name: "Clean Up"}, {service_name: "Power Washing"}])
+Service.create!([{service_name: "Edge of shrub & plant beds to maintain neat appearance"}, {service_name: "Shrub trimming"}, {service_name: "Tree pruning"}, {service_name: "Mulching"}, {service_name: "Gutter and Grate Cleaning"}, {service_name: "Clean Up"}, {service_name: "Power Washing"}])
 Plan.create!([{name: "Weekly"}, {name: "Bi-Weekly"}])
 Subplan.create!([{name: "Monthly", price: 50, services_commited: 4, plan_id: 1}, {name: "Quaterly", price: 45, services_commited: 12, plan_id: 1}, {name: "Half Yearly", price: 40, services_commited: 24, plan_id: 1}, {name: "Monthly", price: 55, services_commited: 2, plan_id: 2}, {name: "Quaterly", price: 50, services_commited: 6, plan_id: 2}, {name: "Half Yearly", price: 45, services_commited: 12, plan_id: 2}])
 Schedule.create!([{name: "Monday"}, {name: "Tuesday"}, {name: "Wednsday"}, {name: "Thursday"}, {name: "Friday"}, {name: "Saturday"}, {name: "Sunday"}])
