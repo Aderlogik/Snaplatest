@@ -45,8 +45,7 @@
               <%= location.hidden_field :map_url, class: "map_url_hidden_field" %>
             <% end %>
             <div class="col-md-6 text-right"> 
-                <a href="javascript:void(0);" class="btn btn-small" onclick="initialize();">Remove last Marker</a> 
-                <a href="javascript:void(0);" class="btn btn-small" onclick="initialize();">Clear Markers</a> 
+                <a href="javascript:void(0);" class="btn btn-small" id="clear_marker">Clear Markers</a> 
             </div>
           </div>
         </div>
@@ -208,6 +207,12 @@
 <% end %>
 
 <script type="text/javascript">  
+  function deleteSelectedShape () {
+    if (selectedShape) {
+      selectedShape.setMap(null);
+    }
+  } 
+  
   function initialize() {
     var input = document.getElementById('map_address');
     input.value = "";
@@ -271,6 +276,7 @@
     // map is clicked.
     google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
     google.maps.event.addListener(map, 'click', clearSelection);
+    google.maps.event.addDomListener(document.getElementById('clear_marker'), 'click', deleteSelectedShape);
     buildColorPalette();
   
     // Create the search box and link it to the UI element.
