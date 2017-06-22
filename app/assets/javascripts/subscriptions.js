@@ -36,22 +36,6 @@
     }    
   }
   
-  function add_extra_service(service_id){
-        var html = "<input type='hidden' name='subcription_extra_service["+service_id+"][\"service_id\"]' value='"+service_id+"' />";
-        $("#selected_extra_services").append(html);
-        $(".service01, .service02, .service03, .service04, .service05, .service06, .service07, .service08").hide();
-        $(".add_service_seccess").show();
-        $(".service_check:checked").removeAttr('checked');
-        $('html, body').animate({
-            scrollTop: $(".add_service_seccess").offset().top - 100
-        }, 1000);
-  }
-  
-  function reset_service(){
-      $(".service_check:checked").removeAttr('checked');
-      $(".add_service_seccess").hide();
-  }
-  
  function get_address_components(place){
     var address_components = place.address_components;
     var location_address = "";
@@ -93,32 +77,24 @@
     $("#subscription_location_attributes_map_url").val(place.url); 
  }
  
- function show_extra_services(){
-    if($(".add_service_seccess").is(":visible")){
-      $(".service_check:checked").removeAttr('checked');  
-      $(".add_service_seccess").effect( "pulsate", {times:1}, 1000 );
-    }else{
-      if ($("#s1").is(":checked")) {
-        $(".service02, .service03, .service04, .service05, .service06, .service07, .add_service_seccess").hide();
-        $(".service01").show();
-      }else if ($("#s2").is(":checked")){
-        $(".service01, .service03, .service04, .service05, .service06, .service07, .add_service_seccess").hide();
-        $(".service02").show();
-      }else if ($("#s3").is(":checked")){
-        $(".service01, .service02, .service04, .service05, .service06, .service07, .add_service_seccess").hide();
-        $(".service03").show();
-      }else if ($("#s4").is(":checked")){
-        $(".service01, .service02, .service03, .service05, .service06, .service07, .add_service_seccess").hide();
-        $(".service04").show();
-      }else if ($("#s5").is(":checked")){
-        $(".service01, .service02, .service03, .service04, .service06, .service07, .add_service_seccess").hide();
-        $(".service05").show();
-      }else if ($("#s6").is(":checked")){
-        $(".service01, .service02, .service03, .service04, .service05, .service07, .add_service_seccess").hide();
-        $(".service06").show();
-      }else if ($("#s7").is(":checked")){
-        $(".service01, .service02, .service03, .service04, .service05, .service06, .add_service_seccess").hide();
-        $(".service07").show();
-      }
-    }
- } 
+ function set_plan(plan, el) {
+    $(".tab").removeClass('active');
+    $(el).addClass('tab active');
+    document.getElementById('plan').value = plan;
+    $("#selected_plan").text($(el).text());
+
+    //show proper subplan
+    $(".subplan").hide();
+    $("div[subplan_for='" + plan + "']").show();
+
+    //calculate service price
+    calculate_price();
+}
+
+function set_sub_plan(subplanid, sub_plan_month, recurring_price) {
+    document.getElementById('sub_plan').value = subplanid;
+    $("#selected_sub_plan_month").text(sub_plan_month);
+    $("#recurring_fee_price").val(recurring_price);
+    $("td#recurring_fee").text("$" + recurring_price);
+    calculate_price();
+}

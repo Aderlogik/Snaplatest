@@ -33,5 +33,6 @@
   
   get 'book_service' => "home#book_service"
   post 'new_service' => "home#new_service"
+  post '/get_available_slots_for_service' => "services#get_available_slots_for_service"
   get 'new_service_payment' => "home#new_service_payment"
 end
