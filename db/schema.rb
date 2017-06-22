@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507102453) do
+ActiveRecord::Schema.define(version: 20170618171605) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -56,8 +56,11 @@ ActiveRecord::Schema.define(version: 20170507102453) do
     t.integer  "exp_month"
     t.string   "stripe_card_token"
     t.integer  "exp_year"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.decimal  "price",             precision: 10, scale: 2
+    t.decimal  "processing_fee",    precision: 10, scale: 2
+    t.decimal  "recurring_fee",     precision: 10, scale: 2
   end
 
   create_table "plans", force: :cascade do |t|
@@ -74,11 +77,21 @@ ActiveRecord::Schema.define(version: 20170507102453) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "service_seasons", force: :cascade do |t|
+    t.integer  "service_id"
+    t.string   "name"
+    t.string   "start_date"
+    t.string   "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "services", force: :cascade do |t|
     t.string   "service_name"
     t.integer  "price"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.text     "description"
   end
 
   create_table "subplans", force: :cascade do |t|
@@ -90,15 +103,28 @@ ActiveRecord::Schema.define(version: 20170507102453) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "subscription_extra_services", force: :cascade do |t|
+    t.integer  "service_id"
+    t.integer  "subscription_id"
+    t.date     "setup_date"
+    t.string   "setup_season"
+    t.text     "description"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "plan_id"
     t.integer  "sub_plan_id"
     t.integer  "schedule_id"
     t.integer  "technician_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "service_id"
+    t.decimal  "price",          precision: 10, scale: 2
+    t.decimal  "processing_fee", precision: 10, scale: 2
+    t.decimal  "recurring_fee",  precision: 10, scale: 2
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
@@ -125,6 +151,10 @@ ActiveRecord::Schema.define(version: 20170507102453) do
     t.boolean  "supervisor_role"
     t.boolean  "user_role"
     t.string   "avatar"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
