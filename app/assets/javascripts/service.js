@@ -25,13 +25,16 @@ function set_schedule(schedule, el, name){
 }
 
 function get_all_available_slots(ctrl, season_id){
-    var selected_day = $("input#schedule_id").val();
+    var selected_day = parseInt($("input#schedule_id")).val();
+    if(selected_day == 7){
+        selected_day = 0;
+    }
     $.ajax({
         url: "/get_available_slots_for_service",
         type: "post",
         dataType: "json",
         data: {
-            "selected_day": parseInt(selected_day) - 1,
+            "selected_day": selected_day,
             "season_id": season_id
         },
         beforeSend: function() {
