@@ -25,7 +25,7 @@ function set_schedule(schedule, el, name){
 }
 
 function get_all_available_slots(ctrl, season_id){
-    var selected_day = parseInt($("input#schedule_id")).val();
+    var selected_day = parseInt($("input#schedule_id").val());
     if(selected_day == 7){
         selected_day = 0;
     }
