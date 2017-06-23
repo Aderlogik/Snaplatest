@@ -24,7 +24,10 @@
     <h3>When do you want the service to be performed?</h3>
     <div id="available_slots"></div>
     <h3>Recap</h3>
-    <div>We will come on a “Day selected” in the “When” “Frequency”</div>
+    <div>We will come on a <span id="day_selected">"Monday"</span> in the 
+                           <span id="month_selected">"When"</span> 
+                           <span id="frequency_selected">"Frequency"</span> 
+    </div>
     <h3>Service Price</h3>
     <div>
         Pricing will depend on the amount of man hours it takes to complete the job. The price per man hour is $50. 
@@ -35,12 +38,13 @@
     </div>
   </div>
 <% end %>
-<div class='add_service_seccess' style="display: none">
-  <div class="panel panel-default" style="margin-top: 15%">
-    <div class="panel-body">
-      <div>NEW SERVICE ADDED!</div>
-      <div style="margin-top: 3%;margin-bottom: 3%">You can change the service settings now or after scheduling if necessary.</div>
-      <button type="button" class="btn-sm" onclick="reset_service()">OK</button>
+<div class='add_service_seccess' style="display: none;padding-top: 60px;background: #fff;padding-bottom: 60px;">
+    <div class="box">
+        <h2>New services added!</h2>
+        <p>You can change the service setting <br>
+            now or after scheduling if necessary</p>
+        <div class="text-center">
+            <button type="button" class="btn btn-add-gray" onclick="reset_service()">OK</button>
+        </div>
     </div>
-  </div> 
 </div>

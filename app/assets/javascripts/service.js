@@ -22,6 +22,7 @@ function set_schedule(schedule, el, name){
     $(el).addClass('btn btn-solid-small');
     document.getElementById("schedule_id").value = schedule;
     document.getElementById("schedule_day").value = name;
+    $("span#day_selected").text('"'+name+'"');
 }
 
 function get_all_available_slots(ctrl, season_id){
@@ -50,10 +51,17 @@ function get_all_available_slots(ctrl, season_id){
                 if(total_seasons > 1 && index ==0){
                   border_css = "border-right"
                 }
-                html += '<div class="col-md-6 '+border_css+'">'+
+                var total_months = Object.keys(value["days"]).length;
+                var outer_css = "col-md-4";
+                var inner_css = "col-md-6";
+                if(total_months > 2){
+                    outer_css = "col-md-6"
+                    inner_css = "col-md-4";
+                }
+                html += '<div class="'+outer_css+'  '+border_css+'">'+
                             '<h2>'+value["season"]+'</h2>';
                             $.each(value["days"], function( month, days ) {
-                                html += '<div class="col-md-4">'+
+                                html += '<div class="'+inner_css+'">'+
                                            '<div class="row">'+
                                              '<div class="col-md-6"><h3 class="no-margin">'+month+'</h3></div>'+
                                            '</div>';
@@ -84,6 +92,7 @@ function add_extra_service(service_id){
     $(".services-details").hide();
     $(".add_service_seccess").show();
     $(".service_check:checked").removeAttr('checked');
+    $("#s"+service_id).closest("td").html('<i class="fa fa-check" aria-hidden="true" style="color:#31ad00;"></i>');
     $('html, body').animate({
         scrollTop: $(".add_service_seccess").offset().top - 100
     }, 1000);

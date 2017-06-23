@@ -88,12 +88,29 @@
                        class="subplan <%= "#{subplan.plan.name.downcase}-#{subplan.name.downcase.gsub(/\s/, '-')}" %>" 
                        subplan_for="<%= subplan.plan_id %>" style="display: none;">
                     <div class="col-md-4 plan-holder <% if subplan.name == 'Trial' %>col-xs-offset-2<% end %>">
-                      <h2 class="no-margin"><%= subplan.name %></h2>
-                      <div class="plan-service"><strong>1month</strong></div>
+                      <h2 class="no-margin">
+                        <%= subplan.name %>
+                          <% if subplan.name == 'Seasonal' %>
+                            <i class="fa fa-star star-yellow" aria-hidden="true"></i>
+                          <% end %>  
+                      </h2>
+                      <div class="plan-service">
+                          <strong>
+                            <% if subplan.name == 'Trial' %>
+                              1 month
+                            <% else %>
+                              <%= ((Date.new(2017, 11, 30) - Date.today)/30).round %> months
+                            <% end %>
+                          </strong>
+                      </div>
                       <div>
                           <span class="plan-price">$<%= subplan.price %></span>
                           <span class="plan-service">/service <br />
-                            (commitment 2 services)<br /> "today's date" - "1 month from now"
+                            <% if subplan.name == 'Trial' %>  
+                              (commitment 2 services)<br /> <%= Plan.get_formatted_today %> - <%= Plan.get_formatted_next_month %>
+                            <%  else %>
+                              (commitment 2 services)<br /> <%= Plan.get_formatted_today %> - November 30th
+                            <% end %> 
                           </span>
                       </div>
                       <div>

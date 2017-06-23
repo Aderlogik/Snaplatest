@@ -844,3 +844,24 @@ input[type=radio] {
 
 .mulch-holder small{ margin-left:30px; font-weight:normal !important;}
 .mulch-holder  li{ padding-left:10px !important; font-weight:bold;}
+.star-yellow {
+	color:#ffd700;
+}
+.box {
+    background:#fff;
+    border-radius:10px;
+    padding:20px;
+    width:400px;
+    margin:0 auto;
+    box-shadow:1px 2px 3px #c0c0c0;
+    color:#a6a6a7;
+    text-align:center;
+}
+.box h2 {
+    text-transform:uppercase;
+}
+.box p {
+    font-size:20px;
+    font-weight:normal;
+    margin:20px 0px
+}
