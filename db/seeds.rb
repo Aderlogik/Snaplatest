@@ -23,3 +23,4 @@ ServiceSeason.create!([{name: "Spring", service_id: 1, start_date: "2017-04-01",
 Plan.create!([{name: "Weekly"}, {name: "Bi-Weekly"}])
 Subplan.create!([{name: "Trial", price: 100, services_commited: 0, plan_id: 1}, {name: "Seasonal", price: 85, services_commited: 0, plan_id: 1}, {name: "Trial", price: 90, services_commited: 0, plan_id: 2}, {name: "Seasonal", price: 75, services_commited: 0, plan_id: 2}])
 Schedule.create!([{name: "Monday"}, {name: "Tuesday"}, {name: "Wednsday"}, {name: "Thursday"}, {name: "Friday"}, {name: "Saturday"}, {name: "Sunday"}])
+MulchingType.create!([{name: "Peet Mulch", price: 120}, {name: "Black Mulch", price: 100}, {name: "Dark Brown Mulch", price: 100}, {name: "Light Brown Mulch", price: 100}, {name: "Red Mulch", price: 100}])
