@@ -1,7 +1,27 @@
 <% Service.all.each do |service| %>
   <div class="service_<%= service.id %> services-details" style="display: none">
-    <h3>Description</h3>
-    <p><%= service.description %></p>
+    <h4>Description</h4>
+    <p id="service_desc"><%= service.description %></p>
+    <% if service.service_name == "Mulching" %>
+      <h4>What type of mulch are you looking for?</h4>
+      <div class="row mulch-holder" id="content-1">
+            <ul>
+              <% MulchingType.all.each do |mulch| %>  
+                <li>
+                    <div class="row">
+                        <div class="col-md-9"> <%= mulch.name %> <small>$<%= mulch.price %> / yard + labor</small> </div>
+                        <div class="col-md-3">
+                            <div class="roundedOne">
+                                <input class="mulch_type" type="radio" value="<%=  mulch.id %>" id="mulch_<%= mulch.id %>" />
+                                <label for="mulch_<%= mulch.id %>"></label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+              <% end %>  
+            </ul>
+        </div>
+    <% end %>
     <h3>Service Setup</h3>
     <div class="col-md-12 service-pic">
       <div id="content-3" class="horizontal-scroll"> 
@@ -10,7 +30,7 @@
             <% service.service_season.each do |season| %>  
               <td>
                 <div class="serviceList" onclick="get_all_available_slots(this, <%= season.id %>);"> 
-                  <img src="/assets/<%= season.get_season_image %>" style="width: 200px; height: 200px;">
+                  <img src="/assets/<%= season.get_season_image %>" style="width: 220px; height: 200px;">
                   <div class="service-name"><%= season.name %></div>
                 </div>  
               </td>    
@@ -23,7 +43,20 @@
     <div class="clearfix"></div>
     <h3>When do you want the service to be performed?</h3>
     <div id="available_slots"></div>
-    <h3>Recap</h3>
+    <% if (service.service_name.include? "Edging") || (service.service_name.include? "Mulching")  %>
+      <h4><strong>Recommendation</strong></h4>
+      <p>We suggest you do mulching the same day this service is prohibited. 
+          We strongly advise you don't do mulching without edging of shrub and plant beds.
+      </p>
+      <div class="text-right" id="extra_section">
+          <% if (service.service_name.include? "Edging") %>
+            <button class="btn btn-add-gray" onclick='add_mulching_section(<%= @mulching_service_id %>, this);'>ADD MULCHING</button>
+          <% elsif (service.service_name.include? "Mulching") %> 
+            <button class="btn btn-add-gray" onclick='add_edging_section(<%= @edging_service_id %>, this);'>ADD EDGING</button>
+          <% end %>
+      </div>
+    <% end %>
+    <h4>Recap</h4>
     <div>We will come on a <span id="day_selected">"Monday"</span> in the 
                            <span id="month_selected">"When"</span> 
                            <span id="frequency_selected">"Frequency"</span> 

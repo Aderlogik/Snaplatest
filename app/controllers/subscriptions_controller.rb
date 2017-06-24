@@ -19,6 +19,8 @@ class SubscriptionsController < ApplicationController
   # GET users/1/subscriptions/new
   def new
     @subscription = @user.subscriptions.build
+    @edging_service_id = Service.get_edging_service_id
+    @mulching_service_id = Service.get_mulching_service_id
   end
 
   # GET users/1/subscriptions/1/edit

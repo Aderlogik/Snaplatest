@@ -1,0 +1,2 @@
+class MulchingType < ApplicationRecord
+end

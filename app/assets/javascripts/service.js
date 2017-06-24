@@ -109,3 +109,43 @@ function show_extra_services(service_id) {
         $(".service_"+service_id).show();
     }
 } 
+
+function add_mulching_section(service_id, ctrl){
+    var service_desc = $("div.service_"+service_id+" p#service_desc").text();
+    var mulch_html = $("div.service_"+service_id+" div.mulch-holder").html();
+    var service_html = "<div style='text-align:right'>"+
+                        "<button class='btn btn-add-gray' onclick='close_mulching_section("+service_id+", this)'>Close</button>"+
+                       "</div>"+
+                       "<div style='text-align:left !important'>"+
+                        "<h4>Description</h4>"+
+                        "<p id='service_desc'>"+service_desc+"</p>"+
+                        "<h4>What type of mulch are you looking for?</h4>"+
+                        "<div class='row mulch-holder' id='content-1'>"+
+                        mulch_html+
+                        "</div>"+
+                       "</div>";
+    $(ctrl).closest("div#extra_section").html(service_html);            
+}
+
+function close_mulching_section(service_id, ctrl){
+    var html = "<button class='btn btn-add-gray' onclick='add_mulching_section("+service_id+", this);'>ADD MULCHING</button>";
+    $(ctrl).closest("div#extra_section").html(html);    
+    
+}
+
+function add_edging_section(service_id, ctrl){
+    var service_desc = $("div.service_"+service_id+" p#service_desc").text();
+    var service_html = "<div style='text-align:right'>"+
+                       "<button class='btn btn-add-gray' onclick='close_edging_section("+service_id+", this)'>Close</button>"+
+                       "<div style='text-align:left !important'>"+
+                        "<h4>Description</h4>"+
+                        "<p id='service_desc'>"+service_desc+"</p>"+
+                       "</div>";
+    $(ctrl).closest("div#extra_section").html(service_html);            
+}
+
+function close_edging_section(service_id, ctrl) {
+    var html = "<button class='btn btn-add-gray' onclick='add_edging_section(" + service_id + ", this);'>ADD MULCHING</button>";
+    $(ctrl).closest("div#extra_section").html(html);
+
+}
