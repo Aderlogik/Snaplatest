@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618171605) do
+ActiveRecord::Schema.define(version: 20170624161214) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 20170618171605) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
+  create_table "mulching_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "price"
+    t.string   "integer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "payment_methods", force: :cascade do |t|
