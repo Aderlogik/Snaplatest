@@ -96,27 +96,19 @@
                       </h2>
                       <div class="plan-service">
                           <strong>
-                            <% if subplan.name == 'Trial' %>
-                              1 month
-                            <% else %>
-                              <%= ((Date.new(2017, 11, 30) - Date.today)/30).round %> months
-                            <% end %>
+                            <%= subplan.get_sub_plan_month %> <%= subplan.get_sub_plan_month == 1 ? "Month" : "Months" %>  
                           </strong>
                       </div>
                       <div>
                           <span class="plan-price">$<%= subplan.price %></span>
                           <span class="plan-service">/service <br />
-                            <% if subplan.name == 'Trial' %>  
-                              (commitment 2 services)<br /> <%= Plan.get_formatted_today %> - <%= Plan.get_formatted_next_month %>
-                            <%  else %>
-                              (commitment 2 services)<br /> <%= Plan.get_formatted_today %> - November 30th
-                            <% end %> 
+                                (commitment <%= subplan.get_committed_sevices %> services)<br /> <%= subplan.get_date_ranges %>
                           </span>
                       </div>
                       <div>
                         <div class="roundedOne">
                           <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id}, #{subplan.get_sub_plan_month}, #{subplan.price});", 
-                                              id: "plan0#{subplan.id}", data_committed_service: "#{subplan.services_commited}", data_for: "plan-#{subplan.plan_id}", checked: false %>
+                                              id: "plan0#{subplan.id}", data_committed_service: "#{subplan.get_committed_sevices}", data_for: "plan-#{subplan.plan_id}", checked: false %>
                           <label for="plan0<%= subplan.id %>"></label>
                         </div>
                       </div>

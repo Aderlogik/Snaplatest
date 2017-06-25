@@ -57,26 +57,22 @@ function calculate_price(){
       }
       console.log("mod_of_acre - " + mod_of_acre);
       var weekly_rate_of_service_for_monthly = weekly_min_charges + ((mod_of_acre) * weekly_floting_charges);
-      var weekly_rate_of_service_for_quaterly = weekly_rate_of_service_for_monthly - 5;
-      var weekly_rate_of_service_for_half_yearly = weekly_rate_of_service_for_monthly - 10;
+      var weekly_rate_of_service_for_seasonal = weekly_rate_of_service_for_monthly - 5;
+      console.log("weekly_rate_of_service_for_monthly - " + weekly_rate_of_service_for_monthly);
+      console.log("weekly_rate_of_service_for_seasonal - " + weekly_rate_of_service_for_seasonal);
       
-      $(".weekly-monthly .plan-price").text("$"+weekly_rate_of_service_for_monthly);
-      $(".weekly-monthly input[data_for]").attr("data_price", weekly_rate_of_service_for_monthly);
-      $(".weekly-quaterly .plan-price").text("$"+weekly_rate_of_service_for_quaterly);
-      $(".weekly-quaterly input[data_for]").attr("data_price", weekly_rate_of_service_for_quaterly);
-      $(".weekly-half-yearly .plan-price").text("$"+weekly_rate_of_service_for_half_yearly);
-      $(".weekly-half-yearly input[data_for]").attr("data_price", weekly_rate_of_service_for_half_yearly);   
+      $(".weekly-trial .plan-price").text("$"+weekly_rate_of_service_for_monthly);
+      $(".weekly-trial input[data_for]").attr("data_price", weekly_rate_of_service_for_monthly);
+      $(".weekly-seasonal .plan-price").text("$"+weekly_rate_of_service_for_seasonal);
+      $(".weekly-seasonal input[data_for]").attr("data_price", weekly_rate_of_service_for_seasonal);
       
       var biweekly_rate_of_service_for_monthly = biweekly_min_changes + ((mod_of_acre) * biweekly_floting_charges);
-      var biweekly_rate_of_service_for_quaterly = biweekly_rate_of_service_for_monthly - 5;
-      var biweekly_rate_of_service_for_half_yearly = biweekly_rate_of_service_for_monthly - 10;
+      var biweekly_rate_of_service_for_seasonal = biweekly_rate_of_service_for_monthly - 5;
       
-      $(".bi-weekly-monthly .plan-price").text("$"+biweekly_rate_of_service_for_monthly);
-      $(".bi-weekly-monthly input[data_for]").attr("data_price", biweekly_rate_of_service_for_monthly);
-      $(".bi-weekly-quaterly .plan-price").text("$"+biweekly_rate_of_service_for_quaterly);
-      $(".bi-weekly-quaterly input[data_for]").attr("data_price", biweekly_rate_of_service_for_quaterly);
-      $(".bi-weekly-half-yearly .plan-price").text("$"+biweekly_rate_of_service_for_half_yearly);
-      $(".bi-weekly-half-yearly input[data_for]").attr("data_price", biweekly_rate_of_service_for_half_yearly);      
+      $(".bi-weekly-trial .plan-price").text("$"+biweekly_rate_of_service_for_monthly);
+      $(".bi-weekly-trial input[data_for]").attr("data_price", biweekly_rate_of_service_for_monthly);
+      $(".bi-weekly-seasonal .plan-price").text("$"+biweekly_rate_of_service_for_seasonal);
+      $(".bi-weekly-seasonal input[data_for]").attr("data_price", biweekly_rate_of_service_for_seasonal);
       
       if(total_services !== undefined && selected_plan !== undefined){
         var rate_of_service = $("input[data_for='plan-"+selected_plan+"']:checked").attr("data_price");
