@@ -831,7 +831,7 @@ input[type=radio] {
 .btn-blue:hover{background: #3b99fc; color:#fff;}
 .btn-blue.active{background: #3b99fc; color:#fff;}
 .selected{ border:1px solid #3b99fc; box-shadow:0px 1px 3px #333; border-radius:10px;}
-.horizontal-scroll{ width:600px; height:240px; overflow: auto;  white-space: nowrap;}
+.horizontal-scroll{  height:240px; overflow: auto;  white-space: nowrap;}
 .horizontal-scroll .serviceList{ float:left;}
 .horizontal-scroll td{width:140px; padding-left:5px; padding-right:5px;}
   
