@@ -6,6 +6,8 @@ class HomeController < ApplicationController
   
   def book_service
     @subscription = Subscription.new
+    @edging_service_id = Service.get_edging_service_id
+    @mulching_service_id = Service.get_mulching_service_id
   end
   
   def new_service
