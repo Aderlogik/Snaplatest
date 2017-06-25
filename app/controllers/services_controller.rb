@@ -1,5 +1,6 @@
 class ServicesController < ApplicationController
-  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, :only => [:get_available_slots_for_service]
+  skip_before_action :verify_authenticity_token
   
   def index
   end
