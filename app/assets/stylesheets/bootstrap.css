@@ -4866,7 +4866,7 @@ a.label:focus {
 }
 .label-default[href]:hover,
 .label-default[href]:focus {
-  background-color: #5e5e5e;
+  /*background-color: #5e5e5e;*/
 }
 .label-primary {
   background-color: #337ab7;

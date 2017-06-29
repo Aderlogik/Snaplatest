@@ -43,7 +43,6 @@ function get_all_available_slots(ctrl, season_id){
         complete: function() {
         },
         success: function(data) {
-            console.log(data);   
             var html = '<div class="row">';
             var total_seasons = data["available_days"].length;
             $.each(data["available_days"], function( index, value ) {
@@ -61,7 +60,7 @@ function get_all_available_slots(ctrl, season_id){
                 html += '<div class="'+outer_css+'  '+border_css+'">'+
                             '<h2>'+value["season"]+'</h2>';
                             $.each(value["days"], function( month, days ) {
-                                html += '<div class="'+inner_css+'">'+
+                                html += '<div class="'+inner_css+' season_dates">'+
                                            '<div class="row">'+
                                              '<div class="col-md-6"><h3 class="no-margin">'+month+'</h3></div>'+
                                            '</div>';
@@ -71,7 +70,7 @@ function get_all_available_slots(ctrl, season_id){
                                                  default_day = "selected"
                                               }
                                               html += '<div class="row">'+
-                                                        '<div class="col-md-12"><span class="label label-default gray-label '+default_day+'">'+day[1]+'th</span></div>'+
+                                                        '<div class="col-md-12"><a href="javascript:void(0);" class="label label-default gray-label '+default_day+'">'+day[1]+'th</a></div>'+
                                                       '</div>';  
                                            });
                                 html += '</div>';
@@ -79,9 +78,12 @@ function get_all_available_slots(ctrl, season_id){
                 html += '</div>';
           });
           html += '</div>';
-          console.log(html);
           $("div.service_"+data["service_id"]+" div#available_slots").html(html);
           $("div.service_"+data["service_id"]+" div#season_range").text(data["season_range"]);
+          $(".gray-label").click(function () {
+               $(this).closest(".season_dates").find(".gray-label").removeClass("selected");
+               $(this).toggleClass("selected");
+          });
         }  
     });    
 }

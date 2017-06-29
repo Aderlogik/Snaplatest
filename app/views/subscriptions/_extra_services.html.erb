@@ -5,22 +5,22 @@
     <% if service.service_name == "Mulching" %>
       <h4>What type of mulch are you looking for?</h4>
       <div class="row mulch-holder" id="content-1">
-            <ul>
-              <% MulchingType.all.each do |mulch| %>  
-                <li>
-                    <div class="row">
-                        <div class="col-md-9"> <%= mulch.name %> <small>$<%= mulch.price %> / yard + labor</small> </div>
-                        <div class="col-md-3">
-                            <div class="roundedOne">
-                                <input class="mulch_type" name="mulch_type" type="radio" value="<%=  mulch.id %>" id="mulch_<%= mulch.id %>" />
-                                <label for="mulch_<%= mulch.id %>"></label>
-                            </div>
+        <ul>
+          <% MulchingType.all.each do |mulch| %>  
+            <li>
+                <div class="row">
+                    <div class="col-md-9"> <%= mulch.name %> <small>$<%= mulch.price %> / yard + labor</small> </div>
+                    <div class="col-md-3">
+                        <div class="roundedOne">
+                            <input class="mulch_type" name="mulch_type" type="radio" value="<%=  mulch.id %>" id="mulch_<%= mulch.id %>" />
+                            <label for="mulch_<%= mulch.id %>"></label>
                         </div>
                     </div>
-                </li>
-              <% end %>  
-            </ul>
-        </div>
+                </div>
+            </li>
+          <% end %>  
+        </ul>
+      </div>
     <% end %>
     <h3>Service Setup</h3>
     <div class="col-md-12 service-pic">
