@@ -357,9 +357,9 @@
   
   $( document ).ready(function() {
     $(".service_<%= Service.first.id %>").show();
+    $("#plan_<%= Plan.first.id %>").removeClass("tab");
+    $("#plan_<%= Plan.first.id %>").addClass("tab active");
     $("div[subplan_for='<%= Plan.first.id %>']").show();
-    $("#plan_1").removeClass("tab");
-    $("#plan_1").addClass("tab active");
   });
   
   $(window).on("load",function(){
