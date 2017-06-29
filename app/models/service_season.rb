@@ -20,7 +20,7 @@ class ServiceSeason < ApplicationRecord
     available_slots = {season: season_name, days: {}}
     (start_date..end_date).to_a.group_by(&:month).each{|month, days| 
       available_formatted_days = days.select{|day| day.wday == selected_day}.map{|day| [day.week_of_month == 2, day.strftime('%d')]}
-      available_slots[:days][Date::ABBR_MONTHNAMES[month]] = available_formatted_days
+      available_slots[:days][Date::ABBR_MONTHNAMES[month]] = available_formatted_days if available_formatted_days.size > 0
     }
     return available_slots
   end
