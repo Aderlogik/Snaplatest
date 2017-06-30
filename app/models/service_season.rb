@@ -1,4 +1,4 @@
-class ServiceSeason < ApplicationRecord
+  class ServiceSeason < ApplicationRecord
   belongs_to :service
   
   def get_season_image
@@ -30,7 +30,7 @@ class ServiceSeason < ApplicationRecord
             is_default_added = true if is_default
           end
         end
-        [is_day_passed, is_default, day.strftime('%d')]
+        [is_day_passed, is_default, day]
       }
       available_slots[:days][Date::ABBR_MONTHNAMES[month]] = available_formatted_days if available_formatted_days.size > 0
     }
