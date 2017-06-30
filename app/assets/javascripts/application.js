@@ -40,6 +40,22 @@ function signup_validation(){
     }
 }
 
+function payment_validation(){
+    var is_valid = true;
+    
+    //blank fields validation
+    $("#new_payment input[type='text']").each(function( index ) {
+       if($(this).val() === ""){
+           $(this).css("border", "solid 1px red");
+           is_valid = false;
+       }
+    });
+    
+    if(!is_valid){
+        return false;
+    }
+}
+
 function calculate_price(){
   var total_area = $("#subscription_location_attributes_area_in_acres").val();
   var selected_plan = $("#service_plan .tab.active").attr("data-plan-id");

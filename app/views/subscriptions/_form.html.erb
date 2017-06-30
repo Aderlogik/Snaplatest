@@ -108,7 +108,7 @@
                       <div>
                         <div class="roundedOne">
                           <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id}, #{subplan.get_sub_plan_month}, #{subplan.price});", 
-                                              id: "plan0#{subplan.id}", data_committed_service: "#{subplan.get_committed_sevices}", data_for: "plan-#{subplan.plan_id}", checked: false %>
+                                              id: "sub-plan-#{subplan.id}", data_committed_service: "#{subplan.get_committed_sevices}", data_for: "plan-#{subplan.plan_id}", checked: false %>
                           <label for="plan0<%= subplan.id %>"></label>
                         </div>
                       </div>
@@ -129,7 +129,7 @@
         <h4>What day of the week is best for service?</h4>
         <div class="col-md-2"> </div>
         <div class="col-md-10">
-          <input type="text" id="schedule_day" value="Monday" readonly>
+          <input type="text" id="schedule_day" value="" readonly>
           <%= f.hidden_field :schedule_id, id: "schedule_id", value: Service.first.id %>
           <div class="margintop-15">
             <% Schedule.all.order("id").each do |schedule| %>
@@ -360,6 +360,7 @@
     $("#plan_<%= Plan.first.id %>").removeClass("tab");
     $("#plan_<%= Plan.first.id %>").addClass("tab active");
     $("div[subplan_for='<%= Plan.first.id %>']").show();
+    $("input#sub-plan-<%= Subplan.first.id %>").attr("checked", "checked")
   });
   
   $(window).on("load",function(){

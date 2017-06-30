@@ -1,4 +1,4 @@
-<%= form_for([@payment.user, @payment.subscription, @payment]) do |f| %>
+<%= form_for([@payment.user, @payment.subscription, @payment], :html => { :onsubmit => "return payment_validation()" }) do |f| %>
 
   <div class="page-container01 user-setting">
     <div class="col-md-9  white-bg no-padding">
@@ -113,3 +113,6 @@
     </div>
   </div>
 <% end %>
+<script type="text/javascript">
+  $("input[type='submit']").removeAttr('data-disable-with');
+</script>
