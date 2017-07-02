@@ -23,9 +23,16 @@ function set_schedule(schedule, el, name){
     document.getElementById("schedule_id").value = schedule;
     document.getElementById("schedule_day").value = name;
     $("span#day_selected").text('"'+name+'"');
+    //get selected service id
+    var selected_service_id = $("input.service_check:checked").val();
+    //get selected season id
+    var season_id = $("div.service_" + selected_service_id).find("div.serviceList.selected").attr("data-id");
+    if(season_id){
+        get_all_available_slots(season_id);
+    }
 }
 
-function get_all_available_slots(ctrl, season_id){
+function get_all_available_slots(season_id){
     var service_frequency = $(".service_season_"+season_id).attr("data-frequency");
     var selected_day = $("input#schedule_id").val();
     if(selected_day == ""){
@@ -112,23 +119,26 @@ function get_all_available_slots(ctrl, season_id){
           if(service_frequency == "1"){
             $(".gray-label").click(function () {
                 $(".gray-label").removeClass("selected");
-                $(this).toggleClass("selected");
+                build_recap_text(this);
             });    
           }else{
             $(".gray-label").click(function () {
                 $(this).closest(".season_dates").find(".gray-label").removeClass("selected");
-                $(this).toggleClass("selected");
-                var frequency = [];
-                $(this).closest("div.services-details").find("div.season_dates a.selected").each(function () {
-                    frequency.push($(this).attr("data-date"));
-                });
-                $(this).closest("div.services-details").find("span#frequency_selected").text(frequency.join(" & "));
+                build_recap_text(this);
             });
           }
         }  
     });    
 }
 
+function build_recap_text(ctrl){
+    $(ctrl).toggleClass("selected");
+    var frequency = [];
+    $(ctrl).closest("div.services-details").find("div.season_dates a.selected").each(function () {
+        frequency.push($(this).attr("data-date"));
+    });
+    $(ctrl).closest("div.services-details").find("span#frequency_selected").text(frequency.join(" & "));    
+}
 function add_extra_service(service_id){
     var html = "<input type='hidden' name='subcription_extra_service["+service_id+"][\"service_id\"]' value='"+service_id+"' />";
     $("#selected_extra_services").append(html);

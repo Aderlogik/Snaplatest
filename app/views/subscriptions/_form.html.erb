@@ -356,11 +356,12 @@
   $("input[type='submit']").removeAttr('data-disable-with');
   
   $( document ).ready(function() {
+    $("#s<%= Service.first.id %>").attr("checked", "checked");
     $(".service_<%= Service.first.id %>").show();
     $("#plan_<%= Plan.first.id %>").removeClass("tab");
     $("#plan_<%= Plan.first.id %>").addClass("tab active");
     $("div[subplan_for='<%= Plan.first.id %>']").show();
-    $("input#sub-plan-<%= Subplan.first.id %>").attr("checked", "checked")
+    $("input#sub-plan-<%= Subplan.first.id %>").attr("checked", "checked");
   });
   
   $(window).on("load",function(){
