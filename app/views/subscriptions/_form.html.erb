@@ -380,7 +380,7 @@
       });
   });
   $(".serviceList").click(function(){
-      $(".serviceList").removeClass("selected")
+      $(this).closest("div.services-details").find(".serviceList").removeClass("selected")
       $(this).toggleClass("selected");
   });
   $(".servicePlanList").click(function(){

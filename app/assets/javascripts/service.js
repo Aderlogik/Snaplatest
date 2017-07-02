@@ -13,6 +13,7 @@ function set_service(service_id){
 }
 
 function edit_extra_service(service_id){
+    $('.service_check').prop('checked', false);
     show_extra_services(service_id);
 }
 
@@ -69,7 +70,7 @@ function get_all_available_slots(season_id){
             var total_seasons = data["available_days"].length;
             $.each(data["available_days"], function( index, value ) {
                 var border_css = "";
-                if(total_seasons > 1 && index ==0){
+                if(total_seasons > 1 && index == 0){
                   border_css = "border-right"
                 }
                 var total_months = Object.keys(value["days"]).length;
