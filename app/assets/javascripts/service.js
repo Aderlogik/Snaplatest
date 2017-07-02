@@ -12,6 +12,10 @@ function set_service(service_id){
     show_extra_services(service_id);
 }
 
+function edit_extra_service(service_id){
+    show_extra_services(service_id);
+}
+
 function reset_service(){
      $(".service_check:checked").removeAttr('checked');
      $(".add_service_seccess").hide();
@@ -140,6 +144,8 @@ function build_recap_text(ctrl){
     $(ctrl).closest("div.services-details").find("span#frequency_selected").text(frequency.join(" & "));    
 }
 function add_extra_service(service_id){
+    var edit_link_html = "<a href='javascript:void(0);' onclick='edit_extra_service("+service_id+");'>Edit</a>";
+    $("#s"+service_id).closest("tr").find("td#edit_service").html(edit_link_html);
     var html = "<input type='hidden' name='subcription_extra_service["+service_id+"][\"service_id\"]' value='"+service_id+"' />";
     $("#selected_extra_services").append(html);
     $(".services-details").hide();
