@@ -147,8 +147,8 @@
         <h4>What day of the week is best for service?</h4>
         <div class="col-md-2"> </div>
         <div class="col-md-10">
-          <input type="text" id="schedule_day" value="Monday" readonly>
-          <%= f.hidden_field :schedule_id, id: "schedule_id", value: Service.first.id %>
+          <input type="text" id="schedule_day" value="" readonly>
+          <%= f.hidden_field :schedule_id, id: "schedule_id" %>
           <div class="margintop-15">
             <% Schedule.all.order("id").each do |schedule| %>
               <a type="button" class="btn btn-bordered-small" onclick="set_schedule(<%= schedule.id %>, this, '<%= schedule.name %>')">
@@ -184,6 +184,7 @@
                         </div>
                       </td>
                       <td><%= service.service_name %></td>
+                      <td id="edit_service"></td>
                     </tr>
                   <% end %>
                 </table>
@@ -376,10 +377,12 @@
   $("input[type='submit']").removeAttr('data-disable-with');
   
   $( document ).ready(function() {
+    $("#s<%= Service.first.id %>").attr("checked", "checked");
     $(".service_<%= Service.first.id %>").show();
+    $("#plan_<%= Plan.first.id %>").removeClass("tab");
+    $("#plan_<%= Plan.first.id %>").addClass("tab active");
     $("div[subplan_for='<%= Plan.first.id %>']").show();
-    $("#plan_1").removeClass("tab");
-    $("#plan_1").addClass("tab active");
+    $("input#sub-plan-<%= Subplan.first.id %>").attr("checked", "checked");
   });
 
   $(window).on("load",function(){
@@ -397,7 +400,7 @@
       });
   });
   $(".serviceList").click(function(){
-      $(".serviceList").removeClass("selected")
+      $(this).closest("div.services-details").find(".serviceList").removeClass("selected")
       $(this).toggleClass("selected");
   });
   $(".servicePlanList").click(function(){
