@@ -29,8 +29,8 @@
           <tr>  
             <% service.service_season.each do |season| %>  
               <td>
-                <div class="serviceList service_season_<%= season.id %>" data-id="<%= season.id %>" 
-                     data-frequency="<%= season.service.frequency %>" onclick="get_all_available_slots(<%= season.id %>);"> 
+                <div class="<%= if season.is_season_passed; "serviceList"; end  %> service_season_<%= season.id %>" data-id="<%= season.id %>" 
+                     data-frequency="<%= season.service.frequency %>" <% if season.is_season_passed %>onclick="get_all_available_slots(<%= season.id %>);" <%end%>> 
                   <img src="/assets/<%= season.get_season_image %>" style="width: 220px; height: 200px;">
                   <div class="service-name"><%= season.name %></div>
                 </div>  
@@ -81,4 +81,8 @@
             <button type="button" class="btn btn-add-gray" onclick="reset_service()">OK</button>
         </div>
     </div>
+</div>
+<div class="extra_service_default" style="display: none;">
+  <h2 style="padding-bottom: 50px;">ADD AN ADDITIONAL SERVICE</h2>
+  <img src="/assets/extraservice.png" style="width: 100%; ">
 </div>

@@ -701,6 +701,12 @@ input[type=radio] {
 	padding:15px;
         background:#fff;
 }
+.extra_service_default{
+        padding-top: 100px;
+        background: #fff;
+        color:#a6a6a7; 
+        text-align: center;
+}
 .note {
 	font-size:15px;
 	margin-top:50px;

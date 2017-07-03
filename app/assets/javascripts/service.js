@@ -20,6 +20,7 @@ function edit_extra_service(service_id){
 function reset_service(){
      $(".service_check:checked").removeAttr('checked');
      $(".add_service_seccess").hide();
+     $(".extra_service_default").show();
 }
 
 function set_schedule(schedule, el, name){
@@ -159,13 +160,13 @@ function add_extra_service(service_id){
 }
 
 function show_extra_services(service_id) {
-    console.log("service_id - " + service_id);
     if ($(".add_service_seccess").is(":visible")) {
         $(".service_check:checked").removeAttr('checked');
         $(".add_service_seccess").effect("pulsate", {times: 1}, 1000);
     } else {
         $(".services-details").hide();
         $(".add_service_seccess").hide();
+        $(".extra_service_default").hide();
         $(".service_"+service_id).show();
     }
 } 

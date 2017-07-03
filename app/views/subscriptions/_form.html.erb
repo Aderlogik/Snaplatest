@@ -143,7 +143,7 @@
       <!--Schedule End --> 
       <!-- Extra Services-->
       <div class="pane-header">
-        <h4> Extra Services </h4>
+        <h4> Additional Services </h4>
       </div>
       <div class="panel-body">
         <h4>These services require their own schedule. Some require multiple
@@ -225,6 +225,7 @@
   function deleteSelectedShape () {
     if (selectedShape) {
       selectedShape.setMap(null);
+      drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
     }
   } 
   

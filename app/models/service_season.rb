@@ -5,6 +5,14 @@
     "#{name.downcase.gsub(/\s\&/, '').gsub(/\s/, '_')}.png"
   end
   
+  def is_season_passed
+    if name.include?("&")
+      Date.parse(end_date.split(" - ")[1]) > Date.today
+    else
+      Date.parse(end_date) > Date.today
+    end
+  end
+  
   def get_date_range_string(season_name, start_date, end_date)
     start_date = Date.parse(start_date)
     end_date = Date.parse(end_date)
