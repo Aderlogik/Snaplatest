@@ -30,16 +30,21 @@ function set_schedule(schedule, el, name){
     document.getElementById("schedule_day").value = name;
     $("span#day_selected").text('"'+name+'"');
     //get selected service id
-    var selected_service_id = $("input.service_check:checked").val();
     //get selected season id
-    var season_id = $("div.service_" + selected_service_id).find("div.serviceList.selected").attr("data-id");
-    if(season_id){
-        get_all_available_slots(season_id);
-    }
+    get_all_available_slots();
 }
 
-function get_all_available_slots(season_id){
-    var service_frequency = $(".service_season_"+season_id).attr("data-frequency");
+function get_all_available_slots(){
+    var season_ids = [];
+    var selected_service_id = $("input.service_check:checked").val();
+    var service_frequency = $("input.service_check:checked").attr("data-frequency");
+    $("div.service_"+selected_service_id).find("div.serviceList.selected").each(function(){
+        season_ids.push($(this).attr("data-id"));
+    });
+    if (season_ids.length === 0) {
+        $("div.service_"+selected_service_id+" div#available_slots").html("");
+        return;
+    }
     var selected_day = $("input#schedule_id").val();
     if(selected_day == ""){
        alert("Please select day of the week");
@@ -56,14 +61,13 @@ function get_all_available_slots(season_id){
         dataType: "json",
         data: {
             "selected_day": selected_day,
-            "season_id": season_id
+            "season_ids": season_ids
         },
         beforeSend: function() {
         },
         complete: function() {
         },
         success: function(data) {
-            console.log(data);
             var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
                 "July", "Aug", "Sept", "Oct", "Nov", "Dec"
             ];
@@ -81,7 +85,7 @@ function get_all_available_slots(season_id){
                     outer_css = "col-md-6";
                     inner_css = "col-md-4";
                 }else if(total_months == 4){
-                 outer_css = "col-md-8";
+                 outer_css = "col-md-6";
                  inner_css = "col-md-3";
                 }
                 html += '<div class="'+outer_css+'  '+border_css+'">'+
@@ -115,13 +119,13 @@ function get_all_available_slots(season_id){
                 html += '</div>';
           });
           html += '</div>';
-          $("div.service_"+data["service_id"]+" div#available_slots").html(html);
-          $("div.service_"+data["service_id"]+" div#season_range").text(data["season_range"]);
-          var selected_season = $(".service_1").find("div.serviceList.selected").find(".service-name").text();
-          $("div.service_"+data["service_id"]+" span#season_selected").text(selected_season);
+          $("div.service_"+selected_service_id+" div#available_slots").html(html);
+          $("div.service_"+selected_service_id+" div#season_range").text(data["season_range"]);
+          var selected_season = $("div.service_"+selected_service_id).find("div.serviceList.selected").find(".service-name").text();
+          $("div.service_"+selected_service_id+" span#season_selected").text(selected_season);
           var frequency = [];
-          $("div.service_"+data["service_id"]+" div.season_dates a.selected").each(function() { frequency.push($(this).attr("data-date"))});
-          $("div.service_"+data["service_id"]+" span#frequency_selected").text(frequency.join(" & "));
+          $("div.service_"+selected_service_id+" div.season_dates a.selected").each(function() { frequency.push($(this).attr("data-date"))});
+          $("div.service_"+selected_service_id+" span#frequency_selected").text(frequency.join(" & "));
           if(service_frequency == "1"){
             $(".gray-label").click(function () {
                 $(".gray-label").removeClass("selected");

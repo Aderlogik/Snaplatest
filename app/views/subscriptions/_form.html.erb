@@ -161,7 +161,10 @@
                     <tr>
                       <td>
                         <div class="roundedOne">
-                          <%= f.radio_button :service_id_temp, service.id, class: "service_check", :onclick => "set_service(#{service.id});", id: "s#{service.id}" %>
+                          <%= f.radio_button :service_id_temp, service.id, 
+                            class: "service_check", :onclick => "set_service(#{service.id});", 
+                            id: "s#{service.id}", "data-frequency" => service.frequency,
+                            "data-is-multi-season" => service.is_multi_season %>
                           <label for="s<%= service.id %>"></label>
                         </div>
                       </td>
@@ -381,8 +384,13 @@
       });
   });
   $(".serviceList").click(function(){
-      $(this).closest("div.services-details").find(".serviceList").removeClass("selected");
+      var is_multi_season = $("input.service_check:checked").attr("data-is-multi-season");
+      if(is_multi_season == "false"){
+        var season_id = $(this).attr("data-id");
+        $(this).closest("div.services-details").find(".serviceList").not(".service_season_"+season_id).removeClass("selected");
+      }
       $(this).toggleClass("selected");
+      get_all_available_slots();
   });
   $(".servicePlanList").click(function(){
       $(".servicePlanList").removeClass("active");

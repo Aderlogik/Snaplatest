@@ -29,8 +29,8 @@
           <tr>  
             <% service.service_season.each do |season| %>  
               <td>
-                <div class="<%= if season.is_season_passed; "serviceList"; end  %> service_season_<%= season.id %>" data-id="<%= season.id %>" 
-                     data-frequency="<%= season.service.frequency %>" <% if season.is_season_passed %>onclick="get_all_available_slots(<%= season.id %>);" <%end%>> 
+                <div class="<%= if season.is_season_passed; "serviceList"; end  %> service_season_<%= season.id %>" 
+                     data-id="<%= season.id %>"> 
                   <img src="/assets/<%= season.get_season_image %>" style="width: 220px; height: 200px;">
                   <div class="service-name"><%= season.name %></div>
                 </div>  
