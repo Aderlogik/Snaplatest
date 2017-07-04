@@ -851,6 +851,12 @@ input[type=radio] {
 .star-yellow {
 	color:#ffd700;
 }
+.payment_error{
+    color: red;
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+}
 .box {
     background:#fff;
     border-radius:10px;

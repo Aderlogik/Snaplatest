@@ -34,36 +34,44 @@ class PaymentsController < ApplicationController
   # POST /payments
   # POST /payments.json
   def create
-    @amount = 500
-    require "stripe"
-    Stripe.api_key = "sk_test_1pi6OyXmiHrPyIyq3PNF3oFY"
-    token = Stripe::Token.create(:card => {:number => params[:payment][:card_number],:exp_month => params[:payment][:exp_month], :exp_year => params[:payment][:exp_year],:cvc => params[:payment][:cvc]})
+    begin
+      @amount = 500
+      require "stripe"
+      Stripe.api_key = "sk_test_1pi6OyXmiHrPyIyq3PNF3oFY"
+      token = Stripe::Token.create(:card => {:number => params[:payment][:card_number],:exp_month => params[:payment][:exp_month], :exp_year => params[:payment][:exp_year],:cvc => params[:payment][:cvc]})
 
 
-    customer = Stripe::Customer.create(
-      email: "prashant@example.com",
-      source: token
-    )
-    
-    charge = Stripe::Charge.create(
-      customer: customer.id,
-      amount: @amount,
-      description: 'Rails Stripe customer',
-      currency: 'usd'
-    )
-    
-    @payment = Payment.new(payment_params)
-    @payment.user = @user
-    @payment.subscription = @subscription 
+      customer = Stripe::Customer.create(
+        email: "prashant@example.com",
+        source: token
+      )
 
-    respond_to do |format|
-      if @payment.save
-        format.html { redirect_to payments_path, notice: 'Payment was successfully created.' }
-        format.json { render :show, status: :created, location: @payment }
-      else
-        format.html { render :new }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
+      charge = Stripe::Charge.create(
+        customer: customer.id,
+        amount: @amount,
+        description: 'Rails Stripe customer',
+        currency: 'usd'
+      )
+
+      @payment = Payment.new(payment_params)
+      @payment.user = @user
+      @payment.subscription = @subscription 
+
+      respond_to do |format|
+        if @payment.save
+          format.html { redirect_to payments_path, notice: 'Payment was successfully created.' }
+          format.json { render :show, status: :created, location: @payment }
+        else
+          format.html { render :new }
+          format.json { render json: @payment.errors, status: :unprocessable_entity }
+        end
       end
+    rescue Stripe::CardError => e
+      body = e.json_body
+      err  = body[:error]
+      @payment = Payment.new(:user => @user, :subscription => @subscription)
+      flash[:error] = "#{err[:message]}"
+      render :new
     end
   end
 

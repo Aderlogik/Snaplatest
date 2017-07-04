@@ -88,7 +88,7 @@ function get_all_available_slots(){
                  outer_css = "col-md-6";
                  inner_css = "col-md-3";
                 }
-                html += '<div class="'+outer_css+'  '+border_css+'">'+
+                html += '<div class="season_slot '+outer_css+'  '+border_css+'">'+
                             '<h2>'+value["season"]+'</h2>';
                             $.each(value["days"], function( month, days ) {
                                 html += '<div class="'+inner_css+' season_dates">'+
@@ -128,7 +128,7 @@ function get_all_available_slots(){
           $("div.service_"+selected_service_id+" span#frequency_selected").text(frequency.join(" & "));
           if(service_frequency == "1"){
             $(".gray-label").click(function () {
-                $(".gray-label").removeClass("selected");
+                $(this).closest(".season_slot").find(".gray-label").removeClass("selected");
                 build_recap_text(this);
             });    
           }else{

@@ -157,7 +157,7 @@
               <div class="col-md-5 scrollbar" id="content-2">
                 <table cellpadding="0" cellspacing="0" class="extra-services-list">
                   <%= f.hidden_field :service_id, id: "service_id", value: Service.first.id %>
-                  <% Service.all.each do |service| %>
+                  <% Service.all.order("id").each do |service| %>
                     <tr>
                       <td>
                         <div class="roundedOne">
