@@ -17,7 +17,7 @@
       <% end %>
       <div class="payment_error">
         <% flash.each do |key, value| %>
-          <% if !value.downcase.include?("sign") %>
+          <% if value.downcase.include?("card") %>
             <%= content_tag :div, value, class: "flash #{key}" %>
           <% end %>
         <% end %>

@@ -70,7 +70,7 @@ class PaymentsController < ApplicationController
       body = e.json_body
       err  = body[:error]
       @payment = Payment.new(:user => @user, :subscription => @subscription)
-      flash[:error] = "#{err[:message]}"
+      flash.now[:error] = "#{err[:message]}"
       render :new
     end
   end
