@@ -29,11 +29,11 @@
     }    
     
     //Extra service list validation
-    var selected_services = $("div#selected_extra_services input").size();
-    if(selected_services < 1){
-        alert("Please select atleast one service.");
-        return false;
-    }    
+//    var selected_services = $("div#selected_extra_services input").size();
+//    if(selected_services < 1){
+//        alert("Please select atleast one service.");
+//        return false;
+//    }    
   }
   
  function get_address_components(place){

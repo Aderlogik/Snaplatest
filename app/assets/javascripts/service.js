@@ -1,12 +1,3 @@
-$(document).ready( function () {
-    if($("#plan01")[0]){
-        $("#plan01")[0].checked = true;
-        $("#s1")[0].checked = true;
-        $(".tab")[0].className = "tab active";
-        $(".btn-bordered-small")[0].className = "btn btn-solid-small";
-    }    
-});
-
 function set_service(service_id){
     document.getElementById('service_id').value = service_id;
     show_extra_services(service_id);

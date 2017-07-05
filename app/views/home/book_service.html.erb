@@ -48,29 +48,29 @@
               <div id="panel"></div>
               <div id="map"></div>
             </div>
-            <div class="row">
-              <div class="col-md-6">Area: <span id="area_in_sq_f"></span> feet, <span id="area_in_acre"></span> acres</div>
-              <%= f.fields_for :location, Location.new do | location| %>
-                <%= location.hidden_field :name, class: "location_name", value: "test_name"%>
-                <%= location.hidden_field :address, class: "location_address", value: 0 %>
-                <%= location.hidden_field :city, class: "location_city" %>
-                <%= location.hidden_field :state, class: "location_state" %>
-                <%= location.hidden_field :country, class: "location_country" %>
-                <%= location.hidden_field :latitude, class: "location_latitude" %>
-                <%= location.hidden_field :longitude, class: "location_longitude" %>
-                <%= location.hidden_field :zip, class: "location_zip" %>
-                <%= location.hidden_field :area_in_acres, class: "feet_hidden_field", value: 0 %>
-                <%= location.hidden_field :area_in_feet, class: "area_hidden_field", value: 0 %>
-                <%= location.hidden_field :map_url, class: "map_url_hidden_field" %>
-              <% end %>
-              <div class="col-md-6 text-right"> 
-                  <a href="javascript:void(0);" class="btn btn-small" id="clear_marker">Clear Markers</a> 
-              </div>
+          <div class="row">
+            <div class="col-md-6">Area: <span id="area_in_sq_f"></span> feet, <span id="area_in_acre"></span> acres</div>
+            <%= f.fields_for :location, Location.new do | location| %>
+              <%= location.hidden_field :name, class: "location_name", value: "test_name"%>
+              <%= location.hidden_field :address, class: "location_address", value: 0 %>
+              <%= location.hidden_field :city, class: "location_city" %>
+              <%= location.hidden_field :state, class: "location_state" %>
+              <%= location.hidden_field :country, class: "location_country" %>
+              <%= location.hidden_field :latitude, class: "location_latitude" %>
+              <%= location.hidden_field :longitude, class: "location_longitude" %>
+              <%= location.hidden_field :zip, class: "location_zip" %>
+              <%= location.hidden_field :area_in_acres, class: "feet_hidden_field", value: 0 %>
+              <%= location.hidden_field :area_in_feet, class: "area_hidden_field", value: 0 %>
+              <%= location.hidden_field :map_url, class: "map_url_hidden_field" %>
+            <% end %>
+            <div class="col-md-6 text-right"> 
+                <a href="javascript:void(0);" class="btn btn-small" id="clear_marker">Clear Markers</a> 
             </div>
+          </div>
         </div>
-        <div class="pane-header">
-          <h4> Your plan </h4>
-        </div>
+      <div class="pane-header">
+        <h4> Your plan </h4>
+      </div>
       <div class="panel-body">
         <p>The landscaping plan consists on the following services. You can <br />
         choose the frequency that better fits your needs</p>
@@ -126,8 +126,8 @@
                       <div>
                         <div class="roundedOne">
                           <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id}, #{subplan.get_sub_plan_month}, #{subplan.price});", 
-                                              id: "plan0#{subplan.id}", data_committed_service: "#{subplan.get_committed_sevices}", data_for: "plan-#{subplan.plan_id}", checked: false %>
-                          <label for="plan0<%= subplan.id %>"></label>
+                                              id: "sub-plan-#{subplan.id}", data_committed_service: "#{subplan.get_committed_sevices}", data_for: "plan-#{subplan.plan_id}", checked: false %>
+                          <label for="sub-plan-<%= subplan.id %>"></label>
                         </div>
                       </div>
                     </div>
@@ -136,9 +136,8 @@
               </div>
             </div>
           </div>
-        </div>
       <!-- Tab Holder End--> 
-      </div>
+        </div>
       <!--Schedule -->
       <div style="padding-left: 20px;">
         <h1 class="head"> Schedule </h1>
@@ -175,11 +174,14 @@
               <div class="col-md-5 scrollbar" id="content-2">
                 <table cellpadding="0" cellspacing="0" class="extra-services-list">
                   <%= f.hidden_field :service_id, id: "service_id", value: Service.first.id %>
-                  <% Service.all.each do |service| %>
+                  <% Service.all.order("id").each do |service| %>
                     <tr>
                       <td>
                         <div class="roundedOne">
-                          <%= f.radio_button :service_id_temp, service.id, class: "service_check", :onclick => "set_service(#{service.id});", type: "checkbox", id: "s#{service.id}" %>
+                          <%= f.radio_button :service_id_temp, service.id, 
+                            class: "service_check", :onclick => "set_service(#{service.id});", 
+                            id: "s#{service.id}", "data-frequency" => service.frequency,
+                            "data-is-multi-season" => service.is_multi_season %>
                           <label for="s<%= service.id %>"></label>
                         </div>
                       </td>
@@ -195,10 +197,12 @@
             </div>
           </div>
         </div>
+      </div>    
+      <!-- Extra Services End-->
     
-        <div class="pane-header">
-          <h4> Summary </h4>
-        </div>
+          <div class="pane-header">
+            <h4> Summary </h4>
+          </div>
           <div class="panel-body">
             <h1 class="summary-title">Billing Review</h1>
             <div class="extra-services row">
@@ -235,7 +239,8 @@
           <div class="btn-save-continue"><%= f.submit "SAVE & CONTINUE", style: "border: none;background: #d8d8d8;" %></div>
         </div>
       </div>
-  </div>  
+    </div> 
+  </div> 
 <% end %>
 <div class="clearfix"></div>
 
@@ -246,12 +251,12 @@
       drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
     }
   } 
+  
   function initialize() {
     var input = document.getElementById('map_address');
     input.value = "";
     document.getElementById("area_in_sq_f").innerHTML = "";
-    document.getElementById("area_in_acre").innerHTML = ""; 
-    
+    document.getElementById("area_in_acre").innerHTML = "";
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
       center: new google.maps.LatLng(40.71, -74.00),
@@ -295,7 +300,6 @@
           setSelection(newShape);
         });
         var area = google.maps.geometry.spherical.computeArea(newShape.getPath());
-        var area_in_sq_m = area.toFixed(2);
         var area_in_sq_f = (area * 10.764).toFixed(2);
         var area_in_acre = (area * 0.00024711).toFixed(2);
         document.getElementById("area_in_sq_f").innerHTML = area_in_sq_f;
@@ -351,7 +355,6 @@
           anchor: new google.maps.Point(17, 34),
           scaledSize: new google.maps.Size(25, 25)
         };
-        console.log(place.geometry.location);
         get_address_components(place);
         // Create a marker for each place.
         markers.push(new google.maps.Marker({
@@ -370,22 +373,20 @@
       map.fitBounds(bounds);
     });  
   }
-  google.maps.event.addDomListener(window, 'load', initialize);
-  <%#*google.maps.event.addDomListener(window, 'turbolinks:load', initialize);%>
+  <%#*google.maps.event.addDomListener(window, 'load', initialize);%>
+  google.maps.event.addDomListener(window, 'turbolinks:load', initialize);
 
   $('.left-sidebar li.active').removeClass('active');
   $("li.service_tab").addClass('active'); 
   $("input[type='submit']").removeAttr('data-disable-with');
   
   $( document ).ready(function() {
-    $("#s<%= Service.first.id %>").attr("checked", "checked");
-    $(".service_<%= Service.first.id %>").show();
     $("#plan_<%= Plan.first.id %>").removeClass("tab");
     $("#plan_<%= Plan.first.id %>").addClass("tab active");
     $("div[subplan_for='<%= Plan.first.id %>']").show();
     $("input#sub-plan-<%= Subplan.first.id %>").attr("checked", "checked");
   });
-
+  
   $(window).on("load",function(){
       $("#content-1").mCustomScrollbar({
         live:true,
@@ -401,13 +402,18 @@
       });
   });
   $(".serviceList").click(function(){
-      $(this).closest("div.services-details").find(".serviceList").removeClass("selected")
+      var is_multi_season = $("input.service_check:checked").attr("data-is-multi-season");
+      if(is_multi_season == "false"){
+        var season_id = $(this).attr("data-id");
+        $(this).closest("div.services-details").find(".serviceList").not(".service_season_"+season_id).removeClass("selected");
+      }
       $(this).toggleClass("selected");
+      get_all_available_slots();
   });
   $(".servicePlanList").click(function(){
       $(".servicePlanList").removeClass("active");
       $(this).toggleClass("active");
-  });   
+  });    
 </script>
 </body>
 </html>

@@ -707,6 +707,11 @@ input[type=radio] {
         color:#a6a6a7; 
         text-align: center;
 }
+.add_service_seccess{
+    padding-top: 60px;
+    background: #fff;
+    padding-bottom: 60px;
+}
 .note {
 	font-size:15px;
 	margin-top:50px;

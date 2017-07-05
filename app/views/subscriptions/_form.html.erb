@@ -109,7 +109,7 @@
                         <div class="roundedOne">
                           <%= f.radio_button :sub_plan_id_temp, '', :onclick => "set_sub_plan(#{subplan.id}, #{subplan.get_sub_plan_month}, #{subplan.price});", 
                                               id: "sub-plan-#{subplan.id}", data_committed_service: "#{subplan.get_committed_sevices}", data_for: "plan-#{subplan.plan_id}", checked: false %>
-                          <label for="plan0<%= subplan.id %>"></label>
+                          <label for="sub-plan-<%= subplan.id %>"></label>
                         </div>
                       </div>
                     </div>
@@ -118,9 +118,8 @@
               </div>
             </div>
           </div>
-        </div>
       <!-- Tab Holder End--> 
-      </div>
+        </div>
       <!--Schedule -->
       <div style="padding-left: 20px;">
         <h1 class="head"> Schedule </h1>
@@ -176,10 +175,11 @@
               </div>
               <div class="col-md-7 gray-bg"> 
                  <%= render 'extra_services' %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>    
       <!-- Extra Services End-->
     
           <div class="pane-header">
@@ -221,7 +221,8 @@
           <div class="btn-save-continue"><%= f.submit "SAVE & CONTINUE", style: "border: none;background: #d8d8d8;" %></div>
         </div>
       </div>
-  </div>  
+    </div> 
+  </div>    
 <% end %>
 
 <script type="text/javascript">  
@@ -361,12 +362,9 @@
   $("input[type='submit']").removeAttr('data-disable-with');
   
   $( document ).ready(function() {
-    $("#s<%= Service.first.id %>").attr("checked", "checked");
-    $(".service_<%= Service.first.id %>").show();
     $("#plan_<%= Plan.first.id %>").removeClass("tab");
     $("#plan_<%= Plan.first.id %>").addClass("tab active");
     $("div[subplan_for='<%= Plan.first.id %>']").show();
-    $("input#sub-plan-<%= Subplan.first.id %>").attr("checked", "checked");
   });
   
   $(window).on("load",function(){

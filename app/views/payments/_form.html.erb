@@ -17,7 +17,9 @@
       <% end %>
       <div class="payment_error">
         <% flash.each do |key, value| %>
+          <% if !value.downcase.include?("sign") %>
             <%= content_tag :div, value, class: "flash #{key}" %>
+          <% end %>
         <% end %>
       </div>    
       <%= f.hidden_field :stripe_card_token %>
