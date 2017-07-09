@@ -2,14 +2,18 @@
   belongs_to :service
   
   def get_season_image
-    "#{name.downcase.gsub(/\s\&/, '').gsub(/\s/, '_')}.png"
+    if is_season_passed
+      "#{name.downcase.gsub(/\s\&/, '').gsub(/\s/, '_')}_off.png"
+    else
+      "#{name.downcase.gsub(/\s\&/, '').gsub(/\s/, '_')}.png"
+    end
   end
   
   def is_season_passed
     if name.include?("&")
-      Date.parse(end_date.split(" - ")[1]) > Date.today
+      Date.parse(end_date.split(" - ")[1]) < Date.today
     else
-      Date.parse(end_date) > Date.today
+      Date.parse(end_date) < Date.today
     end
   end
   
