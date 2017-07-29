@@ -152,6 +152,12 @@ function add_extra_service(service_id){
     $('html, body').animate({
         scrollTop: $(".add_service_seccess").offset().top - 100
     }, 1000);
+    
+    //add extra service in billing section
+    var tr_html = "<tr>"+
+                  "<td>"+$(".service_name_"+service_id).text()+"</td>"+
+                  "<td>$0</td></tr>";    
+    $( tr_html ).insertBefore(".final_total_tr");
 }
 
 function show_extra_services(service_id) {

@@ -639,6 +639,9 @@ input[type=radio] {
 .border-bottom {
 	border-bottom:1px solid #979797;
 }
+.border-above {
+	border-top:1px solid #979797;
+}
 .billing-total {
 	width:100%;
 	font-size:17px;

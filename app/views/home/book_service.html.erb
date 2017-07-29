@@ -185,7 +185,7 @@
                           <label for="s<%= service.id %>"></label>
                         </div>
                       </td>
-                      <td><%= service.service_name %></td>
+                      <td class="service_name_<%= service.id %>"><%= service.service_name %></td>
                       <td id="edit_service"></td>
                     </tr>
                   <% end %>
@@ -222,12 +222,12 @@
                       <%= f.hidden_field :price, id: "landscape_package_price" %>
                       <td id="landscape_package_fee">-</td>
                     </tr>
-                    <tr class="border-bottom">
+                    <tr>
                       <td>Fee</td>
                       <%= f.hidden_field :processing_fee, id: "processing_fee_price", value: 5 %>
                       <td id="processing_fee">$5</td>
                     </tr>
-                    <tr>
+                    <tr class="final_total_tr border-above">
                       <td class="font-lato-regulor">Today's total</td>
                       <td class="font-lato-regulor" id="total_price">-</td>
                     </tr>
