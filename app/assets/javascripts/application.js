@@ -64,7 +64,9 @@ function calculate_price(){
       var weekly_min_charges = 50;
       var weekly_floting_charges = 25;
       var biweekly_min_changes = 55;
-      var biweekly_floting_charges = 27.5;
+//      var biweekly_floting_charges = 27.5;
+      var biweekly_trial_floting_charges = 12;
+      var biweekly_seasonal_floting_charges = 8;
       total_area = parseFloat(total_area).toFixed(1);
       console.log("total_area - " + total_area);
       var mod_of_acre = 0;
@@ -82,8 +84,8 @@ function calculate_price(){
       $(".weekly-seasonal .plan-price").text("$"+weekly_rate_of_service_for_seasonal);
       $(".weekly-seasonal input[data_for]").attr("data_price", weekly_rate_of_service_for_seasonal);
       
-      var biweekly_rate_of_service_for_monthly = biweekly_min_changes + ((mod_of_acre) * biweekly_floting_charges);
-      var biweekly_rate_of_service_for_seasonal = biweekly_rate_of_service_for_monthly - 5;
+      var biweekly_rate_of_service_for_monthly = biweekly_min_changes + ((mod_of_acre) * biweekly_trial_floting_charges);
+      var biweekly_rate_of_service_for_seasonal = biweekly_min_changes + ((mod_of_acre) * biweekly_seasonal_floting_charges);
       
       $(".bi-weekly-trial .plan-price").text("$"+biweekly_rate_of_service_for_monthly);
       $(".bi-weekly-trial input[data_for]").attr("data_price", biweekly_rate_of_service_for_monthly);
