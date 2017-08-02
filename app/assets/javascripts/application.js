@@ -65,8 +65,8 @@ function calculate_price(){
       var weekly_floting_charges = 25;
       var biweekly_min_changes = 55;
 //      var biweekly_floting_charges = 27.5;
-      var biweekly_trial_floting_charges = 12;
-      var biweekly_seasonal_floting_charges = 8;
+      var biweekly_trial_floting_charges = 39.5;
+      var biweekly_seasonal_floting_charges = 35.5;
       total_area = parseFloat(total_area).toFixed(1);
       console.log("total_area - " + total_area);
       var mod_of_acre = 0;
