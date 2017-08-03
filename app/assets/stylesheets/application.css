@@ -34,4 +34,5 @@
 #map_address:focus {
   border-color: #4d90fe;
 }
-      
+     
+.pac-container { z-index: 10000 !important; }

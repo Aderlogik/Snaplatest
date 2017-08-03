@@ -39,4 +39,14 @@ class ServicesController < ApplicationController
     }
     render :json => {available_days:  available_days, season_range: season_range.join(" & ")}
   end
+  
+  def refresh_location_service
+    location = Location.find(params["location_id"])
+    subscription = Subscription.find(location.subscription_id)
+    extra_service_ids = SubscriptionExtraService.where(:subscription_id => location.subscription_id).map(&:service_id)
+    render :json => {area_in_feet: location.area_in_feet, area_in_acres: location.area_in_acres,
+                     plan_id: subscription.plan_id, sub_plan_id: subscription.sub_plan_id,
+                     schedule_id: subscription.schedule_id, extra_service_ids: extra_service_ids
+    }
+  end
 end

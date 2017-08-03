@@ -209,5 +209,42 @@ function add_edging_section(service_id, ctrl){
 function close_edging_section(service_id, ctrl) {
     var html = "<button class='btn btn-add-gray' onclick='add_edging_section(" + service_id + ", this);'>ADD MULCHING</button>";
     $(ctrl).closest("div#extra_section").html(html);
+}
 
+function refresh_location_service(location_id){
+    $.ajax({
+        url: "/refresh_location_service",
+        type: "post",
+        dataType: "json",
+        data: {
+        "location_id": location_id
+        },
+        beforeSend: function() {
+        },
+        complete: function() {
+        },
+        success: function(data) {    
+            console.log(data);
+            document.getElementById("area_in_sq_f").innerHTML = data["area_in_feet"];
+            document.getElementById("area_in_acre").innerHTML = data["area_in_acres"];
+            $("#subscription_location_attributes_area_in_feet").val(data["area_in_feet"]);
+            $("#subscription_location_attributes_area_in_acres").val(data["area_in_acres"]);
+            $("#area_in_acres_billing").text(data["area_in_acres"]);
+            
+            $("a[id^='plan_']").removeClass("active");
+            $("div.subplan").hide();
+            
+            $("#plan_"+data["plan_id"]).removeClass("tab");
+            $("#plan_"+data["plan_id"]).addClass("tab active");
+            $("div[subplan_for="+data["plan_id"]+"]").show();
+            $("input#sub-plan-"+data["sub_plan_id"]).attr("checked", "checked");
+            
+            $("a[data-schedule-id='"+data["schedule_id"]+"']").click();
+            
+            $.each(data["extra_service_ids"], function (index, value) {
+                add_extra_service(value);
+            });
+            calculate_price();
+        }
+   })
 }

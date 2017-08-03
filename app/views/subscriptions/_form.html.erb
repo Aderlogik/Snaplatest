@@ -132,7 +132,7 @@
           <%= f.hidden_field :schedule_id, id: "schedule_id" %>
           <div class="margintop-15">
             <% Schedule.all.order("id").each do |schedule| %>
-              <a type="button" class="btn btn-bordered-small" onclick="set_schedule(<%= schedule.id %>, this, '<%= schedule.name %>')">
+              <a type="button" data-schedule-id="<%= schedule.id %>" class="btn btn-bordered-small" onclick="set_schedule(<%= schedule.id %>, this, '<%= schedule.name %>')">
                 <%= schedule.name %>
               </a>
             <% end %>
@@ -225,6 +225,18 @@
   </div>    
 <% end %>
 
+<div id="user_locations" style="display: none">
+  <% @user.locations.each do |location| %>
+    <% location_name = "#{location.address}, #{location.city}, #{location.state}" %>
+    <div id="areasearch" class="pac-item areasearch custom" val="<%= location_name %>" 
+         lat="<%= location.latitude %>" lng="<%= location.longitude %>" data-id="<%= location.id %>">
+        <span class="pac-icon pac-icon-airport"></span>
+        <span class="pac-item-query">
+            <span class="pac-matched"><%= location_name %></span>
+        </span> 
+        <span><%= location_name %></span></div>  
+  <% end %>
+</div>
 <script type="text/javascript">  
   function deleteSelectedShape () {
     if (selectedShape) {
@@ -325,6 +337,7 @@
       // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
       places.forEach(function(place) {
+        console.log(place);
         if (!place.geometry) {
           console.log("Returned place contains no geometry");
           return;
@@ -354,6 +367,93 @@
       map.fitBounds(bounds);
     });  
   }
+  
+  setCustomLocation = function (obj) {
+        var input = document.getElementById('map_address');
+        var location_id = $(obj).attr("data-id");
+        input.value = $(obj).attr("val");
+        var newObj = {};
+        newObj["geometry"] = {}
+        newObj["geometry"]["location"] = {}
+        newObj["geometry"]["location"]["lat"] = function () { return $(obj).attr("lat"); }
+        newObj["geometry"]["location"]["lng"] = function () { return $(obj).attr("lng"); }
+        var myLatLng = {lat: parseFloat($(obj).attr("lat")), lng: parseFloat($(obj).attr("lng"))};
+        
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: myLatLng,
+          mapTypeId: google.maps.MapTypeId.HYBRID
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: $(obj).attr("val")
+        }); 
+        var polyOptions = {
+          strokeWeight: 0,
+          fillOpacity: 0.45,
+          editable: true
+        };
+        // Creates a drawing manager attached to the map that allows the user to draw
+        // markers, lines, and shapes.
+        drawingManager = new google.maps.drawing.DrawingManager({
+          drawingMode: google.maps.drawing.OverlayType.POLYGON,
+          markerOptions: {
+            draggable: true
+          },
+          polylineOptions: {
+            editable: true
+          },
+          drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_LEFT  ,
+            drawingModes: ['marker', 'polygon', 'polyline']
+          },   
+          rectangleOptions: polyOptions,
+          circleOptions: polyOptions,
+          polygonOptions: polyOptions,
+          map: map
+        });
+        google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
+          if (e.type != google.maps.drawing.OverlayType.MARKER) {
+            // Switch back to non-drawing mode after drawing a shape.
+            drawingManager.setDrawingMode(null);
+            // Add an event listener that selects the newly-drawn shape when the user
+            // mouses down on it.
+            var newShape = e.overlay;
+            newShape.type = e.type;
+            google.maps.event.addListener(newShape, 'click', function() {
+              setSelection(newShape);
+            });
+            var area = google.maps.geometry.spherical.computeArea(newShape.getPath());
+            var area_in_sq_f = (area * 10.764).toFixed(2);
+            var area_in_acre = (area * 0.00024711).toFixed(2);
+            document.getElementById("area_in_sq_f").innerHTML = area_in_sq_f;
+            document.getElementById("area_in_acre").innerHTML = area_in_acre;
+            $("#subscription_location_attributes_area_in_feet").val(area_in_sq_f);
+            $("#subscription_location_attributes_area_in_acres").val(area_in_acre);
+            $("#area_in_acres_billing").text(area_in_acre);
+            setSelection(newShape);
+            calculate_price();
+          }
+        });
+        // Clear the current selection when the drawing mode is changed, or when the
+        // map is clicked.
+        google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
+        google.maps.event.addListener(map, 'click', clearSelection);
+        google.maps.event.addDomListener(document.getElementById('clear_marker'), 'click', deleteSelectedShape);
+        buildColorPalette();
+
+        // Create the search box and link it to the UI element.
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+        refresh_location_service(location_id);
+        $(".pac-container").hide();
+    }
   <%#*google.maps.event.addDomListener(window, 'load', initialize);%>
   google.maps.event.addDomListener(window, 'turbolinks:load', initialize);
 
@@ -366,6 +466,7 @@
     $("#plan_<%= Plan.first.id %>").addClass("tab active");
     $("div[subplan_for='<%= Plan.first.id %>']").show();
     $("input#sub-plan-<%= Subplan.first.id %>").attr("checked", "checked");
+    $(".pac-container").html($("#user_locations").html());
   });
   
   $(window).on("load",function(){
@@ -395,4 +496,15 @@
       $(".servicePlanList").removeClass("active");
       $(this).toggleClass("active");
   });  
+  
+  $( "#map_address" ).focus(function() {
+    $(".pac-container").html($("#user_locations").html());
+    $(".pac-container").css({"width": "975px", "position": "absolute", "left": "238px", "top": "287px"}); 
+    $(".pac-container").show();
+    setTimeout(function () {
+                            $("div.pac-item.custom").mousedown(function () {
+                                setCustomLocation($(this));
+                            })
+                        }, 100);
+  });
 </script>
