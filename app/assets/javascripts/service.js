@@ -154,7 +154,7 @@ function add_extra_service(service_id){
     }, 1000);
     
     //add extra service in billing section
-    var tr_html = "<tr>"+
+    var tr_html = "<tr id='extra_service_price_tr'>"+
                   "<td>"+$(".service_name_"+service_id).text()+"</td>"+
                   "<td>$0</td></tr>";    
     $( tr_html ).insertBefore(".final_total_tr");
@@ -225,11 +225,20 @@ function refresh_location_service(location_id){
         },
         success: function(data) {    
             console.log(data);
-            document.getElementById("area_in_sq_f").innerHTML = data["area_in_feet"];
-            document.getElementById("area_in_acre").innerHTML = data["area_in_acres"];
-            $("#subscription_location_attributes_area_in_feet").val(data["area_in_feet"]);
-            $("#subscription_location_attributes_area_in_acres").val(data["area_in_acres"]);
-            $("#area_in_acres_billing").text(data["area_in_acres"]);
+            $("#subscription_location_attributes_address").val(data["location"]["address"]);
+            $("#subscription_location_attributes_city").val(data["location"]["city"]);
+            $("#subscription_location_attributes_state").val(data["location"]["state"]);
+            $("#subscription_location_attributes_zip").val(data["location"]["zip"]);
+            $("#subscription_location_attributes_country").val(data["location"]["country"]);
+            $("#subscription_location_attributes_latitude").val(data["location"]["latitude"]);
+            $("#subscription_location_attributes_longitude").val(data["location"]["longitude"]);
+            $("#subscription_location_attributes_map_url").val(data["location"]["map_url"]); 
+            
+            document.getElementById("area_in_sq_f").innerHTML = data["location"]["area_in_feet"];
+            document.getElementById("area_in_acre").innerHTML = data["location"]["area_in_acres"];
+            $("#subscription_location_attributes_area_in_feet").val(data["location"]["area_in_feet"]);
+            $("#subscription_location_attributes_area_in_acres").val(data["location"]["area_in_acres"]);
+            $("#area_in_acres_billing").text(data["location"]["area_in_acres"]);
             
             $("a[id^='plan_']").removeClass("active");
             $("div.subplan").hide();

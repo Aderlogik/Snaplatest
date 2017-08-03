@@ -379,6 +379,8 @@
         newObj["geometry"]["location"]["lng"] = function () { return $(obj).attr("lng"); }
         var myLatLng = {lat: parseFloat($(obj).attr("lat")), lng: parseFloat($(obj).attr("lng"))};
         
+        $(".pac-container").remove();
+        $("tr#extra_service_price_tr").remove();
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 15,
           center: myLatLng,

@@ -44,9 +44,8 @@ class ServicesController < ApplicationController
     location = Location.find(params["location_id"])
     subscription = Subscription.find(location.subscription_id)
     extra_service_ids = SubscriptionExtraService.where(:subscription_id => location.subscription_id).map(&:service_id)
-    render :json => {area_in_feet: location.area_in_feet, area_in_acres: location.area_in_acres,
-                     plan_id: subscription.plan_id, sub_plan_id: subscription.sub_plan_id,
-                     schedule_id: subscription.schedule_id, extra_service_ids: extra_service_ids
+    render :json => {location: location, plan_id: subscription.plan_id, sub_plan_id: subscription.sub_plan_id,
+                     schedule_id: subscription.schedule_id, extra_service_ids: extra_service_ids,
     }
   end
 end
