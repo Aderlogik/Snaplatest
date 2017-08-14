@@ -130,7 +130,7 @@
         <div class="col-md-10">
           <input type="text" id="schedule_day" value="" readonly>
           <%= f.hidden_field :schedule_id, id: "schedule_id" %>
-          <div class="margintop-15">
+          <div class="margintop-15" id="schedule_day_section">
             <% Schedule.all.order("id").each do |schedule| %>
               <a type="button" data-schedule-id="<%= schedule.id %>" class="btn btn-bordered-small" onclick="set_schedule(<%= schedule.id %>, this, '<%= schedule.name %>')">
                 <%= schedule.name %>

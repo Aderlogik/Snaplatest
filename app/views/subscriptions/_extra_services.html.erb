@@ -20,9 +20,9 @@
         <h3>We will start plowing at:</h3>
         <div style="margin-top: 15px;margin-left: 15px;margin-bottom: 15px;">
           <input type="text" id="plowing_inch" value="" readonly>
-          <div class="margintop-15">
+          <div class="margintop-15" id="plowing_inch_section">
             <% (3..5).each do |inch| %>  
-              <a type="button" class="btn btn-bordered-small" onclick="set_plowing_inch()">
+              <a type="button" class="btn btn-bordered-small" onclick="set_plowing_inch(this)">
                 <%= inch %> Inches
               </a>
             <% end %>  

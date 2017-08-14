@@ -20,7 +20,7 @@ function reset_service(){
 }
 
 function set_schedule(schedule, el, name){
-    $(".btn-solid-small").removeClass('btn btn-solid-small').addClass('btn btn-bordered-small');
+    $("#schedule_day_section").find(".btn-solid-small").removeClass('btn btn-solid-small').addClass('btn btn-bordered-small');
     $(el).addClass('btn btn-solid-small');
     document.getElementById("schedule_id").value = schedule;
     document.getElementById("schedule_day").value = name;
@@ -28,6 +28,12 @@ function set_schedule(schedule, el, name){
     //get selected service id
     //get selected season id
     get_all_available_slots();
+}
+
+function set_plowing_inch(ctrl){
+   $("#plowing_inch_section").find(".btn-solid-small").removeClass('btn btn-solid-small').addClass('btn btn-bordered-small'); 
+   $(ctrl).addClass('btn btn-solid-small');
+   $("#plowing_inch").val($(ctrl).text());
 }
 
 function get_all_available_slots(){
