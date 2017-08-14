@@ -1,75 +1,120 @@
 <% Service.all.each do |service| %>
   <div class="service_<%= service.id %> services-details" style="display: none">
-    <h4>Description</h4>
-    <p id="service_desc"><%= service.description %></p>
-    <% if service.service_name == "Mulching" %>
-      <h4>What type of mulch are you looking for?</h4>
-      <div class="row mulch-holder" id="content-1">
-        <ul>
-          <% MulchingType.all.each do |mulch| %>  
-            <li>
-                <div class="row">
-                    <div class="col-md-9"> <%= mulch.name %> <small>$<%= mulch.price %> / yard + labor</small> </div>
-                    <div class="col-md-3">
-                        <div class="roundedOne">
-                            <input class="mulch_type" name="mulch_type" type="radio" value="<%=  mulch.id %>" id="mulch_<%= mulch.id %>" />
-                            <label for="mulch_<%= mulch.id %>"></label>
-                        </div>
-                    </div>
-                </div>
-            </li>
-          <% end %>  
-        </ul>
+    <% if service.service_name == "Driveway Snow Plowing" %>  
+      <h4>Driveway Area</h4>
+      <p id="service_desc"><%= service.description %></p>
+      <div class="form-group">
+        <div class="icon-addon addon-lg">
+          <input type="text" id="driveway_map_address" placeholder="Address" onkeydown="if (event.keyCode == 13) return false">
+        </div>
       </div>
-    <% end %>
-    <h3>Service Setup</h3>
-    <div class="col-md-12 service-pic">
-      <div id="content-3" class="horizontal-scroll"> 
-        <table>  
-          <tr>  
-            <% service.service_season.each do |season| %>  
-              <td>
-                <div class="<%= if !season.is_season_passed; "serviceList"; end  %> service_season_<%= season.id %>" 
-                     data-id="<%= season.id %>"> 
-                  <img src="/assets/<%= season.get_season_image %>" style="width: 220px; height: 200px;">
-                  <div class="service-name"><%= season.name %></div>
-                </div>  
-              </td>    
+      <div>
+        <title>Drawing Tools</title>
+        <div id="panel"></div>
+        <div id="driveway_map"></div>
+      </div>     
+      <div class="pane-header">
+        <h4> Trigger Point </h4>
+      </div>    
+      <div>
+        <h3>We will start plowing at:</h3>
+        <div style="margin-top: 15px;margin-left: 15px;margin-bottom: 15px;">
+          <input type="text" id="plowing_inch" value="" readonly>
+          <div class="margintop-15">
+            <% (3..5).each do |inch| %>  
+              <a type="button" class="btn btn-bordered-small" onclick="set_plowing_inch()">
+                <%= inch %> Inches
+              </a>
+            <% end %>  
+          </div> 
+        </div>
+        <div>* We will service accordingly upon snow accumulation</div>
+        <div class="text-right" style="margin-bottom: 15px;">
+            <button type="button" class="btn btn-add-gray" onclick="">ADD</button>
+        </div>
+      </div>  
+      <div class="pane-header">
+        <h4> Salting </h4>
+      </div>
+      <div>
+        <h3>Do you want salting at the conclusion of the storm?</h3>
+        <div>* Salt will be $50.00 for 750 square feet.</div>
+        <div class="text-right" style="margin-bottom: 15px;">
+            <button type="button" class="btn btn-add-gray" onclick="">ADD</button>
+        </div>        
+      </div>  
+    <% else %>  
+      <h4>Description</h4>
+      <p id="service_desc"><%= service.description %></p>
+      <% if service.service_name == "Mulching" %>
+        <h4>What type of mulch are you looking for?</h4>
+        <div class="row mulch-holder" id="content-1">
+          <ul>
+            <% MulchingType.all.each do |mulch| %>  
+              <li>
+                  <div class="row">
+                      <div class="col-md-9"> <%= mulch.name %> <small>$<%= mulch.price %> / yard + labor</small> </div>
+                      <div class="col-md-3">
+                          <div class="roundedOne">
+                              <input class="mulch_type" name="mulch_type" type="radio" value="<%=  mulch.id %>" id="mulch_<%= mulch.id %>" />
+                              <label for="mulch_<%= mulch.id %>"></label>
+                          </div>
+                      </div>
+                  </div>
+              </li>
+            <% end %>  
+          </ul>
+        </div>
+      <% end %>
+      <h3>Service Setup</h3>
+      <div class="col-md-12 service-pic">
+        <div id="content-3" class="horizontal-scroll"> 
+          <table>  
+            <tr>  
+              <% service.service_season.each do |season| %>  
+                <td>
+                  <div class="<%= if !season.is_season_passed; "serviceList"; end  %> service_season_<%= season.id %>" 
+                       data-id="<%= season.id %>"> 
+                    <img src="/assets/<%= season.get_season_image %>" style="width: 220px; height: 200px;">
+                    <div class="service-name"><%= season.name %></div>
+                  </div>  
+                </td>    
+              <% end %>
+            </tr>
+          </table>      
+        </div> 
+        <div id="season_range"></div>  
+      </div>    
+      <div class="clearfix"></div>
+      <h3>When do you want the service to be performed?</h3>
+      <div id="available_slots"></div>
+      <% if (service.service_name.include? "Edging") || (service.service_name.include? "Mulching")  %>
+        <h4><strong>Recommendation</strong></h4>
+        <p>We suggest you do mulching the same day this service is prohibited. 
+            We strongly advise you don't do mulching without edging of shrub and plant beds.
+        </p>
+        <div class="text-right" id="extra_section">
+            <% if (service.service_name.include? "Edging") %>
+              <button class="btn btn-add-gray" onclick='add_mulching_section(<%= @mulching_service_id %>, this);'>ADD MULCHING</button>
+            <% elsif (service.service_name.include? "Mulching") %> 
+              <button class="btn btn-add-gray" onclick='add_edging_section(<%= @edging_service_id %>, this);'>ADD EDGING</button>
             <% end %>
-          </tr>
-        </table>      
-      </div> 
-      <div id="season_range"></div>  
-    </div>    
-    <div class="clearfix"></div>
-    <h3>When do you want the service to be performed?</h3>
-    <div id="available_slots"></div>
-    <% if (service.service_name.include? "Edging") || (service.service_name.include? "Mulching")  %>
-      <h4><strong>Recommendation</strong></h4>
-      <p>We suggest you do mulching the same day this service is prohibited. 
-          We strongly advise you don't do mulching without edging of shrub and plant beds.
-      </p>
-      <div class="text-right" id="extra_section">
-          <% if (service.service_name.include? "Edging") %>
-            <button class="btn btn-add-gray" onclick='add_mulching_section(<%= @mulching_service_id %>, this);'>ADD MULCHING</button>
-          <% elsif (service.service_name.include? "Mulching") %> 
-            <button class="btn btn-add-gray" onclick='add_edging_section(<%= @edging_service_id %>, this);'>ADD EDGING</button>
-          <% end %>
+        </div>
+      <% end %>
+      <h4>Recap</h4>
+      <div>We will come on a <span id="day_selected"></span> in the 
+                             <span id="season_selected"></span> 
+                             <span id="frequency_selected"></span> 
       </div>
-    <% end %>
-    <h4>Recap</h4>
-    <div>We will come on a <span id="day_selected"></span> in the 
-                           <span id="season_selected"></span> 
-                           <span id="frequency_selected"></span> 
-    </div>
-    <h3>Service Price</h3>
-    <div>
-        Pricing will depend on the amount of man hours it takes to complete the job. The price per man hour is $50. 
-        We will have GPS and photo documentation for proof of presence and service.
-    </div>
-    <div class="text-right">
-        <button type="button" class="btn btn-add-gray" onclick="add_extra_service('<%= service.id %>');">ADD</button>
-    </div>
+      <h3>Service Price</h3>
+      <div>
+          Pricing will depend on the amount of man hours it takes to complete the job. The price per man hour is $50. 
+          We will have GPS and photo documentation for proof of presence and service.
+      </div>
+      <div class="text-right">
+          <button type="button" class="btn btn-add-gray" onclick="add_extra_service('<%= service.id %>');">ADD</button>
+      </div>
+    <% end %>  
   </div>
 <% end %>
 <div class='add_service_seccess' style="display: none;">

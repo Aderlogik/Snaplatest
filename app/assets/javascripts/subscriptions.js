@@ -98,3 +98,73 @@ function set_sub_plan(subplanid, sub_plan_month, recurring_price) {
     $("td#recurring_fee").text("$" + recurring_price);
     calculate_price();
 }
+
+  function deleteSelectedShape () {
+    if (selectedShape) {
+      selectedShape.setMap(null);
+      drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+    }
+  } 
+  
+  setCustomLocation = function (obj) {
+        var input = document.getElementById('map_address');
+        var location_id = $(obj).attr("data-id");
+        input.value = $(obj).attr("val");
+        var newObj = {};
+        newObj["geometry"] = {}
+        newObj["geometry"]["location"] = {}
+        newObj["geometry"]["location"]["lat"] = function () { return $(obj).attr("lat"); }
+        newObj["geometry"]["location"]["lng"] = function () { return $(obj).attr("lng"); }
+        var myLatLng = {lat: parseFloat($(obj).attr("lat")), lng: parseFloat($(obj).attr("lng"))};
+        
+        $(".pac-container").remove();
+        $("tr#extra_service_price_tr").remove();
+        var map = init_map("map");
+
+        var marker = init_marker_of_map(map, $(obj).attr("val"), myLatLng);
+        
+        // Creates a drawing manager attached to the map that allows the user to draw
+        // markers, lines, and shapes.
+        drawingManager = init_drawing_manager_of_map(map);
+        
+        google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
+          if (e.type != google.maps.drawing.OverlayType.MARKER) {
+            // Switch back to non-drawing mode after drawing a shape.
+            drawingManager.setDrawingMode(null);
+            // Add an event listener that selects the newly-drawn shape when the user
+            // mouses down on it.
+            var newShape = e.overlay;
+            newShape.type = e.type;
+            google.maps.event.addListener(newShape, 'click', function() {
+              setSelection(newShape);
+            });
+            var area = google.maps.geometry.spherical.computeArea(newShape.getPath());
+            var area_in_sq_f = (area * 10.764).toFixed(2);
+            var area_in_acre = (area * 0.00024711).toFixed(2);
+            document.getElementById("area_in_sq_f").innerHTML = area_in_sq_f;
+            document.getElementById("area_in_acre").innerHTML = area_in_acre;
+            $("#subscription_location_attributes_area_in_feet").val(area_in_sq_f);
+            $("#subscription_location_attributes_area_in_acres").val(area_in_acre);
+            $("#area_in_acres_billing").text(area_in_acre);
+            setSelection(newShape);
+            calculate_price();
+          }
+        });
+        // Clear the current selection when the drawing mode is changed, or when the
+        // map is clicked.
+        google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
+        google.maps.event.addListener(map, 'click', clearSelection);
+        google.maps.event.addDomListener(document.getElementById('clear_marker'), 'click', deleteSelectedShape);
+        buildColorPalette();
+
+        // Create the search box and link it to the UI element.
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+        refresh_location_service(location_id);
+        $(".pac-container").hide();
+    }
+    

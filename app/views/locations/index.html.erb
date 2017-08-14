@@ -23,7 +23,7 @@
                                 <tr>
                                     <td><%= location.address %></td>
                                     <td class="text-right">
-                                        <a class="asd" role="button" data-toggle="collapse" onclick="init_map(this, <%= location.id %>)"
+                                        <a class="asd" role="button" data-toggle="collapse" onclick="init_loc_map(this, <%= location.id %>)"
                                           data-parent="#accordion" href="#collapse<%= location.id %>" 
                                           aria-expanded="true" aria-controls="collapseOne"> 
                                           EDIT 
@@ -66,7 +66,7 @@
   $('.left-sidebar li.active').removeClass('active');
   $("li.location_tab").addClass('active');
     
-  function init_map(ctrl, location_id){ 
+  function init_loc_map(ctrl, location_id){ 
     $("#collapse"+location_id).collapse("toggle");
     var map_dom = $(ctrl).closest(".location").find("#map");
     var myLatLng = {lat: parseFloat(map_dom.attr("data-lat")), lng: parseFloat(map_dom.attr("data-lng"))};
