@@ -159,7 +159,7 @@
                 </div>  
                 <table cellpadding="0" cellspacing="0" class="extra-services-list">
                   <%= f.hidden_field :service_id, id: "service_id", value: Service.first.id %>
-                  <% Service.all.order("id").each do |service| %>
+                  <% Service.where(:only_winter => 0).order("id").each do |service| %>
                     <tr>
                       <td>
                         <div class="roundedOne">
@@ -175,6 +175,27 @@
                     </tr>
                   <% end %>
                 </table>
+                <div class="pane-header">
+                  <h4> Winter </h4>
+                </div>  
+                <table cellpadding="0" cellspacing="0" class="extra-services-list">
+                  <%= f.hidden_field :service_id, id: "service_id", value: Service.first.id %>
+                  <% Service.where(:only_winter => 1).order("id").each do |service| %>
+                    <tr>
+                      <td>
+                        <div class="roundedOne">
+                          <%= f.radio_button :service_id_temp, service.id, 
+                            class: "service_check", :onclick => "set_service(#{service.id});", 
+                            id: "s#{service.id}", "data-frequency" => service.frequency,
+                            "data-is-multi-season" => service.is_multi_season %>
+                          <label for="s<%= service.id %>"></label>
+                        </div>
+                      </td>
+                      <td class="service_name_<%= service.id %>"><%= service.service_name %></td>
+                      <td id="edit_service"></td>
+                    </tr>
+                  <% end %>
+                </table>                  
               </div>
               <div class="col-md-7 gray-bg"> 
                  <%= render 'extra_services' %>

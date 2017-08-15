@@ -100,13 +100,25 @@
                 <td>Landscaping Package</td>
                 <td>$<%= @subscription.price.to_f %></td>
               </tr>
-              <tr class="border-bottom">
+              <tr>
                 <td>Fee</td>
                 <td>$<%= @subscription.processing_fee.to_f %></td>
               </tr>
-              <tr>
+              <% es_total_price = 0 %>
+              <% @subscription.subscription_extra_services.each do |es| %>
+                <% if !es.price.nil? || !es.salting_price.nil? %>
+                  <% es_total_price = 0 %>
+                  <% es_total_price += es.price if !es.price.nil? %>
+                  <% es_total_price += es.salting_price if !es.salting_price.nil? %>
+                  <tr>
+                    <td><%= es.service.service_name %></td>
+                    <td>$<%= es_total_price %></td>
+                  </tr>
+                <% end %>  
+              <% end %>              
+              <tr class="border-above">
                 <td class="font-lato-regulor">Today's total</td>
-                <td class="font-lato-regulor">$<%= @subscription.get_total_price %></td>
+                <td class="font-lato-regulor">$<%= @subscription.get_total_price + es_total_price %></td>
               </tr>
             </table>
           </div>
