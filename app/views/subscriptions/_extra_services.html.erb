@@ -12,7 +12,17 @@
         <title>Drawing Tools</title>
         <div id="panel"></div>
         <div id="driveway_map"></div>
-      </div>     
+      </div>
+      <div class="row">
+          <div class="col-md-6">Area: <span id="driveway_area_in_sq_f"></span> square feet</div>
+          <div class="col-md-6 text-right"> 
+              <a href="javascript:void(0);" class="btn btn-small" id="driveway_clear_marker">Clear Markers</a> 
+          </div>
+      </div>
+      <div class="row" style="margin-top: 15px; margin-left: 15px; margin-bottom: 15px;">
+        <div>The first three inches will equal ($40.0)</div>
+        <div>For every additional inch we will charge ($40.0)</div>
+      </div>
       <div class="pane-header">
         <h4> Trigger Point </h4>
       </div>    
@@ -30,7 +40,8 @@
         </div>
         <div>* We will service accordingly upon snow accumulation</div>
         <div class="text-right" style="margin-bottom: 15px;">
-            <button type="button" class="btn btn-add-gray" onclick="">ADD</button>
+            <span id="trigger_point_success"></span>
+            <button type="button" class="btn btn-add-gray" onclick="add_plowing_trigger_point('<%= service.id %>')">ADD</button>
         </div>
       </div>  
       <div class="pane-header">
@@ -38,9 +49,9 @@
       </div>
       <div>
         <h3>Do you want salting at the conclusion of the storm?</h3>
-        <div>* Salt will be $50.00 for 750 square feet.</div>
+        <div>* Salt will be <span id="salt_price">$50.00</span> for <span id="salt_area">750</span> square feet.</div>
         <div class="text-right" style="margin-bottom: 15px;">
-            <button type="button" class="btn btn-add-gray" onclick="">ADD</button>
+            <button type="button" class="btn btn-add-gray" onclick="add_salting_extra_service('<%= service.id %>')">ADD</button>
         </div>        
       </div>  
     <% else %>  

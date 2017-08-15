@@ -171,6 +171,68 @@ function add_extra_service(service_id){
     $( tr_html ).insertBefore(".final_total_tr");
 }
 
+function add_plowing_trigger_point(service_id){
+    if($("#driveway_area_in_sq_f").text() === ""){
+        alert("Please select area on driveway map.");
+        return;
+    }  
+    if($("#plowing_inch").val() === ""){
+        alert("Plase select plowing inch");
+        return;
+    }    
+    var plowing_inch =  parseInt($("#plowing_inch").val());
+    var plowing_area = parseFloat($("#driveway_area_in_sq_f").text());
+    var plowing_price = (plowing_area * 0.054 * (plowing_inch-2)).toFixed(2);
+    $("#plowing_inch").attr("data-price", plowing_price);
+    var html = "<input type='hidden' name='subcription_extra_service["+service_id+"][\"service_id\"]' value='"+service_id+"' />";
+    html += "<input type='hidden' name='subcription_extra_service["+service_id+"][\"price\"]' value='"+plowing_price+"' />";
+    $("#selected_extra_services").append(html);        
+    $("#extra_service_price_tr[data-service-id='"+service_id+"']").remove();
+    $("#trigger_point_success").text("Added");
+    var total_price = plowing_price;
+//    if($("#salt_price").attr("data-price") !== undefined){
+//        total_price = parseFloat(total_price) + parseFloat($("#salt_price").attr("data-price"));
+//    }
+    //add extra service in billing section
+    var tr_html = "<tr id='extra_service_price_tr' data-service-id='"+service_id+"' data-price='"+total_price+"'>"+
+                  "<td>"+$(".service_name_"+service_id).text()+"</td>"+
+                  "<td>$"+total_price+"</td></tr>";    
+    $( tr_html ).insertBefore(".final_total_tr");        
+    calculate_price();
+}
+
+function add_salting_extra_service(service_id){
+    if($("#driveway_area_in_sq_f").text() === ""){
+        alert("Please select area on driveway map.");
+    }else{
+        var edit_link_html = "<a href='javascript:void(0);' onclick='edit_extra_service("+service_id+");'>Edit</a>";
+        $("#s"+service_id).closest("tr").find("td#edit_service").html(edit_link_html);
+        var salting_price = $("#salt_price").attr("data-price");
+        var html = "<input type='hidden' name='subcription_extra_service["+service_id+"][\"service_id\"]' value='"+service_id+"' />";
+        html += "<input type='hidden' name='subcription_extra_service["+service_id+"][\"salting_price\"]' value='"+salting_price+"' />";
+        html += "<input type='hidden' name='subcription_extra_service["+service_id+"][\"salting\"]' value='1' />";
+        $("#selected_extra_services").append(html);
+        $(".services-details").hide();
+        $(".add_service_seccess").show();
+        $(".service_check:checked").removeAttr('checked');
+        $("#s"+service_id).closest("td").html('<i class="fa fa-check" aria-hidden="true" style="color:#31ad00;"></i>');
+        $('html, body').animate({
+            scrollTop: $(".add_service_seccess").offset().top - 100
+        }, 1000);
+        $("#extra_service_price_tr[data-service-id='"+service_id+"']").remove();
+        var total_price = parseFloat(salting_price);
+        if($("#plowing_inch").attr("data-price") !== undefined){
+            total_price = parseFloat(total_price) + parseFloat($("#plowing_inch").attr("data-price"));
+        }  
+        //add extra service in billing section
+        var tr_html = "<tr id='extra_service_price_tr' data-service-id='"+service_id+"' data-price='"+total_price+"'>"+
+                      "<td>"+$(".service_name_"+service_id).text()+"</td>"+
+                      "<td>$"+total_price+"</td></tr>";    
+        $(tr_html).insertBefore(".final_total_tr");
+        calculate_price();
+    }
+}
+
 function show_extra_services(service_id) {
     if ($(".add_service_seccess").is(":visible")) {
         $(".service_check:checked").removeAttr('checked');

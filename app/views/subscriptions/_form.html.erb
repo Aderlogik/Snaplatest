@@ -28,27 +28,27 @@
               <div id="panel"></div>
               <div id="map"></div>
             </div>
-          <div class="row">
-            <div class="col-md-6">Area: <span id="area_in_sq_f"></span> feet, <span id="area_in_acre"></span> acres</div>
-            <%= f.fields_for :location, Location.new do | location| %>
-              <%= location.hidden_field :user_id, value: current_user.id %>
-              <%= location.hidden_field :name, class: "location_name", value: "test_name"%>
-              <%= location.hidden_field :address, class: "location_address", value: 0 %>
-              <%= location.hidden_field :city, class: "location_city" %>
-              <%= location.hidden_field :state, class: "location_state" %>
-              <%= location.hidden_field :country, class: "location_country" %>
-              <%= location.hidden_field :latitude, class: "location_latitude" %>
-              <%= location.hidden_field :longitude, class: "location_longitude" %>
-              <%= location.hidden_field :zip, class: "location_zip" %>
-              <%= location.hidden_field :area_in_acres, class: "feet_hidden_field", value: 0 %>
-              <%= location.hidden_field :area_in_feet, class: "area_hidden_field", value: 0 %>
-              <%= location.hidden_field :map_url, class: "map_url_hidden_field" %>
-            <% end %>
-            <div class="col-md-6 text-right"> 
-                <a href="javascript:void(0);" class="btn btn-small" id="clear_marker">Clear Markers</a> 
+            <div class="row">
+              <div class="col-md-6">Area: <span id="area_in_sq_f"></span> feet, <span id="area_in_acre"></span> acres</div>
+              <%= f.fields_for :location, Location.new do | location| %>
+                <%= location.hidden_field :user_id, value: current_user.id %>
+                <%= location.hidden_field :name, class: "location_name", value: "test_name"%>
+                <%= location.hidden_field :address, class: "location_address", value: 0 %>
+                <%= location.hidden_field :city, class: "location_city" %>
+                <%= location.hidden_field :state, class: "location_state" %>
+                <%= location.hidden_field :country, class: "location_country" %>
+                <%= location.hidden_field :latitude, class: "location_latitude" %>
+                <%= location.hidden_field :longitude, class: "location_longitude" %>
+                <%= location.hidden_field :zip, class: "location_zip" %>
+                <%= location.hidden_field :area_in_acres, class: "feet_hidden_field", value: 0 %>
+                <%= location.hidden_field :area_in_feet, class: "area_hidden_field", value: 0 %>
+                <%= location.hidden_field :map_url, class: "map_url_hidden_field" %>
+              <% end %>
+              <div class="col-md-6 text-right"> 
+                  <a href="javascript:void(0);" class="btn btn-small" id="clear_marker">Clear Markers</a> 
+              </div>
             </div>
           </div>
-        </div>
       <div class="pane-header">
         <h4> Interested in setting up a plan? </h4>
       </div>
@@ -154,6 +154,9 @@
           <div class="extra-services">
             <div class="white-bg container-fluid">
               <div class="col-md-5 scrollbar" id="content-2">
+                <div class="pane-header">
+                  <h4> Spring, Summer, Fall </h4>
+                </div>  
                 <table cellpadding="0" cellspacing="0" class="extra-services-list">
                   <%= f.hidden_field :service_id, id: "service_id", value: Service.first.id %>
                   <% Service.all.order("id").each do |service| %>
@@ -195,6 +198,8 @@
                   <p><span id="selected_plan">Weekly</span> Landscaping Plan Minimum <span id="selected_sub_plan_month">1</span> months</p>
                   <h5>Property</h5>
                   <p><span id="area_in_acres_billing"></span> Acres</p>
+                  <h5>Driveway</h5>
+                  <p><span id="driveway_area_in_acres_billing"></span> Acres</p>
                 </div>
                 <div class="col-md-5">
                   <h5>Billing</h5>

@@ -175,11 +175,11 @@ function init_driveway_map(name, lat, lng){
   }
   // Creates a drawing manager attached to the map that allows the user to draw
   // markers, lines, and shapes.
-  drawingManager = init_drawing_manager_of_map(map);    
-  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
+  drivewayDrawingManager = init_drawing_manager_of_map(map);    
+  google.maps.event.addListener(drivewayDrawingManager, 'overlaycomplete', function(e) {
     if (e.type != google.maps.drawing.OverlayType.MARKER) {
       // Switch back to non-drawing mode after drawing a shape.
-      drawingManager.setDrawingMode(null);
+      drivewayDrawingManager.setDrawingMode(null);
       // Add an event listener that selects the newly-drawn shape when the user
       // mouses down on it.
       var newShape = e.overlay;
@@ -188,10 +188,20 @@ function init_driveway_map(name, lat, lng){
         setSelection(newShape);
       });
       var area = google.maps.geometry.spherical.computeArea(newShape.getPath());
+      var area_in_sq_f = (area * 10.764).toFixed(2);
+      var area_in_acre = (area * 0.00024711).toFixed(2);
+      document.getElementById("driveway_area_in_sq_f").innerHTML = area_in_sq_f;
+      var salt_price = (area_in_sq_f * 0.067).toFixed(2);
+      document.getElementById("salt_area").innerHTML = area_in_sq_f;
+      document.getElementById("salt_price").innerHTML = "$" + salt_price;
+      $("#salt_price").attr("data-price", salt_price);
+      $("#driveway_area_in_acres_billing").text(area_in_acre);
       setSelection(newShape);
     }
   });  
-  google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
+  google.maps.event.addListener(drivewayDrawingManager, 'drawingmode_changed', clearSelection);
+  google.maps.event.addListener(map, 'click', clearSelection);
+  google.maps.event.addDomListener(document.getElementById('driveway_clear_marker'), 'click', deleteSelectedDrivewayShape);
   buildColorPalette(); 
   
   // Create the search box and link it to the UI element.
@@ -325,6 +335,10 @@ function calculate_price(){
         $("#landscape_package_price").text(landscape_package_price);
         var processing_fee = parseInt($("#processing_fee_price").val());
         var total_price = landscape_package_price + processing_fee;
+        var snow_plowing_price = $("#extra_service_price_tr[data-price]").attr("data-price");
+        if(snow_plowing_price !== undefined){
+            total_price = parseFloat(total_price) + parseFloat(snow_plowing_price);
+        }
         $("#total_price").text("$"+total_price);
         $("#landscape_package_price").val(landscape_package_price);
         $("#landscape_package_fee").text("$"+landscape_package_price);

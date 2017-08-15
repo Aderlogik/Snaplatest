@@ -106,6 +106,13 @@ function set_sub_plan(subplanid, sub_plan_month, recurring_price) {
     }
   } 
   
+  function deleteSelectedDrivewayShape(){
+    if (selectedShape) {
+      selectedShape.setMap(null);
+      drivewayDrawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+    }      
+  }
+  
   setCustomLocation = function (obj) {
         var input = document.getElementById('map_address');
         var location_id = $(obj).attr("data-id");

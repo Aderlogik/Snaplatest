@@ -883,3 +883,9 @@ input[type=radio] {
     font-weight:normal;
     margin:20px 0px
 }
+
+#trigger_point_success{
+    color: green;
+    font-weight: bold;
+    padding-right: 10px;
+}

@@ -34,7 +34,11 @@ class SubscriptionsController < ApplicationController
       #save extra services
       if params["subcription_extra_service"]
         params["subcription_extra_service"].each{|id, attributes|
-          SubscriptionExtraService.create!(:subscription_id => @subscription.id, :service_id => id)
+          subscription_extra_service = SubscriptionExtraService.new(:subscription_id => @subscription.id)
+          attributes.each{|key, value|
+            subscription_extra_service[ key.gsub(/"/,'').to_sym] = value
+          } 
+          subscription_extra_service.save
         }
       end
       redirect_to new_user_subscription_payment_path(current_user, @subscription.id)
