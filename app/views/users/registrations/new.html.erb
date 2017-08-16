@@ -76,6 +76,7 @@
               <%= hidden_field_tag :price, @subscription.price %>  
               <%= hidden_field_tag :recurring_fee, @subscription.recurring_fee %>  
               <%= hidden_field_tag :processing_fee, @subscription.processing_fee %>  
+              <%= hidden_field_tag :extra_service_price, value: @subscription.extra_service_price %>
               <img src="/assets/visa-logo.png" width="106" height="37">
           </div>
           <div class="row card-details">
@@ -129,6 +130,12 @@
           <div class="col-md-5">
             <h5>Plan</h5>
             <p><%= @subscription.plan.name %> Landscaping Plan Minimum <%= @subscription.subplan.get_sub_plan_month %> months</p>
+            <h5>Extras</h5>
+            <p>
+              <% @subscription.subscription_extra_services.each do |es| %>
+                <%= "#{es.service.service_name} \\w" %>
+              <% end %>  
+            </p>           
             <h5>Property</h5>
             <p><%= @subscription.location.area_in_acres %> Acres</p>
           </div>
@@ -139,11 +146,23 @@
                 <td>Landscaping Package</td>
                 <td>$<%= @subscription.price.to_f %></td>
               </tr>
-              <tr class="border-bottom">
+              <tr>
                 <td>Fee</td>
                 <td>$<%= @subscription.processing_fee.to_f %></td>
               </tr>
-              <tr>
+              <% es_total_price = 0 %>
+              <% @subscription.subscription_extra_services.each do |es| %>
+                <% if !es.price.nil? || !es.salting_price.nil? %>
+                  <% es_total_price = 0 %>
+                  <% es_total_price += es.price if !es.price.nil? %>
+                  <% es_total_price += es.salting_price if !es.salting_price.nil? %>
+                  <tr>
+                    <td><%= es.service.service_name %></td>
+                    <td>$<%= es_total_price %></td>
+                  </tr>
+                <% end %>  
+              <% end %>              
+              <tr class="border-above">
                 <td class="font-lato-regulor">Today's total</td>
                 <td class="font-lato-regulor">$<%= @subscription.get_total_price %></td>
               </tr>

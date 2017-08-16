@@ -15,7 +15,11 @@ class HomeController < ApplicationController
     if @subscription.save
       #save extra services
       params["subcription_extra_service"].each{|id, attributes|
-        SubscriptionExtraService.create!(:subscription_id => @subscription.id, :service_id => id)
+          subscription_extra_service = SubscriptionExtraService.new(:subscription_id => @subscription.id)
+          attributes.each{|key, value|
+            subscription_extra_service[ key.gsub(/"/,'').to_sym] = value
+          } 
+          subscription_extra_service.save
       }
       redirect_to new_user_registration_path(:id =>  @subscription.id)
     end    
