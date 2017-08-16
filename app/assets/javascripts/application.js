@@ -335,9 +335,10 @@ function calculate_price(){
         $("#landscape_package_price").text(landscape_package_price);
         var processing_fee = parseInt($("#processing_fee_price").val());
         var total_price = landscape_package_price + processing_fee;
-        var snow_plowing_price = $("#extra_service_price_tr[data-price]").attr("data-price");
-        if(snow_plowing_price !== undefined){
-            total_price = parseFloat(total_price) + parseFloat(snow_plowing_price);
+        var extra_service_price = $("#extra_service_price_tr[data-price]").attr("data-price");
+        if(extra_service_price !== undefined){
+            total_price = parseFloat(total_price) + parseFloat(extra_service_price);
+            $("#extra_service_price").val(extra_service_price);
         }
         $("#total_price").text("$"+total_price);
         $("#landscape_package_price").val(landscape_package_price);

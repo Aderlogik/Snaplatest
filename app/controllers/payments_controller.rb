@@ -113,6 +113,7 @@ class PaymentsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def payment_params
     params.require(:payment).permit(:card_number, :card_holder_name, :exp_month, 
-                                    :exp_year, :cvc, :price, :recurring_fee, :processing_fee)
+                                    :exp_year, :cvc, :price, :recurring_fee, 
+                                    :processing_fee, :extra_service_price)
   end
 end
