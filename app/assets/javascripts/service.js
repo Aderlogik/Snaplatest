@@ -11,6 +11,11 @@ function set_service(service_id){
 function edit_extra_service(service_id){
     $('.service_check').prop('checked', false);
     show_extra_services(service_id);
+    var name = $("input.location_name").val();
+    var lat = $("input.location_latitude").val();
+    var lng = $("input.location_longitude").val();
+    console.log("Here");
+    init_driveway_map(name, lat, lng);    
 }
 
 function reset_service(){
