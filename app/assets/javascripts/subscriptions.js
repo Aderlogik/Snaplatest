@@ -126,7 +126,13 @@ function set_sub_plan(subplanid, sub_plan_month, recurring_price) {
         
         $(".pac-container").remove();
         $("tr#extra_service_price_tr").remove();
-        var map = init_map("map");
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: myLatLng,
+            mapTypeId: google.maps.MapTypeId.HYBRID,
+            disableDefaultUI: true,
+            zoomControl: true
+          });
 
         var marker = init_marker_of_map(map, $(obj).attr("val"), myLatLng);
         

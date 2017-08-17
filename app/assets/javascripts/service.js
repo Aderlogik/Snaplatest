@@ -156,7 +156,7 @@ function build_recap_text(ctrl){
     });
     $(ctrl).closest("div.services-details").find("span#frequency_selected").text(frequency.join(" & "));    
 }
-function add_extra_service(service_id){
+function add_extra_service(service_id, is_scroll){
     var edit_link_html = "<a href='javascript:void(0);' onclick='edit_extra_service("+service_id+");'>Edit</a>";
     $("#s"+service_id).closest("tr").find("td#edit_service").html(edit_link_html);
     var html = "<input type='hidden' name='subcription_extra_service["+service_id+"][\"service_id\"]' value='"+service_id+"' />";
@@ -165,9 +165,11 @@ function add_extra_service(service_id){
     $(".add_service_seccess").show();
     $(".service_check:checked").removeAttr('checked');
     $("#s"+service_id).closest("td").html('<i class="fa fa-check" aria-hidden="true" style="color:#31ad00;"></i>');
-    $('html, body').animate({
-        scrollTop: $(".add_service_seccess").offset().top - 100
-    }, 1000);
+    if(is_scroll){
+        $('html, body').animate({
+            scrollTop: $(".add_service_seccess").offset().top - 100
+        }, 1000);
+    }
     
     //add extra service in billing section
     var tr_html = "<tr id='extra_service_price_tr'>"+
@@ -329,9 +331,9 @@ function refresh_location_service(location_id){
             $("a[data-schedule-id='"+data["schedule_id"]+"']").click();
             
             $.each(data["extra_service_ids"], function (index, value) {
-                add_extra_service(value);
+                add_extra_service(value, false);
             });
-            calculate_price();
+//            calculate_price();
         }
    })
 }

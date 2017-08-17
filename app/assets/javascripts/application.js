@@ -60,7 +60,8 @@ function init_drawing_manager_of_map(map){
       },
       drawingControlOptions: {
         position: google.maps.ControlPosition.TOP_LEFT  ,
-        drawingModes: ['marker', 'polygon', 'polyline']
+        drawingModes: ['polygon']
+//        drawingModes: ['marker', 'polygon', 'polyline']
       },   
       rectangleOptions: polyOptions,
       circleOptions: polyOptions,
