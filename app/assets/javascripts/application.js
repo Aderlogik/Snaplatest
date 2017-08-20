@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery-min
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 
 function init_map(map_id){
@@ -197,6 +196,9 @@ function init_driveway_map(name, lat, lng){
       document.getElementById("salt_price").innerHTML = "$" + salt_price;
       $("#salt_price").attr("data-price", salt_price);
       $("#driveway_area_in_acres_billing").text(area_in_acre);
+      var plowing_price = (area_in_sq_f * 0.054).toFixed(2);
+      $("#driveway_price_note").text("($"+plowing_price+")");
+      $("#driveway_additional_price_note").text("($"+plowing_price+")");
       setSelection(newShape);
     }
   });  
