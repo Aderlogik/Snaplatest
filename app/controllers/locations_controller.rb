@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :set_locations
+  before_action :set_locations, except: [:delete_location]
   before_action :set_location, only: [:show, :edit, :update, :destroy]
 
   # GET users/1/locations
@@ -47,6 +47,16 @@ class LocationsController < ApplicationController
     redirect_to user_locations_url(@user)
   end
 
+  def delete_location
+    location = Location.find(params["location_id"])
+    subscription_id = location.subscription_id
+    Payment.where(:subscription_id => subscription_id).delete_all
+    SubscriptionExtraService.where(:subscription_id => subscription_id).delete_all
+    Subscription.find(subscription_id).delete
+    location.delete
+    render :json => {}
+  end
+  
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_locations

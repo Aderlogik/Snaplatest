@@ -16,11 +16,11 @@
           <div class="panel-group locations" id="accordion" role="tablist" aria-multiselectable="false">
               <% @locations.each do |location| %>
                 <% next if (location.address == "0" || location.address == "") %>
-                <div class="location">
+                <div class="location_<%= location.id %>">
                     <div class="panel-heading" role="tab" id="headingOne">
                         <h4 class="panel-title">
                             <table cellpadding="0" cellspacing="0" class="accordin-table">
-                                <tr>
+                                <tr id="location_<%= location.id %>">
                                     <td><%= location.address %></td>
                                     <td class="text-right">
                                         <a class="asd" role="button" data-toggle="collapse" onclick="init_loc_map(this, <%= location.id %>)"
@@ -28,6 +28,7 @@
                                           aria-expanded="true" aria-controls="collapseOne"> 
                                           EDIT 
                                         </a>
+                                        <a href="javascript:void(0);" onclick="remove_location(<%= location.id %>)">REMOVE</a>
                                     </td>
                                 </tr>
                             </table>
@@ -69,7 +70,7 @@
     
   function init_loc_map(ctrl, location_id){ 
     $("#collapse"+location_id).collapse("toggle");
-    var map_dom = $(ctrl).closest(".location").find("#map");
+    var map_dom = $(".location_"+location_id).find("#map");
     var myLatLng = {lat: parseFloat(map_dom.attr("data-lat")), lng: parseFloat(map_dom.attr("data-lng"))};
 
     var map = new google.maps.Map(map_dom[0], {
