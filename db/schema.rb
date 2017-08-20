@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704164230) do
+ActiveRecord::Schema.define(version: 20170816160329) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -64,11 +64,12 @@ ActiveRecord::Schema.define(version: 20170704164230) do
     t.integer  "exp_month"
     t.string   "stripe_card_token"
     t.integer  "exp_year"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.decimal  "price",             precision: 10, scale: 2
-    t.decimal  "processing_fee",    precision: 10, scale: 2
-    t.decimal  "recurring_fee",     precision: 10, scale: 2
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.decimal  "price",               precision: 10, scale: 2
+    t.decimal  "processing_fee",      precision: 10, scale: 2
+    t.decimal  "recurring_fee",       precision: 10, scale: 2
+    t.decimal  "extra_service_price", precision: 10, scale: 2
   end
 
   create_table "plans", force: :cascade do |t|
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(version: 20170704164230) do
     t.integer  "default_week",    default: 3
     t.integer  "frequency",       default: 2
     t.boolean  "is_multi_season", default: false
+    t.boolean  "only_winter"
   end
 
   create_table "subplans", force: :cascade do |t|
@@ -120,8 +122,11 @@ ActiveRecord::Schema.define(version: 20170704164230) do
     t.date     "setup_date"
     t.string   "setup_season"
     t.text     "description"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.decimal  "price",           precision: 10, scale: 2
+    t.boolean  "salting"
+    t.decimal  "salting_price",   precision: 10, scale: 2
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -130,12 +135,13 @@ ActiveRecord::Schema.define(version: 20170704164230) do
     t.integer  "sub_plan_id"
     t.integer  "schedule_id"
     t.integer  "technician_id"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "service_id"
-    t.decimal  "price",          precision: 10, scale: 2
-    t.decimal  "processing_fee", precision: 10, scale: 2
-    t.decimal  "recurring_fee",  precision: 10, scale: 2
+    t.decimal  "price",               precision: 10, scale: 2
+    t.decimal  "processing_fee",      precision: 10, scale: 2
+    t.decimal  "recurring_fee",       precision: 10, scale: 2
+    t.decimal  "extra_service_price", precision: 10, scale: 2
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
